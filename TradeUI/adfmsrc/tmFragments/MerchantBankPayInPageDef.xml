@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="MerchantBankPayInPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PayinPayoutVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PayinPayoutVOIterator" ChangeEventPolicy="none"/>
+    <iterator Binds="MerchantBankPayInVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="MerchantBankPayInVOIterator" ChangeEventPolicy="none"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_BusinessType" id="BusinessType"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Type" id="Type" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Exchange" id="Exchange"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Broker" id="Broker" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="PayinPayoutVOIterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PayinPayoutVOIterator" id="generatedFileName">
+      <AttrNames>
+        <Item Value="generatedFileName"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="MerchantBankPayInVOIterator" id="MerchantBankPayInVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.MerchantBankPayInVO" Name="MerchantBankPayInVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Name"/>
+          <Item Value="Isin"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="ExchangeCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="Sell"/>
+          <Item Value="Buy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

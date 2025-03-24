@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="ForeignInvTradeCommChngePageDef" Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ForignInvTradeCommisionChangeFilter" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="ForignInvTradeCommisionChangeFilterIterator"/>
+    <iterator Binds="GetTradeCommChngFuncVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="GetTradeCommChngFuncVOIterator"/>
+    <searchRegion Binds="GetTradeCommChngFuncVOIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="GetTradeCommChngFuncVOQuery"/>
+    <iterator id="TradeChangesViewIterator" Binds="TradeChangesView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="ForignInvTradeCommisionChangeFilterIterator" StaticList="false" Uses="LOV_Broker" id="Broker"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="ForignInvTradeCommisionChangeFilterIterator" StaticList="false" Uses="LOV_Exchange"
+          id="Exchange" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="ForignInvTradeCommisionChangeFilterIterator" id="TradingDate">
+      <AttrNames>
+        <Item Value="TradingDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ForignInvTradeCommisionChangeFilterIterator" id="InvCode">
+      <AttrNames>
+        <Item Value="InvCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ForignInvTradeCommisionChangeFilterIterator" StaticList="false" Uses="LOV_TradeType"
+          id="TradeType" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="ForignInvTradeCommisionChangeFilterIterator" id="ChangeComm">
+      <AttrNames>
+        <Item Value="ChangeComm"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="GetTradeCommChngFuncVOIterator" id="GetTradeCommChngFuncVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.GetTradeCommChngFuncVO" Name="GetTradeCommChngFuncVO0">
+        <AttrNames>
+          <Item Value="TradingDate"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="InstrumentGroup"/>
+          <Item Value="BuySale"/>
+          <Item Value="ProductId"/>
+          <Item Value="Quantity"/>
+          <Item Value="Price"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="ChangeComm"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <listOfValues StaticList="false" IterBinding="ForignInvTradeCommisionChangeFilterIterator" Uses="LOV_ShortName"
+                  id="ShortName"/>
+  </bindings>
+</pageDefinition>

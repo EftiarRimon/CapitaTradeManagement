@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiFileMergeShareDetailLink"
+  Version="11.1.2.60.81">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.link.FtiFileMergeShareDetailLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="OmnibusShareMbankVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.OmnibusShareMbankVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="OmnibusShareMbankVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.OmnibusShareMbankVO.FileId"/>
+      <Item Value="leads.capita.trade.model.view.OmnibusShareMbankVO.MbankShortName"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="FtiFileMergeShareDetailVO1"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.FtiFileMergeShareDetailVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiFileMergeShareDetailVO1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiFileMergeShareDetailVO.FileId"/>
+      <Item Value="leads.capita.trade.model.view.FtiFileMergeShareDetailVO.MbankShortName"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

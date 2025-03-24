@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:250px; width:580px;">
+                <f:facet name="center">
+                    <af:panelBox text="Reverse Year End" id="pb1">
+                        <af:panelFormLayout id="pfl1" inlineStyle="height:inherit; width:inherit;">
+                            <af:panelFormLayout id="pfl2" labelAlignment="start"
+                                                inlineStyle="height:inherit; width:inherit;">
+                                <af:inputDate value="#{bindings.TranDate.inputValue}"
+                                              label="#{bindings.TranDate.hints.label}"
+                                              required="#{bindings.TranDate.hints.mandatory}"
+                                              columns="#{bindings.TranDate.hints.displayWidth}"
+                                              shortDesc="#{bindings.TranDate.hints.tooltip}" id="id1">
+                                    <f:validator binding="#{bindings.TranDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.TranDate.format}"/>
+                                </af:inputDate>
+                                <af:inputText value="#{bindings.BranchId.inputValue}"
+                                              label="#{bindings.BranchId.hints.label}"
+                                              required="#{bindings.BranchId.hints.mandatory}"
+                                              columns="#{bindings.BranchId.hints.displayWidth}"
+                                              maximumLength="#{bindings.BranchId.hints.precision}"
+                                              shortDesc="#{bindings.BranchId.hints.tooltip}" id="it1" visible="false">
+                                    <f:validator binding="#{bindings.BranchId.validator}"/>
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.BranchId.format}"/>
+                                </af:inputText>
+                            </af:panelFormLayout>
+                            <af:panelCollection id="pc1" featuresOff="viewMenu" inlineStyle="height:auto; width:auto;">
+                                <f:facet name="statusbar"/>
+                                <af:table value="#{bindings.YearEndRevoke.collectionModel}" var="row"
+                                          rows="#{bindings.YearEndRevoke.rangeSize}"
+                                          emptyText="#{bindings.YearEndRevoke.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.YearEndRevoke.rangeSize}" rowBandingInterval="1"
+                                          filterModel="#{bindings.YearEndRevokeQuery.queryDescriptor}"
+                                          queryListener="#{bindings.YearEndRevokeQuery.processQuery}" varStatus="vs"
+                                          selectedRowKeys="#{bindings.YearEndRevoke.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.YearEndRevoke.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="10"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.YearEndRevoke.hints.TranDate.name}"
+                                               filterable="true" sortable="true"
+                                               headerText="#{bindings.YearEndRevoke.hints.TranDate.label}" id="c1"
+                                               width="105" align="center">
+                                        <f:facet name="filter">
+                                            <af:inputDate value="#{vs.filterCriteria.TranDate}" id="id2">
+                                                <af:convertDateTime pattern="#{bindings.YearEndRevoke.hints.TranDate.format}"/>
+                                            </af:inputDate>
+                                        </f:facet>
+                                        <af:inputDate value="#{row.bindings.TranDate.inputValue}"
+                                                      label="#{bindings.YearEndRevoke.hints.TranDate.label}"
+                                                      required="#{bindings.YearEndRevoke.hints.TranDate.mandatory}"
+                                                      columns="#{bindings.YearEndRevoke.hints.TranDate.displayWidth}"
+                                                      shortDesc="#{bindings.YearEndRevoke.hints.TranDate.tooltip}"
+                                                      id="id3">
+                                            <f:validator binding="#{row.bindings.TranDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.YearEndRevoke.hints.TranDate.format}"/>
+                                        </af:inputDate>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.YearEndRevoke.hints.BranchId.name}"
+                                               filterable="true" sortable="true"
+                                               headerText="#{bindings.YearEndRevoke.hints.BranchId.label}" id="c2"
+                                               width="105" align="center" rendered="false">
+                                        <af:inputText value="#{row.bindings.BranchId.inputValue}"
+                                                      label="#{bindings.YearEndRevoke.hints.BranchId.label}"
+                                                      required="#{bindings.YearEndRevoke.hints.BranchId.mandatory}"
+                                                      columns="#{bindings.YearEndRevoke.hints.BranchId.displayWidth}"
+                                                      maximumLength="#{bindings.YearEndRevoke.hints.BranchId.precision}"
+                                                      shortDesc="#{bindings.YearEndRevoke.hints.BranchId.tooltip}"
+                                                      id="it2">
+                                            <f:validator binding="#{row.bindings.BranchId.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.YearEndRevoke.hints.BranchId.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.YearEndRevoke.hints.BatchNo.name}"
+                                               filterable="true" sortable="true" id="c3"
+                                               width="107" align="center" headerText="Voucher No">
+                                        <af:inputText value="#{row.bindings.BatchNo.inputValue}"
+                                                      label="#{bindings.YearEndRevoke.hints.BatchNo.label}"
+                                                      required="#{bindings.YearEndRevoke.hints.BatchNo.mandatory}"
+                                                      columns="#{bindings.YearEndRevoke.hints.BatchNo.displayWidth}"
+                                                      maximumLength="#{bindings.YearEndRevoke.hints.BatchNo.precision}"
+                                                      shortDesc="#{bindings.YearEndRevoke.hints.BatchNo.tooltip}"
+                                                      id="it3">
+                                            <f:validator binding="#{row.bindings.BatchNo.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.YearEndRevoke.hints.BatchNo.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column id="c4" align="center">
+                                        <af:commandButton text="Reverse" id="btnReverseYE"
+                                                          binding="#{YearEndProcessor.btnReverseYE_action}"
+                                                          action="#{YearEndProcessor.btnReverseYE_action}"
+                                                          icon="/images/action.png"/>
+                                    </af:column>
+                                    <af:column id="c5" align="center" width="80">
+                                        <af:commandButton text="Refresh" id="cb1" icon="/images/refresh-g.png"
+                                                          action="#{YearEndProcessor.btnRefresh}"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelFormLayout>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:YearEndProcessor-->
+</ui:composition>

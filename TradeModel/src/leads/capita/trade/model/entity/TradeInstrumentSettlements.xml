@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TradeInstrumentSettlements"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="TRADE_INSTRUMENT_SETTLEMENTS"
+  AliasName="TradeInstrumentSettlements"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="InsSettleId"
+    IsNotNull="true"
+    ColumnName="INS_SETTLE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="OrgBranchId"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="ORG_BRANCH_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="BrokerId"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="BROKER_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="ExchangeId"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="EXCHANGE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="InstrumentId"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="6"
+    Scale="0"
+    ColumnName="INSTRUMENT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="InstrumentGroup"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="INSTRUMENT_GROUP"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="MarketType"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="MARKET_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountId"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="10"
+    Scale="0"
+    ColumnName="ACCOUNT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="DepoId"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="DEPO_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="Sell"
+    Precision="16"
+    Scale="0"
+    ColumnName="SELL"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="Buy"
+    Precision="15"
+    Scale="0"
+    ColumnName="BUY"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="TradingDate"
+    IsUnique="true"
+    IsNotNull="true"
+    ColumnName="TRADING_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="SettlementDate"
+    IsNotNull="true"
+    ColumnName="SETTLEMENT_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="MatureDate"
+    ColumnName="MATURE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="MbankId"
+    ColumnName="MBANK_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS"/>
+  <Attribute
+    Name="HowlaType"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="HOWLA_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="IsForeign"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="IS_FOREIGN"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_INSTRUMENT_SETTLEMENTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="Exchanges"
+    Association="leads.trade.model.entity.FkInstruSettleExchangeAssoc"
+    AssociationEnd="leads.trade.model.entity.FkInstruSettleExchangeAssoc.Exchanges"
+    AssociationOtherEnd="leads.trade.model.entity.FkInstruSettleExchangeAssoc.TradeInstrumentSettlements"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="InvestorAccounts"
+    Association="leads.trade.model.entity.FkInstruSettleAccountIdAssoc"
+    AssociationEnd="leads.trade.model.entity.FkInstruSettleAccountIdAssoc.InvestorAccounts"
+    AssociationOtherEnd="leads.trade.model.entity.FkInstruSettleAccountIdAssoc.TradeInstrumentSettlements"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PkInstrumentSettlements"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_INSTRUMENT_SETTLEMENTS"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.InsSettleId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkInstruSettleTradings">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_INSTRU_SETTLE_TRADINGS"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.TradingDate"/>
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.ExchangeId"/>
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.AccountId"/>
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.InstrumentId"/>
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.MarketType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleAccountId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_INVESTOR_ACCOUNTS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_ACCOUNT_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleBroker">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_BROKERS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_BROKER"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.BrokerId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleDepoId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_DEPOSITORY"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_DEPO_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.DepoId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleExchange">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_EXCHANGES"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_EXCHANGE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.ExchangeId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleInstrumentId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_INSTRUMENTS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_INSTRUMENT_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.InstrumentId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleMbankId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_MERCHAT_BANKS_ID"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_MBANK_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.MbankId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInstruSettleOrgBranch">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_BRANCHES"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRU_SETTLE_ORG_BRANCH"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.trade.model.entity.TradeInstrumentSettlements.OrgBranchId"/>
+    </AttrArray>
+  </Key>
+</Entity>

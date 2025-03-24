@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:700px;" dimensionsFrom="parent">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="scroll" id="pgl1">
+                        <af:panelBox text="PanelBox1" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                     showHeader="never">
+                            <f:facet name="toolbar"/>
+                            <af:panelFormLayout id="pfl1" rows="4" maxColumns="3"
+                                                inlineStyle="height:inherit; width:inherit;">
+                                <af:selectOneChoice value="#{bindings.Broker.inputValue}"
+                                                    label="#{bindings.Broker.label}"
+                                                    shortDesc="#{bindings.Broker.hints.tooltip}" id="soc1"
+                                                    showRequired="true" required="true">
+                                    <f:selectItems value="#{bindings.Broker.items}" id="si1"/>
+                                </af:selectOneChoice>
+                                <af:selectOneChoice value="#{bindings.Exchange.inputValue}"
+                                                    label="#{bindings.Exchange.label}"
+                                                    shortDesc="#{bindings.Exchange.hints.tooltip}" id="soc2"
+                                                    showRequired="true" required="true">
+                                    <f:selectItems value="#{bindings.Exchange.items}" id="si2"/>
+                                </af:selectOneChoice>
+                                <af:inputDate value="#{bindings.TradingDate.inputValue}"
+                                              label="#{bindings.TradingDate.hints.label}"
+                                              columns="#{bindings.TradingDate.hints.displayWidth}"
+                                              shortDesc="#{bindings.TradingDate.hints.tooltip}" id="id1"
+                                              showRequired="true" required="true">
+                                    <f:validator binding="#{bindings.TradingDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.TradingDate.format}"/>
+                                </af:inputDate>
+                                <af:inputText value="#{bindings.InvCode.inputValue}"
+                                              label="#{bindings.InvCode.hints.label}"
+                                              required="#{bindings.InvCode.hints.mandatory}"
+                                              columns="#{bindings.InvCode.hints.displayWidth}"
+                                              maximumLength="#{bindings.InvCode.hints.precision}"
+                                              shortDesc="#{bindings.InvCode.hints.tooltip}" id="it1">
+                                    <f:validator binding="#{bindings.InvCode.validator}"/>
+                                </af:inputText>
+                                <af:inputComboboxListOfValues id="shortNameId"
+                                                              popupTitle="Search and Select: #{bindings.ShortName.hints.label}"
+                                                              value="#{bindings.ShortName.inputValue}"
+                                                              label="Instrument Name"
+                                                              model="#{bindings.ShortName.listOfValuesModel}"
+                                                              required="#{bindings.ShortName.hints.mandatory}"
+                                                              shortDesc="#{bindings.ShortName.hints.tooltip}"
+                                                              columns="30">
+                                    <f:validator binding="#{bindings.ShortName.validator}"/>
+                                </af:inputComboboxListOfValues>
+                                <af:selectOneChoice value="#{bindings.TradeType.inputValue}"
+                                                    label="#{bindings.TradeType.label}"
+                                                    required="#{bindings.TradeType.hints.mandatory}"
+                                                    shortDesc="#{bindings.TradeType.hints.tooltip}" id="soc4">
+                                    <f:selectItems value="#{bindings.TradeType.items}" id="si4"/>
+                                </af:selectOneChoice>
+                                <af:inputText value="#{bindings.ChangeComm.inputValue}"
+                                              label="#{bindings.ChangeComm.hints.label}"
+                                              columns="#{bindings.ChangeComm.hints.displayWidth}"
+                                              maximumLength="#{bindings.ChangeComm.hints.precision}"
+                                              shortDesc="#{bindings.ChangeComm.hints.tooltip}" id="it2"
+                                              showRequired="true" required="true">
+                                    <f:validator binding="#{bindings.ChangeComm.validator}"/>
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.ChangeComm.format}"/>
+                                </af:inputText>
+                                <f:facet name="footer">
+                                    <af:toolbar id="t1">
+                                        <af:spacer width="1" height="1" id="s1" inlineStyle="width:450px;"/>
+                                        <af:commandButton text="Update" id="cb1"
+                                                          action="#{TrdCommChngForeignInv.trdesFilterAction}"/>
+                                    </af:toolbar>
+                                </f:facet>
+                            </af:panelFormLayout>
+                        </af:panelBox>
+                        <af:panelBox text="PanelBox2" id="pb2" showHeader="never">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t3">
+                                        <af:commandButton text="Save" id="cb2" icon="/images/Save.png"
+                                                          disabled="#{bindings.GetTradeCommChngFuncVOIterator.estimatedRowCount lt 1}"
+                                                          action="#{TrdCommChngForeignInv.saveTrdCommForeignInv}"/>
+                                        <af:commandButton text="Process" id="cb3" icon="/images/action.png"
+                                                          shortDesc="Prosess"
+                                                          action="#{TrdCommChngForeignInv.procssForeignInvTradeChanges}"
+                                                          disabled="#{bindings.GetTradeCommChngFuncVOIterator.estimatedRowCount lt 1 or TrdCommChngForeignInv.enableProcessbutton}"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar"/>
+                                <af:table value="#{bindings.GetTradeCommChngFuncVO.collectionModel}" var="row"
+                                          rows="#{bindings.GetTradeCommChngFuncVO.rangeSize}"
+                                          emptyText="#{bindings.GetTradeCommChngFuncVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.GetTradeCommChngFuncVO.rangeSize}"
+                                          rowBandingInterval="1"
+                                          filterModel="#{bindings.GetTradeCommChngFuncVOQuery.queryDescriptor}"
+                                          queryListener="#{bindings.GetTradeCommChngFuncVOQuery.processQuery}" varStatus="vs"
+                                          selectedRowKeys="#{bindings.GetTradeCommChngFuncVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.GetTradeCommChngFuncVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t2" autoHeightRows="10" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.InvestorCode.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.InvestorCode.label}"
+                                               id="c8">
+                                        <af:outputText value="#{row.InvestorCode}" id="ot8"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.InstrumentCode.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.InstrumentCode.label}"
+                                               id="c2">
+                                        <af:outputText value="#{row.InstrumentCode}" id="ot2"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.InstrumentGroup.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.InstrumentGroup.label}"
+                                               id="c3" width="50">
+                                        <af:outputText value="#{row.InstrumentGroup}" id="ot3"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.BuySale.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.BuySale.label}"
+                                               id="c4" width="50">
+                                        <af:outputText value="#{row.BuySale}" id="ot4"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.ProductId.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.ProductId.label}"
+                                               id="c5" visible="false">
+                                        <af:outputText value="#{row.ProductId}" id="ot5">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.GetTradeCommChngFuncVO.hints.ProductId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.Quantity.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.Quantity.label}"
+                                               id="c6" width="50">
+                                        <af:outputText value="#{row.Quantity}" id="ot6">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.GetTradeCommChngFuncVO.hints.Quantity.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.Price.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.Price.label}"
+                                               id="c7" width="50">
+                                        <af:outputText value="#{row.Price}" id="ot7">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.GetTradeCommChngFuncVO.hints.Price.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.ProductName.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.ProductName.label}"
+                                               id="c9" width="50">
+                                        <af:outputText value="#{row.ProductName}" id="ot9"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.GetTradeCommChngFuncVO.hints.ChangeComm.name}"
+                                               filterable="true" sortable="false"
+                                               headerText="#{bindings.GetTradeCommChngFuncVO.hints.ChangeComm.label}"
+                                               id="c10">
+                                        <af:outputText value="#{row.ChangeComm}" id="ot10"
+                                                       binding="#{TrdCommChngForeignInv.commissionChngUI}"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:TrdCommChngForeignInv-->
+</ui:composition>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:450px; width:700px;" dimensionsFrom="auto">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.FtiFileMergeShareVOCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.FtiFileMergeShareVOCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.FtiFileMergeShareVOCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.FtiFileMergeShareVOCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc1:resId1" modeChangeVisible="false" modeButtonPosition="footer"
+                                  saveQueryMode="hidden" inlineStyle="width:inherit;"/>
+                        <af:panelCollection id="pc1" inlineStyle="width:inherit;" featuresOff="viewMenu">
+                            <f:facet name="menus">
+                                <af:menu text="Position Limit List" id="m1" inlineStyle="font-weight:bolder;"/>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1">
+                                    <af:commandButton text="Add" id="cb2" icon="/images/add.png"
+                                                      shortDesc="Add Position Limit"
+                                                      actionListener="#{FileMergeCashShare.createPositionLimit}"
+                                                      action="goDetail"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t2">
+                                    <af:outputText value="Total Records : #{bindings.FtiFileMergeShareVOIterator.estimatedRowCount}" id="ot5"
+                                                   partialTriggers="::qryId1 resId1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiFileMergeShareVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiFileMergeShareVO.rangeSize}"
+                                      emptyText="#{bindings.FtiFileMergeShareVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiFileMergeShareVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.FtiFileMergeShareVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiFileMergeShareVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="resId1" inlineStyle="width:inherit; height:inherit;"
+                                      autoHeightRows="10" contentDelivery="immediate">
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareVO.hints.MDate.name}"
+                                           sortable="true"
+                                           headerText="Date" id="resId1c1" width="100">
+                                    <af:outputText value="#{row.MDate}" id="ot1">
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeShareVO.hints.MDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareVO.hints.MTime.name}"
+                                           sortable="true"
+                                           headerText="Time" id="resId1c2" width="130">
+                                    <af:outputText value="#{row.MTime}" id="ot2">
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeShareVO.hints.MTime.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareVO.hints.FileDescription.name}"
+                                           sortable="true"
+                                           headerText="File Description"
+                                           id="resId1c3" width="240">
+                                    <af:outputText value="#{row.FileDescription}" id="ot3"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareVO.hints.FileVersion.name}"
+                                           sortable="true"
+                                           headerText="File Version"
+                                           id="resId1c4" width="100">
+                                    <af:outputText value="#{row.FileVersion}" id="ot4"/>
+                                </af:column>
+                                <af:column id="c1" width="60" align="center">
+                                    <af:commandButton text="View" id="cb1" icon="/images/previewsmall.png"
+                                                      shortDesc="Detail View" action="goDetail"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FileProcessErrorPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FileProcessErrorVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FileProcessErrorVOIterator"/>
+    <searchRegion Criteria="FileProcessErrorVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="FileProcessErrorVOIterator" id="FileProcessErrorVOCriteriaQuery"/>
+    <iterator id="ImportExtFilesVOIterator" Binds="ImportExtFilesVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="TradeFileMsaPlusVOIterator" Binds="TradeFileMsaPlusVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FileProcessErrorVOIterator" id="FileProcessErrorVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FileProcessErrorVO" Name="FileProcessErrorVO0">
+        <AttrNames>
+          <Item Value="ImportId"/>
+          <Item Value="ErrType"/>
+          <Item Value="ErrorDetail"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

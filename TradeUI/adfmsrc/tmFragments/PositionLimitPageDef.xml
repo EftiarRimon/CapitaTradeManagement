@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="PositionLimitPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PositionLimitVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="PositionLimitVOIterator"/>
+    <iterator Binds="PositionParameterVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PositionParameterVOIterator"/>
+    <iterator id="BrokerLOVIterator" Binds="BrokerLOV" DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="MerchantBankVOIterator" Binds="MerchantBankVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <searchRegion Criteria="PositionLimitVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="PositionLimitVOIterator" id="PositionLimitVOCriteriaQuery"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator Binds="FtiPositionLimitLOV" RangeSize="10" DataControl="TradeFileServiceDataControl"
+              id="FtiPositionLimitLOVIterator"/>
+    <iterator id="FtiFtpPositionFilesVOIterator" Binds="FtiFtpPositionFilesVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PositionLimitVOIterator" id="PositionLimitVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PositionLimitVO" Name="PositionLimitVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="ShortName"/>
+          <Item Value="SalableQty"/>
+          <Item Value="Isin"/>
+          <Item Value="BrokerId"/>
+          <Item Value="TradingCode"/>
+          <Item Value="AccountStatus"/>
+          <Item Value="Operation"/>
+          <Item Value="Name"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="PositionParameterVOIterator" id="DirectFTP" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="DirectFTP"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <button IterBinding="PositionParameterVOIterator" id="WithOwn" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="WithOwn"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <attributeValues IterBinding="PositionParameterVOIterator" id="SystemDate">
+      <AttrNames>
+        <Item Value="SystemDate"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" Uses="LOV_VersionNo" IterBinding="PositionLimitVOIterator" id="VersionNo"/>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiFtpPositionFilesVOIterator" id="FtiFtpPositionFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFtpPositionFilesVO" Name="FtiFtpPositionFilesVO0">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="LoadDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="PositionParameterVOIterator" StaticList="false" Uses="LOV_FileOption" id="FileOption"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="MSAPlusPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradeFileMsaPlusVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeFileMsaPlusVOIterator"/>
+    <searchRegion Criteria="TradeFileMsaPlusVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="TradeFileMsaPlusVOIterator" id="TradeFileMsaPlusVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TradeFileMsaPlusVOIterator" id="TradeFileMsaPlusVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradeFileMsaPlusVO" Name="TradeFileMsaPlusVO0">
+        <AttrNames>
+          <Item Value="Boid"/>
+          <Item Value="Born"/>
+          <Item Value="BuySell"/>
+          <Item Value="CompulsorySpot"/>
+          <Item Value="ContractNo"/>
+          <Item Value="Customer"/>
+          <Item Value="FillType"/>
+          <Item Value="ForeignFlag"/>
+          <Item Value="HowlaType"/>
+          <Item Value="ImportId"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="InstrumentGroup"/>
+          <Item Value="Isin"/>
+          <Item Value="MarketType"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="RowID"/>
+          <Item Value="TracerNo"/>
+          <Item Value="TradeDate"/>
+          <Item Value="Price"/>
+          <Item Value="TradeQuantity"/>
+          <Item Value="TradeTime"/>
+          <Item Value="TraderId"/>
+          <Item Value="ValidInstrument"/>
+          <Item Value="ValidInvestor"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="ValidTws"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="fti-file-merge-detail-flow">
+    <default-activity>FtiFileMerge</default-activity>
+    <managed-bean id="__1">
+      <managed-bean-name>FileMergeCashShare</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.FileMergeCashShare</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="FtiFileMerge">
+      <page>/tmFragments/FtiFileMerge.jsff</page>
+    </view>
+    <view id="FtiFileMergeCashDetail">
+      <page>/tmFragments/FtiFileMergeCashDetail.jsff</page>
+    </view>
+    <view id="FtiFileMergeOmnibusCashProcessedData">
+      <page>/tmFragments/FtiFileMergeOmnibusCashProcessedData.jsff</page>
+    </view>
+    <control-flow-rule id="__4">
+      <from-activity-id>FtiFileMerge</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>goCashDetail</from-outcome>
+        <to-activity-id>FtiFileMergeCashDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>FtiFileMergeCashDetail</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>goBack</from-outcome>
+        <to-activity-id>FtiFileMerge</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__2">
+        <from-outcome>goProcData</from-outcome>
+        <to-activity-id>FtiFileMergeOmnibusCashProcessedData</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>FtiFileMergeOmnibusCashProcessedData</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>FtiFileMergeCashDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

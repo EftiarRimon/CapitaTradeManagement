@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ImportExtTradePriceFileLink"
+  Version="11.1.2.60.81">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.link.ImportExtTradePriceFileLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="ImportExtFilesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.ImportExtFilesVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="ImportExtFilesVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_accessor" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.ImportExtFilesVO.ImportId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="TradePriceFileVO1"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.TradePriceFileVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="TradePriceFileVO1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.TradePriceFileVO.ImportId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

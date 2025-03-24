@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="11.1.2.60.81" id="DataBindings"
+             SeparateXMLFiles="false" Package="leads.capita.trade.view" ClientType="Generic">
+    <definitionFactories>
+        <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                 className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+        <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+    </definitionFactories>
+    <pageMap>
+        <page path="/tmTestPages/eodTest.jsf" usageId="leads_capita_trade_view_eodTestPageDef"/>
+        <page path="/tmTestPages/TestTradeFileLoad.jsf" usageId="leads_capita_trade_view_TestTradeFileLoadPageDef"/>
+        <page path="/tmFragments/TradeFileLoad.jsff" usageId="leads_capita_trade_view_TradeFileLoadPageDef"/>
+        <page path="/tmFragments/MsaFile.jsff" usageId="leads_capita_trade_view_MsaFilePageDef"/>
+        <page path="/tmFragments/BdaPurchase.jsff" usageId="leads_capita_trade_view_BdaPurchasePageDef"/>
+        <page path="/tmTestPages/bdaTest.jsf" usageId="leads_capita_trade_view_bdaTestPageDef"/>
+        <page path="/tmFragments/BDASales.jsff" usageId="leads_capita_trade_view_BDASalesPageDef"/>
+        <page path="/tmFragments/BdaSalesDefault.jsff" usageId="leads_capita_trade_view_BdaSalesDefaultPageDef"/>
+        <page path="/tmFragments/BdaPurchaseDefault.jsff" usageId="leads_capita_trade_view_BdaPurchaseDefaultPageDef"/>
+        <page path="/tmTestPages/bdaSalesTest.jsf" usageId="leads_capita_trade_view_bdaSalesTestPageDef"/>
+        <page path="/tmFragments/BdaPurchaseAllocation.jsff" usageId="leads_capita_trade_view_BdaAllocationPageDef"/>
+        <page path="/tmTestPages/bdaPurchaseAllocation.jsf" usageId="leads_capita_trade_view_bdaAllocationPageDef"/>
+        <page path="/tmFragments/CashLimitShareLimit.jsff"
+              usageId="leads_capita_trade_view_CashLimitShareLimitPageDef"/>
+        <page path="/tmTestPages/testCashLimitShareLimit.jsf"
+              usageId="leads_capita_trade_view_testCashLimitShareLimitPageDef"/>
+        <page path="/tmFragments/PayinPayout.jsff" usageId="leads_capita_trade_view_PayinPayoutPageDef"/>
+        <page path="/tmTestPages/PayInPayOut.jsf" usageId="leads_capita_trade_view_PayInPayOutPageDef"/>
+        <page path="/tmFragments/FileProcessError.jsff" usageId="leads_capita_trade_view_FileProcessErrorPageDef"/>
+        <page path="/tmFragments/EOD.jsff" usageId="leads_capita_trade_view_EODPageDef"/>
+        <page path="/tmFragments/InstrumentPrice.jsff" usageId="leads_capita_trade_view_InstrumentPricePageDef"/>
+        <page path="/tmFragments/MsaPlusFile.jsff" usageId="leads_capita_trade_view_MsaPlusFilePageDef"/>
+        <page path="/tmFragments/BtFile.jsff" usageId="leads_capita_trade_view_BtFilePageDef"/>
+        <page path="/tmFragments/MSAPlus.jsff" usageId="leads_capita_trade_view_MSAPlusPageDef"/>
+        <page path="/tmFragments/PriceFile.jsff" usageId="leads_capita_trade_view_PriceFilePageDef"/>
+        <page path="/tmTestPages/purchasePowerUpdateTest.jsf"
+              usageId="leads_capita_trade_view_purchasePowerUpdateTestPageDef"/>
+        <page path="/tmFragments/ManualSettlement.jsff" usageId="leads_capita_trade_view_ManualSettlementPageDef"/>
+        <page path="/tmTestPages/ManualSettelemtTest.jsf" usageId="leads_capita_trade_view_ManualSettelemtTestPageDef"/>
+        <page path="/tmFragments/PurchasePowerCalculation.jsff"
+              usageId="leads_capita_trade_view_PurchasePowerCalculationPageDef"/>
+        <page path="/tmFragments/bdaSalesAllocation.jsff" usageId="leads_capita_trade_view_bdaSalesAllocationPageDef"/>
+        <page path="/tmFragments/MerchantBankPayIn.jsff" usageId="leads_capita_trade_view_MerchantBankPayInPageDef"/>
+        <page path="/tmTestPages/mBankPayIn.jsf" usageId="leads_capita_trade_view_mBankPayInPageDef"/>
+        <page path="/tmTestPages/bdaAllocation.jsf" usageId="leads_capita_trade_view_bdaAllocationPageDef1"/>
+        <page path="/tmTestPages/purchasePowerUpdateTest.jsf"
+              usageId="leads_capita_trade_view_purchasePowerUpdateTestPageDef"/>
+        <page path="/tmFragments/DayStart.jsff" usageId="leads_capita_trade_view_DayStartPageDef"/>
+        <page path="/tmTestPages/TestDayStart.jsf" usageId="leads_capita_trade_view_TestDayStartPageDef"/>
+        <page path="/tmFragments/DayEnd.jsff" usageId="leads_capita_trade_view_DayEndPageDef"/>
+        <page path="/tmTestPages/TestDayEnd.jsf" usageId="leads_capita_trade_view_TestDayEndPageDef"/>
+        <page path="/tmFragments/BdaOrderFlow.jsff" usageId="leads_capita_trade_view_BdaOrderFlowPageDef"/>
+        <page path="/tmFragments/BdaOrderDetails.jsff" usageId="leads_capita_trade_view_BdaOrderDetailsPageDef"/>
+        <page path="/tmTestPages/bdaSalesOATest.jsf" usageId="leads_capita_trade_view_bdaSalesOATestPageDef"/>
+        <page path="/tmFragments/bulkSalesOrder.jsff" usageId="leads_capita_trade_view_bulkSalesOrderPageDef"/>
+        <page path="/tmFragments/BdaBulkSalesAllocation.jsff"
+              usageId="leads_capita_trade_view_BdaBulkSalesAllocationPageDef"/>
+        <page path="/tmFragments/bdaBuySearch.jsff" usageId="leads_capita_trade_view_bdaBuySearchPageDef"/>
+        <page path="/tmFragments/bdaBuyDetail.jsff" usageId="leads_capita_trade_view_bdaBuyDetailPageDef"/>
+        <page path="/tmTestPages/bdaBuyTest.jsf" usageId="leads_capita_trade_view_bdaBuyTestPageDef"/>
+        <page path="/tmFragments/bdaBuyOrder.jsff" usageId="leads_capita_trade_view_bdaBuyOrderPageDef"/>
+        <page path="/tmFragments/bdaBuyAlloc.jsff" usageId="leads_capita_trade_view_bdaBuyAllocPageDef"/>
+        <page path="/tmTestPages/tradeFileMbankWiseTest.jsf"
+              usageId="leads_capita_trade_view_tradeFileMbankWiseTestPageDef"/>
+        <page path="/tmFragments/tradeFileMbankWise.jsff" usageId="leads_capita_trade_view_tradeFileMbankWisePageDef"/>
+        <page path="/tmFragments/YearEnd.jsff" usageId="leads_capita_trade_view_YearEndPageDef"/>
+        <page path="/tmFragments/YearEndReverse.jsff" usageId="leads_capita_trade_view_YearEndReversePageDef"/>
+        <page path="/tmTestPages/YearEndTest.jsf" usageId="leads_capita_trade_view_YearEndTestPageDef"/>
+        <page path="/tmTestPages/YearEndReverseTest.jsf" usageId="leads_capita_trade_view_YearEndReverseTestPageDef"/>
+        <page path="/tmFragments/FtpConfiguration.jsff" usageId="leads_capita_trade_view_FtpConfigurationPageDef"/>
+        <page path="/tmTestPages/FtpConfigurationTest.jsf"
+              usageId="leads_capita_trade_view_FtpConfigurationTestPageDef"/>
+        <page path="/tmTestPages/FtiErrorSummaryDetailsTest.jsf"
+              usageId="leads_capita_trade_view_FtiErrorSummaryDetailsTestPageDef"/>
+        <page path="/tmFragments/FtiErrorSummary.jsff" usageId="leads_capita_trade_view_FtiErrorSummaryPageDef"/>
+        <page path="/tmFragments/FtiErrorSummaryDetails.jsff"
+              usageId="leads_capita_trade_view_FtiErrorSummaryDetailsPageDef"/>
+        <page path="/tmTestPages/positionLimitTest.jsf" usageId="leads_capita_trade_view_positionLimitTestPageDef"/>
+        <page path="/tmFragments/PositionLimit.jsff" usageId="leads_capita_trade_view_PositionLimitPageDef"/>
+        <page path="/tmTestPages/clientLimitTest.jsf" usageId="leads_capita_trade_view_clientLimitTestPageDef"/>
+        <page path="/tmFragments/ClientLimit.jsff" usageId="leads_capita_trade_view_ClientLimitPageDef"/>
+        <page path="/tmTestPages/FtiFileMergeDetailTest.jsf"
+              usageId="leads_capita_trade_view_FtiFileMergeDetailTestPageDef"/>
+        <page path="/tmFragments/FtiFileMerge.jsff" usageId="leads_capita_trade_view_FtiFileMergePageDef"/>
+        <page path="/tmFragments/FtiFileMergeCashDetail.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeCashDetailPageDef"/>
+        <page path="/tmFragments/FtiFileMergeShare.jsff" usageId="leads_capita_trade_view_FtiFileMergeSharePageDef"/>
+        <page path="/tmFragments/FtiFileMergeShareDetail.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeShareDetailPageDef"/>
+        <page path="/tmTestPages/FtiFileMergeShareDetailTest.jsf"
+              usageId="leads_capita_trade_view_FtiFileMergeShareDetailTestPageDef"/>
+        <page path="/tmFragments/FtiTradeFiles.jsff" usageId="leads_capita_trade_view_FtiTradeFilesPageDef"/>
+        <page path="/tmTestPages/FtiTradeFilesTest.jsf" usageId="leads_capita_trade_view_FtiTradeFilesTestPageDef"/>
+        <page path="/tmFragments/FtiDealerTradeFiles.jsff"
+              usageId="leads_capita_trade_view_FtiDealerTradeFilesPageDef"/>
+        <page path="/tmTestPages/FtiDealerTradeFilesTest.jsf"
+              usageId="leads_capita_trade_view_FtiDealerTradeFilesTestPageDef"/>
+        <page path="/tmFragments/FtiFileMergeCashDealer.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeCashDealerPageDef"/>
+        <page path="/tmFragments/FtiFileMergeCashDetailDealer.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeCashDetailDealerPageDef"/>
+        <page path="/tmTestPages/FtiFileMergeCashDetailDealerTest.jsf"
+              usageId="leads_capita_trade_view_FtiFileMergeCashDetailDealerTestPageDef"/>
+        <page path="/tmFragments/FtiFileMergeShareDealer.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeShareDealerPageDef"/>
+        <page path="/tmFragments/FtiFileMergeShareDetailDealer.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeShareDetailDealerPageDef"/>
+        <page path="/tmTestPages/FtiFileMergeShareDetailDealerTest.jsf"
+              usageId="leads_capita_trade_view_FtiFileMergeShareDetailDealerTestPageDef"/>
+        <page path="/tmFragments/FtiFileMergeOmnibusCashProcessedData.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeOmnibusCashProcessedDataPageDef"/>
+        <page path="/tmFragments/FtiFileMergeOmnibusShareProcessedData.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeOmnibusShareProcessedDataPageDef"/>
+        <page path="/tmFragments/FtiFileMergeDealerCashProcessedData.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeDealerCashProcessedDataPageDef"/>
+        <page path="/tmFragments/FtiFileMergeDealerShareProcessedData.jsff"
+              usageId="leads_capita_trade_view_FtiFileMergeDealerShareProcessedDataPageDef"/>
+        <page path="/tmFragments/DeletedData.jsff" usageId="leads_capita_trade_view_DeletedDataPageDef"/>
+        <page path="/tmFragments/PurchasePowerLimit.jsff" usageId="leads_capita_trade_view_PurchasePowerLimitPageDef"/>
+        <page path="/tmFragments/PurchasePowerLimitSearch.jsff"
+              usageId="leads_capita_trade_view_PurchasePowerLimitSearchPageDef"/>
+        <page path="/tmFragments/ShareLimit.jsff" usageId="leads_capita_trade_view_ShareLimitPageDef"/>
+        <page path="/tmTestPages/shareLimitTest.jsf" usageId="leads_capita_trade_view_shareLimitTestPageDef"/>
+        <page path="/tmFragments/FtiTradeFileCse.jsff" usageId="leads_capita_trade_view_FtiTradeFileCsePageDef"/>
+        <page path="/tmFragments/omgeoTradeFile.jsff" usageId="leads_capita_trade_view_omgeoTradeFilePageDef"/>
+        <page path="/tmFragments/TradeCommChngForeignInv.jsff"
+              usageId="leads_capita_trade_view_TradeCommChngForeignInvPageDef"/>
+        <page path="/tmFragments/ForeignInvTradeCommChnge.jsff"
+              usageId="leads_capita_trade_view_ForeignInvTradeCommChngePageDef"/>
+        <page path="/tmFragments/TradeReverse.jsff" usageId="leads_capita_trade_view_TradeReversePageDef"/>
+        <page path="/tmFragments/PayInOutBeforeTrade.jsff"
+              usageId="leads_capita_trade_view_PayInOutBeforeTradePageDef"/>
+    </pageMap>
+    <pageDefinitionUsages>
+        <page id="leads_capita_trade_view_eodTestPageDef" path="tmTestPages.eodTestPageDef"/>
+        <page id="leads_capita_trade_view_TestTradeFileLoadPageDef" path="tmTestPages.TestTradeFileLoadPageDef"/>
+        <page id="leads_capita_trade_view_TradeFileLoadPageDef" path="tmFragments.TradeFileLoadPageDef"/>
+        <page id="leads_capita_trade_view_MsaFilePageDef" path="tmFragments.MsaFilePageDef"/>
+        <page id="leads_capita_trade_view_BdaPurchasePageDef" path="tmFragments.BdaPurchasePageDef"/>
+        <page id="leads_capita_trade_view_bdaTestPageDef" path="tmTestPages.bdaTestPageDef"/>
+        <page id="leads_capita_trade_view_BDASalesPageDef" path="tmFragments.BDASalesPageDef"/>
+        <page id="leads_capita_trade_view_BdaSalesDefaultPageDef" path="tmFragments.BdaSalesDefaultPageDef"/>
+        <page id="leads_capita_trade_view_BdaPurchaseDefaultPageDef" path="tmFragments.BdaPurchaseDefaultPageDef"/>
+        <page id="leads_capita_trade_view_bdaSalesTestPageDef" path="tmTestPages.bdaSalesTestPageDef"/>
+        <page id="leads_capita_trade_view_BdaAllocationPageDef" path="tmFragments.BdaAllocationPageDef"/>
+        <page id="leads_capita_trade_view_bdaAllocationPageDef" path="tmTestPages.bdaAllocationPageDef"/>
+        <page id="leads_capita_trade_view_CashLimitShareLimitPageDef" path="tmFragments.CashLimitShareLimitPageDef"/>
+        <page id="leads_capita_trade_view_testCashLimitShareLimitPageDef"
+              path="tmTestPages.testCashLimitShareLimitPageDef"/>
+        <page id="leads_capita_trade_view_PayinPayoutPageDef" path="tmFragments.PayinPayoutPageDef"/>
+        <page id="leads_capita_trade_view_PayInPayOutPageDef" path="tmTestPages.PayInPayOutPageDef"/>
+        <page id="leads_capita_trade_view_FileProcessErrorPageDef" path="tmFragments.FileProcessErrorPageDef"/>
+        <page id="leads_capita_trade_view_EODPageDef" path="tmFragments.EODPageDef"/>
+        <page id="leads_capita_trade_view_InstrumentPricePageDef" path="tmFragments.InstrumentPricePageDef"/>
+        <page id="leads_capita_trade_view_MsaPlusFilePageDef" path="tmFragments.MsaPlusFilePageDef"/>
+        <page id="leads_capita_trade_view_BtFilePageDef" path="tmFragments.BtFilePageDef"/>
+        <page id="leads_capita_trade_view_MSAPlusPageDef" path="tmFragments.MSAPlusPageDef"/>
+        <page id="leads_capita_trade_view_PriceFilePageDef" path="tmFragments.PriceFilePageDef"/>
+        <page id="leads_capita_trade_view_purchasePowerUpdateTestPageDef"
+              path="tmTestPages.purchasePowerUpdateTestPageDef"/>
+        <page id="leads_capita_trade_view_PurchasePowerCalculationPageDef"
+              path="tmFragments.PurchasePowerCalculationPageDef"/>
+        <page id="leads_capita_trade_view_ManualSettlementPageDef" path="tmFragments.ManualSettlementPageDef"/>
+        <page id="leads_capita_trade_view_ManualSettelemtTestPageDef" path="tmTestPages.ManualSettelemtTestPageDef"/>
+        <page id="leads_capita_trade_view_bdaSalesAllocationPageDef" path="tmFragments.bdaSalesAllocationPageDef"/>
+        <page id="leads_capita_trade_view_MerchantBankPayInPageDef" path="tmFragments.MerchantBankPayInPageDef"/>
+        <page id="leads_capita_trade_view_mBankPayInPageDef" path="tmTestPages.mBankPayInPageDef"/>
+        <page id="leads_capita_trade_view_bdaAllocationPageDef1" path="tmTestPages.bdaAllocationPageDef1"/>
+        <page id="leads_capita_trade_view_DayStartPageDef" path="tmFragments.DayStartPageDef"/>
+        <page id="leads_capita_trade_view_TestDayStartPageDef" path="tmTestPages.TestDayStartPageDef"/>
+        <page id="leads_capita_trade_view_DayEndPageDef" path="tmFragments.DayEndPageDef"/>
+        <page id="leads_capita_trade_view_TestDayEndPageDef" path="tmTestPages.TestDayEndPageDef"/>
+        <page id="leads_capita_trade_view_BdaOrderFlowPageDef" path="tmFragments.BdaOrderFlowPageDef"/>
+        <page id="leads_capita_trade_view_BdaOrderDetailsPageDef" path="tmFragments.BdaOrderDetailsPageDef"/>
+        <page id="leads_capita_trade_view_bdaSalesOATestPageDef" path="tmTestPages.bdaSalesOATestPageDef"/>
+        <page id="leads_capita_trade_view_bulkSalesOrderPageDef" path="tmFragments.bulkSalesOrderPageDef"/>
+        <page id="leads_capita_trade_view_BdaBulkSalesAllocationPageDef"
+              path="tmFragments.BdaBulkSalesAllocationPageDef"/>
+        <page id="leads_capita_trade_view_bdaBuySearchPageDef" path="tmFragments.bdaBuySearchPageDef"/>
+        <page id="leads_capita_trade_view_bdaBuyDetailPageDef" path="tmFragments.bdaBuyDetailPageDef"/>
+        <page id="leads_capita_trade_view_bdaBuyTestPageDef" path="tmTestPages.bdaBuyTestPageDef"/>
+        <page id="leads_capita_trade_view_bdaBuyOrderPageDef" path="tmFragments.bdaBuyOrderPageDef"/>
+        <page id="leads_capita_trade_view_bdaBuyAllocPageDef" path="tmFragments.bdaBuyAllocPageDef"/>
+        <page id="leads_capita_trade_view_tradeFileMbankWiseTestPageDef"
+              path="tmTestPages.tradeFileMbankWiseTestPageDef"/>
+        <page id="leads_capita_trade_view_tradeFileMbankWisePageDef" path="tmFragments.tradeFileMbankWisePageDef"/>
+        <page id="leads_capita_trade_view_YearEndPageDef" path="tmFragments.YearEndPageDef"/>
+        <page id="leads_capita_trade_view_YearEndReversePageDef" path="tmFragments.YearEndReversePageDef"/>
+        <page id="leads_capita_trade_view_YearEndTestPageDef" path="tmTestPages.YearEndTestPageDef"/>
+        <page id="leads_capita_trade_view_YearEndReverseTestPageDef" path="tmTestPages.YearEndReverseTestPageDef"/>
+        <page id="leads_capita_trade_view_FtpConfigurationPageDef" path="tmFragments.FtpConfigurationPageDef"/>
+        <page id="leads_capita_trade_view_FtpConfigurationTestPageDef" path="tmTestPages.FtpConfigurationTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiErrorSummaryDetailsTestPageDef"
+              path="tmTestPages.FtiErrorSummaryDetailsTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiErrorSummaryPageDef" path="tmFragments.FtiErrorSummaryPageDef"/>
+        <page id="leads_capita_trade_view_FtiErrorSummaryDetailsPageDef"
+              path="tmFragments.FtiErrorSummaryDetailsPageDef"/>
+         <page id="leads_capita_trade_view_positionLimitTestPageDef" path="tmTestPages.positionLimitTestPageDef"/>
+        <page id="leads_capita_trade_view_PositionLimitPageDef" path="tmFragments.PositionLimitPageDef"/>
+        <page id="leads_capita_trade_view_clientLimitTestPageDef" path="tmTestPages.clientLimitTestPageDef"/>
+        <page id="leads_capita_trade_view_ClientLimitPageDef" path="tmFragments.ClientLimitPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeDetailTestPageDef"
+              path="tmTestPages.FtiFileMergeDetailTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergePageDef" path="tmFragments.FtiFileMergePageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeCashDetailPageDef"
+              path="tmFragments.FtiFileMergeCashDetailPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeSharePageDef" path="tmFragments.FtiFileMergeSharePageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeShareDetailPageDef"
+              path="tmFragments.FtiFileMergeShareDetailPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeShareDetailTestPageDef"
+              path="tmTestPages.FtiFileMergeShareDetailTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiTradeFilesPageDef" path="tmFragments.FtiTradeFilesPageDef"/>
+        <page id="leads_capita_trade_view_FtiTradeFilesTestPageDef" path="tmTestPages.FtiTradeFilesTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiDealerTradeFilesPageDef" path="tmFragments.FtiDealerTradeFilesPageDef"/>
+        <page id="leads_capita_trade_view_FtiDealerTradeFilesTestPageDef"
+              path="tmTestPages.FtiDealerTradeFilesTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeCashDealerPageDef"
+              path="tmFragments.FtiFileMergeCashDealerPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeCashDetailDealerPageDef"
+              path="tmFragments.FtiFileMergeCashDetailDealerPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeCashDetailDealerTestPageDef"
+              path="tmTestPages.FtiFileMergeCashDetailDealerTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeShareDealerPageDef"
+              path="tmFragments.FtiFileMergeShareDealerPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeShareDetailDealerPageDef"
+              path="tmFragments.FtiFileMergeShareDetailDealerPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeShareDetailDealerTestPageDef"
+              path="tmTestPages.FtiFileMergeShareDetailDealerTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeOmnibusCashProcessedDataPageDef"
+              path="tmFragments.FtiFileMergeOmnibusCashProcessedDataPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeOmnibusShareProcessedDataPageDef"
+              path="tmFragments.FtiFileMergeOmnibusShareProcessedDataPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeDealerCashProcessedDataPageDef"
+              path="tmFragments.FtiFileMergeDealerCashProcessedDataPageDef"/>
+        <page id="leads_capita_trade_view_FtiFileMergeDealerShareProcessedDataPageDef"
+              path="tmFragments.FtiFileMergeDealerShareProcessedDataPageDef"/>
+        <page id="leads_capita_trade_view_DeletedDataPageDef" path="tmFragments.DeletedDataPageDef"/>
+        <page id="leads_capita_trade_view_PurchasePowerLimitPageDef" path="tmFragments.PurchasePowerLimitPageDef"/>
+        <page id="leads_capita_trade_view_PurchasePowerLimitSearchPageDef"
+              path="tmFragments.PurchasePowerLimitSearchPageDef"/>
+        <page id="leads_capita_trade_view_ShareLimitPageDef" path="tmFragments.ShareLimitPageDef"/>
+        <page id="leads_capita_trade_view_shareLimitTestPageDef" path="tmTestPages.shareLimitTestPageDef"/>
+        <page id="leads_capita_trade_view_FtiTradeFileCsePageDef" path="tmFragments.FtiTradeFileCsePageDef"/>
+        <page id="leads_capita_trade_view_omgeoTradeFilePageDef" path="tmFragments.omgeoTradeFilePageDef"/>
+        <page id="leads_capita_trade_view_TradeCommChngForeignInvPageDef"
+              path="tmFragments.TradeCommChngForeignInvPageDef"/>
+        <page id="leads_capita_trade_view_ForeignInvTradeCommChngePageDef"
+              path="tmFragments.ForeignInvTradeCommChngePageDef"/>
+        <page id="leads_capita_trade_view_TradeReversePageDef" path="tmFragments.TradeReversePageDef"/>
+        <page id="leads_capita_trade_view_PayInOutBeforeTradePageDef" path="tmFragments.PayInOutBeforeTradePageDef"/>
+    </pageDefinitionUsages>
+    <dataControlUsages>
+        <BC4JDataControl id="CapitaLovServiceDataControl" Package="leads.capita.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="LOVServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="TradeFileServiceDataControl" Package="leads.capita.trade.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BdaServiceDataControl" Package="leads.capita.trade.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="BdaServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BusinessSetupServiceDataControl" Package="leads.capita.bs.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="BusinessSetupServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CommonModelServiceDataControl" Package="leads.capita.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AppModuleServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="DayStartEndServiceDataControl" Package="leads.capita.trade.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="DayStartEndServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="EmailServiceDataControl" Package="leads.capita.email.model.am"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="EmailServiceLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="merchant-bank-payin-flow">
+    <default-activity>MerchantBankPayIn</default-activity>
+    <input-parameter-definition id="__1">
+      <name>editable</name>
+    </input-parameter-definition>
+    <managed-bean id="__2">
+      <managed-bean-name>MerchantBankPayIn</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.MerchantBankPayIn</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="MerchantBankPayIn">
+      <page>/tmFragments/MerchantBankPayIn.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

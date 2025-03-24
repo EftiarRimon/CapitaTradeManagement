@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="PurchasePowerLimitPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PurchasePowerLimitHeaderVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PurchasePowerLimitHeaderVOIterator"/>
+    <iterator id="InvestorAccountsLOVIterator" Binds="InvestorAccountsLOV" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator Binds="PurchasePowerLimitSlabVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PurchasePowerLimitSlabVOIterator"/>
+    <iterator Binds="InvestorAccLOV" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="InvestorAccLOVIterator"/>
+    <searchRegion Criteria="InvestorAccLOVCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="InvestorAccLOVIterator" id="InvestorAccLOVCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PurchasePowerLimitHeaderVOIterator" StaticList="false" Uses="LOV_ProductType" id="ProductType"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PurchasePowerLimitHeaderVOIterator" StaticList="false" Uses="LOV_ProductId" id="ProductId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PurchasePowerLimitHeaderVOIterator" StaticList="false" Uses="LOV_Operand" id="Operand"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="PurchasePowerLimitHeaderVOIterator" id="Pct">
+      <AttrNames>
+        <Item Value="Pct"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PurchasePowerLimitHeaderVOIterator" id="ActiveDate">
+      <AttrNames>
+        <Item Value="ActiveDate"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <button IterBinding="PurchasePowerLimitHeaderVOIterator" id="AtActual" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="AtActual"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="PurchasePowerLimitSlabVOIterator" id="PurchasePowerLimitSlabVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PurchasePowerLimitSlabVO" Name="PurchasePowerLimitSlabVO0">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="Pct"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="InvestorAccLOVIterator" id="InvestorAccLOV">
+      <nodeDefinition DefName="leads.capita.trade.model.view.lov.InvestorAccLOV" Name="InvestorAccLOV0">
+        <AttrNames>
+          <Item Value="SelectedRow"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="Name"/>
+          <Item Value="Pct"/>
+          <Item Value="AccountId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="PurchasePowerLimitHeaderVOIterator" StaticList="false" Uses="LOV_Status" id="Status"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

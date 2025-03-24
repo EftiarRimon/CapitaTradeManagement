@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" dimensionsFrom="children" inlineStyle="width:1110px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout id="pgl1" inlineStyle="height:inherit; width:inherit;">
+                        <af:panelBox text="PanelBox1" id="pb1" showHeader="never"
+                                     inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar"/>
+                            <af:query id="qryId1" headerText="Search" disclosed="true"
+                                      value="#{bindings.OmgeoTradeFileVOCriteriaQuery.queryDescriptor}"
+                                      model="#{bindings.OmgeoTradeFileVOCriteriaQuery.queryModel}"
+                                      queryListener="#{bindings.OmgeoTradeFileVOCriteriaQuery.processQuery}"
+                                      queryOperationListener="#{bindings.OmgeoTradeFileVOCriteriaQuery.processQueryOperation}"
+                                      saveQueryMode="hidden" modeButtonPosition="footer"
+                                      inlineStyle="height:inherit; width:inherit;"/>
+                        </af:panelBox>
+                        <af:panelBox text="PanelBox2" id="pb2" showHeader="never"
+                                     inlineStyle="height:inherit; width:inherit;" partialTriggers="qryId1">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;" featuresOff="viewMenu">
+                                <f:facet name="menus">
+                                    <af:menu text="OMGEO Trade File" id="m1" inlineStyle="font-weight:bolder;"/>
+                                </f:facet>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t2">
+                                        <af:commandButton text="Refresh" id="cb2" icon="/images/refresh.png"
+                                                          shortDesc="Refresh"/>
+                                        <af:commandButton text="Download" id="cb1"
+                                                          icon="/images/file_upload.png"
+                                                          shortDesc="Download OMGEO Trade File"
+                                                          disabled="#{bindings.OmgeoTradeFileVOIterator.estimatedRowCount le 1}"
+                                                          partialTriggers="ot1">
+                                            <af:fileDownloadActionListener method="#{OmgeoTradeFileBean.OmgeoTradeFileDownload}"
+                                                                           filename="#{OmgeoTradeFileBean.generatedFileNameUI}"
+                                                                           contentType='text/plain; charset=utf-8'/>
+                                        </af:commandButton>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.OmgeoTradeFileVO.collectionModel}" var="row"
+                                          rows="#{bindings.OmgeoTradeFileVO.rangeSize}"
+                                          emptyText="#{bindings.OmgeoTradeFileVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="5" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.OmgeoTradeFileVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.OmgeoTradeFileVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" inlineStyle="height:inherit; width:inherit;"
+                                          contentDelivery="immediate" autoHeightRows="15">
+                                    <af:column sortProperty="#{bindings.OmgeoTradeFileVO.hints.Masterref.name}"
+                                               sortable="true"
+                                               headerText="#{bindings.OmgeoTradeFileVO.hints.Masterref.label}" id="c6">
+                                        <af:inputText value="#{row.bindings.Masterref.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Masterref.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Masterref.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Masterref.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Masterref.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Masterref.tooltip}"
+                                                      id="it5" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Masterref.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Agencycode.label}" id="c1">
+                                        <af:inputText value="#{row.bindings.Agencycode.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Agencycode.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Agencycode.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Agencycode.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Agencycode.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Agencycode.tooltip}"
+                                                      id="it1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Agencycode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.label}"
+                                               id="c2">
+                                        <af:inputText value="#{row.bindings.Alrtcountrycode.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Alrtcountrycode.tooltip}"
+                                                      id="it2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Alrtcountrycode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.label}"
+                                               id="c3">
+                                        <af:inputText value="#{row.bindings.Alrtmethodtype.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Alrtmethodtype.tooltip}"
+                                                      id="it3" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Alrtmethodtype.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.label}"
+                                               id="c4">
+                                        <af:inputText value="#{row.bindings.BlockChargesTaxes.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.BlockChargesTaxes.tooltip}"
+                                                      id="it4" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BlockChargesTaxes.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.label}"
+                                               id="c5">
+                                        <af:inputText value="#{row.bindings.BlockCommissions.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.BlockCommissions.tooltip}"
+                                                      id="it6" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BlockCommissions.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.label}" id="c7">
+                                        <af:inputText value="#{row.bindings.BlockKeys.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.BlockKeys.tooltip}"
+                                                      id="it7" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BlockKeys.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.label}"
+                                               id="c8">
+                                        <af:inputText value="#{row.bindings.BlockTotals.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.BlockTotals.tooltip}"
+                                                      id="it8" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BlockTotals.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Blockver.label}" id="c9">
+                                        <af:inputText value="#{row.bindings.Blockver.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Blockver.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Blockver.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Blockver.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Blockver.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Blockver.tooltip}"
+                                                      id="it9" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Blockver.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.label}" id="c10">
+                                        <af:inputText value="#{row.bindings.BuyOrSell.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.BuyOrSell.tooltip}"
+                                                      id="it10" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BuyOrSell.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.label}"
+                                               id="c11">
+                                        <af:inputText value="#{row.bindings.Chagtaxtype.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Chagtaxtype.tooltip}"
+                                                      id="it11" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Chagtaxtype.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.label}" id="c12">
+                                        <af:inputText value="#{row.bindings.Chrgamt.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.tooltip}"
+                                                      id="it12" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Chrgamt.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Chrgamt.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Commamount.label}"
+                                               id="c13">
+                                        <af:inputText value="#{row.bindings.Commamount.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Commamount.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Commamount.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Commamount.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Commamount.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Commamount.tooltip}"
+                                                      id="it13" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Commamount.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Commamount.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Commindicator.label}"
+                                               id="c14">
+                                        <af:inputText value="#{row.bindings.Commindicator.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Commindicator.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Commindicator.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Commindicator.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Commindicator.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Commindicator.tooltip}"
+                                                      id="it14" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Commindicator.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Commtype.label}" id="c15">
+                                        <af:inputText value="#{row.bindings.Commtype.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Commtype.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Commtype.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Commtype.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Commtype.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Commtype.tooltip}"
+                                                      id="it15" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Commtype.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Execbroker.label}"
+                                               id="c16">
+                                        <af:inputText value="#{row.bindings.Execbroker.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Execbroker.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Execbroker.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Execbroker.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Execbroker.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Execbroker.tooltip}"
+                                                      id="it16" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Execbroker.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.label}"
+                                               id="c17">
+                                        <af:inputText value="#{row.bindings.Indicatorncurr.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Indicatorncurr.tooltip}"
+                                                      id="it17" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Indicatorncurr.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.label}"
+                                               id="c18">
+                                        <af:inputText value="#{row.bindings.Instrindicator.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Instrindicator.tooltip}"
+                                                      id="it18" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Instrindicator.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Investorcode.label}"
+                                               id="c19">
+                                        <af:inputText value="#{row.bindings.Investorcode.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Investorcode.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Investorcode.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Investorcode.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Investorcode.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Investorcode.tooltip}"
+                                                      id="it19" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Investorcode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Quantity.label}" id="c20">
+                                        <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Quantity.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Quantity.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Quantity.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Quantity.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Quantity.tooltip}"
+                                                      id="it20" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Quantity.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Quantity.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Rate.label}" id="c21">
+                                        <af:inputText value="#{row.bindings.Rate.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Rate.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Rate.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Rate.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Rate.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Rate.tooltip}"
+                                                      id="it21" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Rate.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Rate.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Securitycode.label}"
+                                               id="c22">
+                                        <af:inputText value="#{row.bindings.Securitycode.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Securitycode.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Securitycode.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Securitycode.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Securitycode.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Securitycode.tooltip}"
+                                                      id="it22" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Securitycode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Securitytype.label}"
+                                               id="c23">
+                                        <af:inputText value="#{row.bindings.Securitytype.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Securitytype.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Securitytype.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Securitytype.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Securitytype.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Securitytype.tooltip}"
+                                                      id="it23" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Securitytype.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.label}"
+                                               id="c24">
+                                        <af:inputDate value="#{row.bindings.Settlementdate.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.displayWidth}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.tooltip}"
+                                                      id="id1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Settlementdate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.OmgeoTradeFileVO.hints.Settlementdate.format}"/>
+                                        </af:inputDate>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.label}"
+                                               id="c25">
+                                        <af:inputText value="#{row.bindings.Totalnetcash.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.tooltip}"
+                                                      id="it24" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Totalnetcash.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Totalnetcash.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.label}"
+                                               id="c26">
+                                        <af:inputText value="#{row.bindings.Totalsettlamt.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Totalsettlamt.tooltip}"
+                                                      id="it25" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Totalsettlamt.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.label}"
+                                               id="c27">
+                                        <af:inputText value="#{row.bindings.Tradeamount.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.tooltip}"
+                                                      id="it26" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Tradeamount.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.OmgeoTradeFileVO.hints.Tradeamount.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.Tradedate.label}" id="c28">
+                                        <af:inputDate value="#{row.bindings.Tradedate.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.Tradedate.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.Tradedate.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.Tradedate.displayWidth}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.Tradedate.tooltip}"
+                                                      id="id2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Tradedate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.OmgeoTradeFileVO.hints.Tradedate.format}"/>
+                                        </af:inputDate>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.label}" id="c29">
+                                        <af:inputText value="#{row.bindings.TradeInfo.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.TradeInfo.tooltip}"
+                                                      id="it27" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TradeInfo.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.label}"
+                                               id="c30">
+                                        <af:inputText value="#{row.bindings.TradeSecurityId.inputValue}"
+                                                      label="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.label}"
+                                                      required="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.mandatory}"
+                                                      columns="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.displayWidth}"
+                                                      maximumLength="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.precision}"
+                                                      shortDesc="#{bindings.OmgeoTradeFileVO.hints.TradeSecurityId.tooltip}"
+                                                      id="it28" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TradeSecurityId.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                </af:table>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t3">
+                                        <af:outputText value="Total Record(s): #{bindings.OmgeoTradeFileVOIterator.estimatedRowCount}" id="ot1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:OmgeoTradeFileBean-->
+</ui:composition>

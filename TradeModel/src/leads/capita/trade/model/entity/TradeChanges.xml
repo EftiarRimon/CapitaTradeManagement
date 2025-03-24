@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TradeChanges"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="TRADE_CHANGES"
+  AliasName="TradeChanges"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="SeqId"
+    ColumnName="SEQ_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true"/>
+  <Attribute
+    Name="AccountId"
+    IsNotNull="true"
+    Precision="10"
+    Scale="0"
+    ColumnName="ACCOUNT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="BrokerId"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="BROKER_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="InstrumentId"
+    IsNotNull="true"
+    Precision="6"
+    Scale="0"
+    ColumnName="INSTRUMENT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="ExchangeId"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="EXCHANGE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="MarketType"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="MARKET_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_CHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Quantity"
+    IsNotNull="true"
+    ColumnName="QUANTITY"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="Price"
+    IsNotNull="true"
+    ColumnName="PRICE"
+    SQLType="DOUBLE"
+    Type="java.lang.Double"
+    ColumnType="DOUBLE PRECISION"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="ClientComRate"
+    ColumnName="CLIENT_COM_RATE"
+    SQLType="DOUBLE"
+    Type="java.lang.Double"
+    ColumnType="DOUBLE PRECISION"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="Commission"
+    ColumnName="COMMISSION"
+    SQLType="DOUBLE"
+    Type="java.lang.Double"
+    ColumnType="DOUBLE PRECISION"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="Status"
+    Precision="1"
+    ColumnName="STATUS"
+    SQLType="CHAR"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    TableName="TRADE_CHANGES"
+    RetrievedOnUpdate="true"
+    RetrievedOnInsert="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ImportId"
+    IsNotNull="true"
+    ColumnName="IMPORT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="TradeDate"
+    IsNotNull="true"
+    ColumnName="TRADE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_CHANGES"/>
+  <Attribute
+    Name="TradeType"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="TRADE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_CHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TradeId"
+    ColumnName="TRADE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_CHANGES"/>
+  <AccessorAttribute
+    Name="ImportExtFiles"
+    Association="leads.capita.trade.model.entity.FkImportIdTradeChangesAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkImportIdTradeChangesAssoc.ImportExtFiles"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkImportIdTradeChangesAssoc.TradeChanges"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="InvestorAccounts"
+    Association="leads.capita.trade.model.entity.FkAccIdTradeChangesAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkAccIdTradeChangesAssoc.InvestorAccounts"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkAccIdTradeChangesAssoc.TradeChanges"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="Exchanges"
+    Association="leads.capita.trade.model.entity.FkExchangeIdTradeChangesAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkExchangeIdTradeChangesAssoc.Exchanges"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkExchangeIdTradeChangesAssoc.TradeChanges"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PkSeqIdTradeChanges"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_SEQ_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeChanges.SeqId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkAccIdTradeChanges">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_INVESTOR_ACCOUNTS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_ACC_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeChanges.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkBrokerIdTradeChanges">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_BROKERS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_BROKER_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeChanges.BrokerId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkExchangeIdTradeChanges">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_EXCHANGES"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_EXCHANGE_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeChanges.ExchangeId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkImportIdTradeChanges">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="IMPORT_EXT_FILES_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_IMPORT_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="FkInstrumentIdTradeChanges">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_INSTRUMENTS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INSTRUMENT_ID_TRADE_CHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeChanges.InstrumentId"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</Entity>

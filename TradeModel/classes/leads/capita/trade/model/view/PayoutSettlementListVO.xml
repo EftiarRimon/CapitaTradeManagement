@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PayoutSettlementListVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.PayoutSettlementListVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="b_Type"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('BUSINESS_TYPE') == null ? 'MBANK' : adf.context.current.sessionScope.get('BUSINESS_TYPE')]]></TransientExpression>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT rownum,InvestorAccounts.INVESTOR_CODE,
+       InvestorAccounts.BOID,
+       INVESTORACCOUNTS.BRANCH_ID,
+       INVESTORACCOUNTS.BUSINESS_TYPE,
+       InvestorAccounts.NAME,
+       Products.PRODUCT_NAME,
+       Products.Product_Type,
+       Products.Trade_Code,  
+       Instruments.INSTRUMENT_NAME,
+       Instruments.SHORT_NAME,
+       INSTRUMENTS.ISIN,
+       Exchanges.EXCHANGE_CODE,
+       pkg_capita_utl.get_broker_code (TradeInstrumentSettlements.BROKER_ID,Exchanges.EXCHANGE_ID) AS BROKER_CODE,
+       TradeInstrumentSettlements.INS_SETTLE_ID,
+       sum(TradeInstrumentSettlements.SELL) as SELL,
+       sum(nvl(TradeInstrumentSettlements.BUY,0)) as BUY,
+       TradeInstrumentSettlements.SETTLEMENT_DATE,
+       TradeInstrumentSettlements.TRADING_DATE,
+       pkg_capita_utl.get_clearing_bo_for_broker (TradeInstrumentSettlements.BROKER_ID,Exchanges.EXCHANGE_ID) AS Clearing_Bo_Id,
+       Instruments.INSTRUMENT_ID
+FROM INVESTOR_ACCOUNTS InvestorAccounts
+,PRODUCTS Products
+,INSTRUMENTS Instruments
+,EXCHANGES Exchanges
+,BROKERS Brokers
+,TRADE_INSTRUMENT_SETTLEMENTS TradeInstrumentSettlements
+WHERE InvestorAccounts.ACCOUNT_ID = TradeInstrumentSettlements.ACCOUNT_ID
+AND InvestorAccounts.PRODUCT_ID = Products.PRODUCT_ID
+AND  TradeInstrumentSettlements.INSTRUMENT_ID= Instruments.INSTRUMENT_ID
+AND  TradeInstrumentSettlements.EXCHANGE_ID= Exchanges.EXCHANGE_ID
+AND  TradeInstrumentSettlements.BROKER_ID= Brokers.BROKER_ID
+AND InvestorAccounts.BUSINESS_TYPE = :b_Type
+AND trunc(TradeInstrumentSettlements.SETTLEMENT_DATE) >= trunc(pkg_capita_sys.get_current_system_date)
+AND  (TradeInstrumentSettlements.BUY IS NOT NULL and TradeInstrumentSettlements.BUY>0)
+
+group by InvestorAccounts.INVESTOR_CODE,InvestorAccounts.BOID,INVESTORACCOUNTS.BRANCH_ID,INVESTORACCOUNTS.BUSINESS_TYPE,InvestorAccounts.NAME,
+       Products.PRODUCT_NAME,Products.Product_Type,Instruments.INSTRUMENT_NAME,INSTRUMENTS.ISIN,Exchanges.EXCHANGE_CODE,
+pkg_capita_utl.get_broker_code (TradeInstrumentSettlements.BROKER_ID,Exchanges.EXCHANGE_ID),rownum, TradeInstrumentSettlements.INS_SETTLE_ID, Instruments.SHORT_NAME,TradeInstrumentSettlements.TRADING_DATE,
+ pkg_capita_utl.get_clearing_bo_for_broker (TradeInstrumentSettlements.BROKER_ID,Exchanges.EXCHANGE_ID),
+       TradeInstrumentSettlements.SELL,TradeInstrumentSettlements.SETTLEMENT_DATE,Instruments.INSTRUMENT_ID,Products.Trade_Code,BROKERS.Clearing_Bo_Id
+ORDER BY rownum ASC]]></SQLQuery>
+  <ViewAttribute
+    Name="Rownum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName='"ROWNUM"'
+    Expression='"ROWNUM"'
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="InvestorCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVESTOR_CODE"
+    Expression="INVESTOR_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Boid"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BOID"
+    Expression="BOID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BranchId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="BRANCH_ID"
+    Expression="BRANCH_ID"
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="BusinessType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BUSINESS_TYPE"
+    Expression="BUSINESS_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Name"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="NAME"
+    Expression="NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_NAME"
+    Expression="PRODUCT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_TYPE"
+    Expression="PRODUCT_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRADE_CODE"
+    Expression="TRADE_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INSTRUMENT_NAME"
+    Expression="INSTRUMENT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ShortName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SHORT_NAME"
+    Expression="SHORT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Isin"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ISIN"
+    Expression="ISIN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExchangeCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="2"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="EXCHANGE_CODE"
+    Expression="EXCHANGE_CODE"
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="BrokerCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BROKER_CODE"
+    Expression="BROKER_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InsSettleId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="INS_SETTLE_ID"
+    Expression="INS_SETTLE_ID"
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="Sell"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="SELL"
+    Expression="SELL"
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="Buy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="BUY"
+    Expression="BUY"
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="SettlementDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="SETTLEMENT_DATE"
+    Expression="SETTLEMENT_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="TradingDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="TRADING_DATE"
+    Expression="TRADING_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ClearingBoId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CLEARING_BO_ID"
+    Expression="CLEARING_BO_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="INSTRUMENT_ID"
+    Expression="INSTRUMENT_ID"
+    SQLType="INTEGER"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Rownum"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

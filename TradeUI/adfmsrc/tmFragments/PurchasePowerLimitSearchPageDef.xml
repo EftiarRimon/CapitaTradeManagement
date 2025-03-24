@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="PurchasePowerLimitSearchPageDef" Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PurchasePowerLimitHeaderVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PurchasePowerLimitHeaderVOIterator"/>
+    <searchRegion Criteria="PurchasePowerLimitHeaderVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="PurchasePowerLimitHeaderVOIterator" id="PurchasePowerLimitHeaderVOCriteriaQuery"/>
+    <iterator id="PurchasePowerLimitSlabVOIterator" Binds="PurchasePowerLimitSlabVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PurchasePowerLimitHeaderVOIterator" id="PurchasePowerLimitHeaderVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PurchasePowerLimitHeaderVO"
+                      Name="PurchasePowerLimitHeaderVO0">
+        <AttrNames>
+          <Item Value="Operand"/>
+          <Item Value="AtActual"/>
+          <Item Value="Pct"/>
+          <Item Value="ActiveDate"/>
+          <Item Value="Status"/>
+          <Item Value="ProductId"/>
+          <Item Value="ProductType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="PurchasePowerLimitHeaderVOIterator" id="CreateInsertHeader"
+            InstanceName="TradeFileServiceDataControl.PurchasePowerLimitHeaderVO"
+            DataControl="TradeFileServiceDataControl" RequiresUpdateModel="true" Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

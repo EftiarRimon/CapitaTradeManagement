@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="unspecified"/>
+   <task-flow-descriptor path="tmPageFlows/bda-allocation-flow.xml" id="bda-allocation-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="unspecified">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/bda-buy-order-alloc-flow.xml" id="bda-buy-order-alloc-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/bda-orders-alloc-flow.xml" id="bda-orders-alloc-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/bda-purchase-flow.xml" id="bda-purchase-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="unspecified">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/bda-sales-flow.xml" id="bda-sales-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="unspecified">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/bt-file-flow.xml" id="bt-file-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="unspecified"/>
+   <task-flow-descriptor path="tmPageFlows/cashLimitShareLimit-flow.xml" id="cashLimitShareLimit-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/client_limit_flow.xml" id="client_limit_flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/day-end-flow.xml" id="day-end-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/day-start-flow.xml" id="day-start-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/eod-flow.xml" id="eod-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/fti-dealer-trade-files-flow.xml" id="fti-dealer-trade-files-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-error-summary-details-flow.xml" id="fti-error-summary-details-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-file-merge-cash-detail-dealer-flow.xml" id="fti-file-merge-cash-detail-dealer-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-file-merge-detail-flow.xml" id="fti-file-merge-detail-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-file-merge-share-detail-dealer-flow.xml" id="fti-file-merge-share-detail-dealer-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-file-merge-share-detail-flow.xml" id="fti-file-merge-share-detail-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-trade-files-cse-flow.xml" id="fti-trade-files-cse-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/fti-trade-files-flow.xml" id="fti-trade-files-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/ftp-configuration-flow.xml" id="ftp-configuration-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/manual-settlement-flow.xml" id="manual-settlement-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/merchant-bank-payin-flow.xml" id="merchant-bank-payin-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/omgeo-trade-file-flow.xml" id="omgeo-trade-file-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/pay-inout-before-trade-flow.xml" id="pay-inout-before-trade-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/pay-inout-flow.xml" id="task-flow-definition" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/position_limit_flow.xml" id="position_limit_flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/price-file-flow.xml" id="price-file-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/purchase-power-limit-flow.xml" id="purchase-power-limit-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/purchase-power-update-flow.xml" id="purchase-power-update-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/share-limit-flow.xml" id="share-limit-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/trade-file-load-flow.xml" id="trade-file-load-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets">
+      <input-parameter name="editable"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="tmPageFlows/trade-file-mbank-wise-flow.xml" id="trade-file-mbank-wise-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/trade-reverse-flow.xml" id="trade-reverse-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/trdCommChng-foreign-inv-flow.xml" id="trdCommChng-foreign-inv-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/year-end-flow.xml" id="year-end-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="tmPageFlows/year-end-reverse.xml" id="year-end-reverse" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+</task-flow-registry>

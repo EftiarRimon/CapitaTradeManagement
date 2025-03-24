@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DayStartEndService"
+  Version="11.1.2.60.81"
+  ClearCacheOnRollback="true">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.am.DayStartEndService_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewUsage
+    Name="DayStartVO"
+    ViewObjectName="leads.capita.trade.model.view.DayStartVO"/>
+  <ViewUsage
+    Name="DayEndVO"
+    ViewObjectName="leads.capita.trade.model.view.DayEndVO"/>
+  <ViewUsage
+    Name="ConnectedUsersVO"
+    ViewObjectName="leads.capita.trade.model.view.ConnectedUsersVO"/>
+  <ViewUsage
+    Name="YearEndRevoke"
+    ViewObjectName="leads.capita.trade.model.view.YearEndRevoke"/>
+  <ViewUsage
+    Name="YearEndVO"
+    ViewObjectName="leads.capita.trade.model.view.YearEndVO"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</AppModule>

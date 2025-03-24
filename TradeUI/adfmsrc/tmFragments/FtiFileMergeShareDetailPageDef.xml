@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtiFileMergeShareDetailPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiFileMergeShareVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMergeShareVOIterator"/>
+    <iterator Binds="FtiFileMergeShareDetailVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMergeShareDetailVOIterator"/>
+    <iterator Binds="MbankActiveAllLOV" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="MbankActiveAllLOVIterator"/>
+    <iterator Binds="OmnibusShareMbankVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="OmnibusShareMbankVOIterator"/>
+    <iterator id="FtiConfigParamOmnibusPositionVOIterator" Binds="FtiConfigParamOmnibusPositionVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="FtiOmnibusMergeShareDataVOIterator" Binds="FtiOmnibusMergeShareDataVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator Binds="OmnibusInvRegDummyVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="OmnibusInvRegDummyVOIterator"/>
+    <iterator Binds="BranchLOV" RangeSize="25" DataControl="TradeFileServiceDataControl" id="BranchLOVIterator"/>
+    <iterator Binds="TraderIdLOV" RangeSize="25" DataControl="TradeFileServiceDataControl" id="TraderIdLOVIterator"/>
+    <iterator Binds="SubProductByProductLOV" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="SubProductByProductLOVIterator"/>
+    <iterator id="OmnibusShareUnRegInvestorVOIterator" Binds="OmnibusShareUnRegInvestorVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="OmnibusShareLimitProcessedDataIterator" Binds="OmnibusShareLimitProcessedData"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="FtiFileMergeShareVOIterator" id="FileDescription">
+      <AttrNames>
+        <Item Value="FileDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeShareVOIterator" id="FileVersion">
+      <AttrNames>
+        <Item Value="FileVersion"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiFileMergeShareDetailVOIterator" id="FtiFileMergeShareDetailVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFileMergeShareDetailVO"
+                      Name="FtiFileMergeShareDetailVO0">
+        <AttrNames>
+          <Item Value="FileId"/>
+          <Item Value="Isin"/>
+          <Item Value="InstShortName"/>
+          <Item Value="Boid"/>
+          <Item Value="InvestorName"/>
+          <Item Value="TotalQuantity"/>
+          <Item Value="SalableQuantity"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="AppDate"/>
+          <Item Value="RowSeqId"/>
+          <Item Value="ErrMsg"/>
+          <Item Value="Status"/>
+          <Item Value="MbankShortName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="FtiFileMergeShareVOIterator" id="MDate">
+      <AttrNames>
+        <Item Value="MDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeShareVOIterator" id="FileType">
+      <AttrNames>
+        <Item Value="FileType"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="FtiFileMergeShareVOIterator" StaticList="false" Uses="LOV_FileFormat" id="FileFormat"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <button IterBinding="FtiFileMergeShareVOIterator" id="IsExec" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="IsExec"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+    <list IterBinding="FtiFileMergeShareVOIterator" StaticList="false" Uses="LOV_FileOption" id="FileOption"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="MbankActiveAllLOVIterator" ListOperMode="navigation" ListIter="MbankActiveAllLOVIterator"
+          id="MbankActiveAllLOV" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="MbankShortName"/>
+      </AttrNames>
+    </list>
+    <tree IterBinding="OmnibusShareMbankVOIterator" id="OmnibusShareMbankVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.OmnibusShareMbankVO" Name="OmnibusShareMbankVO0">
+        <AttrNames>
+          <Item Value="MbankShortName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="OmnibusInvRegDummyVOIterator" StaticList="false" Uses="LOV_ProductId" id="ProductId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="BranchLOVIterator" ListOperMode="navigation" ListIter="BranchLOVIterator" id="BranchLOV"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="BranchName"/>
+      </AttrNames>
+    </list>
+    <list IterBinding="TraderIdLOVIterator" ListOperMode="navigation" ListIter="TraderIdLOVIterator" id="TraderIdLOV"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="FtiTwsNo"/>
+      </AttrNames>
+    </list>
+    <list IterBinding="SubProductByProductLOVIterator" ListOperMode="navigation"
+          ListIter="SubProductByProductLOVIterator" id="SubProductByProductLOV" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="SubProductName"/>
+      </AttrNames>
+    </list>
+  </bindings>
+</pageDefinition>

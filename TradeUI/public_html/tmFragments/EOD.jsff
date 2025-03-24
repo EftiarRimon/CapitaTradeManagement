@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" topHeight="2px" dimensionsFrom="children"
+                              inlineStyle="width:400px; height:150px;">
+                <f:facet name="center">
+                    <af:panelBox text="EOD:" id="pb1" disclosed="true" showDisclosure="false">
+                        <f:facet name="toolbar"/>
+                        <af:panelGroupLayout id="pgl1">
+                            <af:popup childCreation="deferred" autoCancel="disabled" id="spinnerPopUp" contentDelivery="immediate"
+                                  clientComponent="true">
+                            <af:dialog id="d1" title=" " closeIconVisible="false" type="none"
+                                       inlineStyle="width:200px; height:50px;">
+                                <af:panelGroupLayout id="pgl4" layout="vertical"
+                                                     inlineStyle="width:200px; height:50px;">
+                                    <af:panelGroupLayout id="pgl3" layout="horizontal">
+                                        <af:spacer width="80" height="10" id="s1"/>
+                                        <af:image shortDesc="Wait" id="i1"
+                                                  inlineStyle="text-align:center;" source="/images/loading.gif"/>
+                                    </af:panelGroupLayout>
+                                    <af:outputText value="Wait  to complete  ..." id="ot12"
+                                                   inlineStyle="color:Purple; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10pt;"/>
+                                </af:panelGroupLayout>
+                            </af:dialog>
+                            <af:clientListener method="onPopupOpened" type="popupOpened"/>
+                            <af:serverListener type="popupOpenListner" method="#{eodBean.ProcessAction}"/>
+                        </af:popup>
+                            <af:separator id="s2"/>
+                            <af:panelFormLayout id="pfl1">
+                                <af:selectOneChoice value="#{bindings.Branch.inputValue}"
+                                                    label="#{bindings.Branch.label}"
+                                                    shortDesc="#{bindings.Branch.hints.tooltip}" id="soc1"
+                                                    autoSubmit="true" showRequired="true" required="true"
+                                                    disabled="#{!pageFlowScope.editable}">
+                                    <f:selectItems value="#{bindings.Branch.items}" id="si1"/>
+                                </af:selectOneChoice>
+                                <af:inputDate value="#{bindings.Sysdate.inputValue}"
+                                              label="#{bindings.Sysdate.hints.label}"
+                                              required="#{bindings.Sysdate.hints.mandatory}"
+                                              columns="#{bindings.Sysdate.hints.displayWidth}"
+                                              shortDesc="#{bindings.Sysdate.hints.tooltip}" id="id1"
+                                              disabled="#{!pageFlowScope.editable}">
+                                    <f:validator binding="#{bindings.Sysdate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.Sysdate.format}"/>
+                                </af:inputDate>
+                            </af:panelFormLayout>
+                            <af:separator id="s11"/>
+                            <af:commandButton text="Process" id="cb1" icon="/images/execute.png" partialSubmit="true"
+                                              clientComponent="true" actionListener="#{eodBean.processAction}"
+                                              disabled="#{!pageFlowScope.editable}"/>
+                                               <!-- This javascript is used to show busy state pop up  -->
+                          <af:resource type="javascript">
+                              function onPopupOpened(event){
+                              AdfCustomEvent.queue(event.getSource(), "popupOpenListner",{ }, false);
+                            }      
+                         </af:resource>
+                        </af:panelGroupLayout>
+                    </af:panelBox>
+                </f:facet>
+                <f:facet name="top"/>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:eodBean-->
+</ui:composition>

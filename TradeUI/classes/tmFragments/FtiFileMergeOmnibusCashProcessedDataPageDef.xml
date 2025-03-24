@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="FtiFileMergeOmnibusCashProcessedDataPageDef" Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiOmnibusMergeCashDataVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiOmnibusMergeCashDataVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FtiOmnibusMergeCashDataVOIterator" id="FtiOmnibusMergeCashDataVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiOmnibusMergeCashDataVO"
+                      Name="FtiOmnibusMergeCashDataVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Name"/>
+          <Item Value="AccountId"/>
+          <Item Value="PurchasePower"/>
+          <Item Value="LastTransDate"/>
+          <Item Value="FileId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

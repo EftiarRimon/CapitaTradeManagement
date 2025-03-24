@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="YendDBOx" inlineStyle="height:250px; width:400px;">
+                <f:facet name="center">
+                    <af:panelBox text="Year End" id="pb1">
+                        <af:panelGroupLayout id="pgl1" layout="vertical">
+                            <af:panelFormLayout id="pfl1">
+                                <af:inputDate value="#{bindings.Sysdate.inputValue}"
+                                              label="#{bindings.Sysdate.hints.label}"
+                                              required="#{bindings.Sysdate.hints.mandatory}"
+                                              columns="#{bindings.Sysdate.hints.displayWidth}"
+                                              shortDesc="#{bindings.Sysdate.hints.tooltip}" id="id1" rendered="false">
+                                    <f:validator binding="#{bindings.Sysdate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.Sysdate.format}"/>
+                                </af:inputDate>
+                            </af:panelFormLayout>
+                            <af:panelFormLayout id="pfl2">
+                                <af:panelFormLayout id="pfl3" labelAlignment="start">
+                                    <af:inputDate value="#{bindings.DateOfYearEND.inputValue}"
+                                                  label="Date"
+                                                  columns="#{bindings.DateOfYearEND.hints.displayWidth}"
+                                                  shortDesc="#{bindings.DateOfYearEND.hints.tooltip}" id="id2"
+                                                  autoSubmit="true" binding="#{YearEndProcessor.yearEndDateUI}"
+                                                  required="true">
+                                        <f:validator binding="#{bindings.DateOfYearEND.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.DateOfYearEND.format}"/>
+                                    </af:inputDate>
+                                    <af:selectOneChoice value="#{bindings.branchId.inputValue}"
+                                                        label="Branch Id"
+                                                        required="#{bindings.branchId.hints.mandatory}"
+                                                        shortDesc="#{bindings.branchId.hints.tooltip}" id="soc1"
+                                                        binding="#{YearEndProcessor.cobYearEndBranceName}"
+                                                        rendered="false">
+                                        <f:selectItems value="#{bindings.branchId.items}" id="si1"/>
+                                    </af:selectOneChoice>
+                                    <af:commandButton text="Year End" id="cb1" icon="/images/action.png"
+                                                      action="#{YearEndProcessor.btnYearEnd_action}"/>
+                                </af:panelFormLayout>
+                            </af:panelFormLayout>
+                        </af:panelGroupLayout>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:YearEndProcessor-->
+</ui:composition>

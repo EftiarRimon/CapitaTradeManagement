@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="purchase-power-limit-flow">
+    <default-activity>PurchasePowerLimitSearch</default-activity>
+    <view id="PurchasePowerLimitSearch">
+      <page>/tmFragments/PurchasePowerLimitSearch.jsff</page>
+    </view>
+    <view id="PurchasePowerLimit">
+      <page>/tmFragments/PurchasePowerLimit.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>PurchasePowerLimitSearch</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goDetail</from-outcome>
+        <to-activity-id>PurchasePowerLimit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>PurchasePowerLimit</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>goBack</from-outcome>
+        <to-activity-id>PurchasePowerLimitSearch</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

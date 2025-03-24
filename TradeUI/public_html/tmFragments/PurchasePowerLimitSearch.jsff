@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:450px; width:670px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1" inlineStyle="height:inherit; width:inherit;">
+                        <af:panelBox text="PanelBox1" id="pb1" showHeader="never" inlineStyle="width:inherit;"
+                                     type="flow">
+                            <f:facet name="toolbar"/>
+                            <af:query id="qryId1" headerText="Search" disclosed="true"
+                                      value="#{bindings.PurchasePowerLimitHeaderVOCriteriaQuery.queryDescriptor}"
+                                      model="#{bindings.PurchasePowerLimitHeaderVOCriteriaQuery.queryModel}"
+                                      queryListener="#{bindings.PurchasePowerLimitHeaderVOCriteriaQuery.processQuery}"
+                                      queryOperationListener="#{bindings.PurchasePowerLimitHeaderVOCriteriaQuery.processQueryOperation}"
+                                      resultComponentId="::pc1:resId1" modeButtonPosition="footer" saveQueryMode="hidden"/>
+                        </af:panelBox>
+                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;"
+                                            featuresOff="viewMenu" partialTriggers="::qryId1">
+                            <f:facet name="menus">
+                                <af:menu text="Purchase Power Lomit List" id="m1" icon="/images/list.png"
+                                         inlineStyle="font-weight:bolder;"/>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t2">
+                                    <af:commandButton text="ADD" id="cb1" icon="/images/add.png"
+                                                      shortDesc="Add New Limit" action="goDetail"
+                                                      actionListener="#{PurchasePowerLimit.newPurchasePowerLimitAction}"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t1">
+                                    <af:outputText value="Total Record(s) : #{bindings.PurchasePowerLimitHeaderVOIterator.estimatedRowCount}" id="ot5"
+                                                   partialTriggers="::qryId1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.PurchasePowerLimitHeaderVO.collectionModel}" var="row"
+                                      rows="#{bindings.PurchasePowerLimitHeaderVO.rangeSize}"
+                                      emptyText="#{bindings.PurchasePowerLimitHeaderVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.PurchasePowerLimitHeaderVO.rangeSize}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.PurchasePowerLimitHeaderVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.PurchasePowerLimitHeaderVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="resId1" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;" partialTriggers="::cb1">
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.Operand.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.Operand.label}"
+                                           id="resId1c1" width="120">
+                                    <af:selectOneChoice value="#{row.bindings.Operand.inputValue}"
+                                                        label="#{row.bindings.Operand.label}"
+                                                        required="#{bindings.PurchasePowerLimitHeaderVO.hints.Operand.mandatory}"
+                                                        shortDesc="#{bindings.PurchasePowerLimitHeaderVO.hints.Operand.tooltip}"
+                                                        readOnly="true" id="soc1">
+                                        <f:selectItems value="#{row.bindings.Operand.items}" id="si1"/>
+                                    </af:selectOneChoice>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.AtActual.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.AtActual.label}"
+                                           id="resId1c2" width="30">
+                                    <af:outputText value="#{row.AtActual}" id="ot1"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.Pct.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.Pct.label}"
+                                           id="resId1c3" width="60">
+                                    <af:outputText value="#{row.Pct}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.ActiveDate.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.ActiveDate.label}"
+                                           id="resId1c4" width="80">
+                                    <af:outputText value="#{row.ActiveDate}" id="ot3">
+                                        <af:convertDateTime pattern="#{bindings.PurchasePowerLimitHeaderVO.hints.ActiveDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.Status.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.Status.label}"
+                                           id="resId1c5" width="50">
+                                    <af:outputText value="#{row.Status}" id="ot4"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductId.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductId.label}"
+                                           id="resId1c6" width="90">
+                                    <af:selectOneChoice value="#{row.bindings.ProductId.inputValue}"
+                                                        label="#{row.bindings.ProductId.label}"
+                                                        required="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductId.mandatory}"
+                                                        shortDesc="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductId.tooltip}"
+                                                        readOnly="true" id="soc2">
+                                        <f:selectItems value="#{row.bindings.ProductId.items}" id="si2"/>
+                                    </af:selectOneChoice>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductType.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductType.label}"
+                                           id="resId1c7" width="90">
+                                    <af:selectOneChoice value="#{row.bindings.ProductType.inputValue}"
+                                                        label="#{row.bindings.ProductType.label}"
+                                                        required="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductType.mandatory}"
+                                                        shortDesc="#{bindings.PurchasePowerLimitHeaderVO.hints.ProductType.tooltip}"
+                                                        readOnly="true" id="soc3">
+                                        <f:selectItems value="#{row.bindings.ProductType.items}" id="si3"/>
+                                    </af:selectOneChoice>
+                                </af:column>
+                                <af:column id="c1" width="60" align="center" shortDesc="View Detail">
+                                    <af:commandButton text="View" id="cb2" icon="/images/previewsmall.png"
+                                                      action="goDetail"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

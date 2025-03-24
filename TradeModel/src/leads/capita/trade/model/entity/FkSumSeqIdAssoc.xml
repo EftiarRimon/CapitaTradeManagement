@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkSumSeqIdAssoc"
+  Version="11.1.2.60.81">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="FtiErrSummary"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.entity.FtiErrSummary">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="FtiErrSummary"/>
+      <Attr Name="_foreignKey" Value="leads.capita.trade.model.entity.FtiErrSummary.PkSeqIdErrSumm"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiErrSummary.RowSeqId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="FtiErrSummaryDetails"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.entity.FtiErrSummaryDetails">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="FtiErrSummaryDetails"/>
+      <Attr Name="_foreignKey" Value="leads.capita.trade.model.entity.FtiErrSummaryDetails.FkSumSeqId"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiErrSummaryDetails.SumSeqId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

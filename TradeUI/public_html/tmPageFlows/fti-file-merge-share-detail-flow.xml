@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="fti-file-merge-share-detail-flow">
+    <default-activity>FtiFileMergeShare</default-activity>
+    <view id="FtiFileMergeShare">
+      <page>/tmFragments/FtiFileMergeShare.jsff</page>
+    </view>
+    <view id="FtiFileMergeShareDetail">
+      <page>/tmFragments/FtiFileMergeShareDetail.jsff</page>
+    </view>
+    <view id="FtiFileMergeOmnibusShareProcessedData">
+      <page>/tmFragments/FtiFileMergeOmnibusShareProcessedData.jsff</page>
+    </view>
+    <control-flow-rule id="__3">
+      <from-activity-id>FtiFileMergeShare</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>goDetail</from-outcome>
+        <to-activity-id>FtiFileMergeShareDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>FtiFileMergeShareDetail</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>goBack</from-outcome>
+        <to-activity-id>FtiFileMergeShare</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__1">
+        <from-outcome>goProcessedData</from-outcome>
+        <to-activity-id>FtiFileMergeOmnibusShareProcessedData</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__2">
+      <from-activity-id>FtiFileMergeOmnibusShareProcessedData</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>FtiFileMergeShareDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

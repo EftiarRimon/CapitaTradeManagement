@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:400px; width:610px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelBox text="Dealer Cash File Processed Data" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                 showDisclosure="false" type="flow">
+                        <f:facet name="toolbar">
+                            <af:commandButton text="Back" id="cb1" icon="/images/go-back.png" action="back"
+                                              shortDesc="Go Back" immediate="true"/>
+                        </f:facet>
+                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar"/>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t2">
+                                    <af:outputText value="Total Records : #{bindings.FtiDealerMergeCashDataVOIterator.estimatedRowCount}" id="ot9"
+                                                   partialTriggers="::pb1 ::pc1 t1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiDealerMergeCashDataVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiDealerMergeCashDataVO.rangeSize}"
+                                      emptyText="#{bindings.FtiDealerMergeCashDataVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiDealerMergeCashDataVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.FtiDealerMergeCashDataVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiDealerMergeCashDataVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;">
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.InvestorCode.name}"
+                                           sortable="true" headerText="Inv. Code" id="c1" width="60">
+                                    <af:outputText value="#{row.InvestorCode}" id="ot1"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.TraderId.name}"
+                                           sortable="true" headerText="Trader Id." id="c2" width="70">
+                                    <af:outputText value="#{row.TraderId}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.Boid.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiDealerMergeCashDataVO.hints.Boid.label}" id="c3">
+                                    <af:outputText value="#{row.Boid}" id="ot3"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.Name.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiDealerMergeCashDataVO.hints.Name.label}" id="c4">
+                                    <af:outputText value="#{row.Name}" id="ot4"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.AccountId.name}"
+                                           sortable="true" headerText="Account Id." id="c5" width="80">
+                                    <af:outputText value="#{row.AccountId}" id="ot5">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiDealerMergeCashDataVO.hints.AccountId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.PurchasePower.name}"
+                                           sortable="true" headerText="Purchase Power" id="c6">
+                                    <af:outputText value="#{row.PurchasePower}" id="ot6"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.LastTransDate.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiDealerMergeCashDataVO.hints.LastTransDate.label}"
+                                           id="c7" visible="false">
+                                    <af:outputText value="#{row.LastTransDate}" id="ot7">
+                                        <af:convertDateTime pattern="#{bindings.FtiDealerMergeCashDataVO.hints.LastTransDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiDealerMergeCashDataVO.hints.FileId.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiDealerMergeCashDataVO.hints.FileId.label}" id="c8"
+                                           visible="false">
+                                    <af:outputText value="#{row.FileId}" id="ot8">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiDealerMergeCashDataVO.hints.FileId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

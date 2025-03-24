@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvestorAccounts"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="INVESTOR_ACCOUNTS"
+  AliasName="InvestorAccounts"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="AccountId"
+    IsNotNull="true"
+    Precision="10"
+    Scale="0"
+    ColumnName="ACCOUNT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ProductId"
+    Precision="5"
+    Scale="0"
+    ColumnName="PRODUCT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="InvestorCode"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="INVESTOR_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OperationType"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="OPERATION_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Boid"
+    Precision="30"
+    ColumnName="BOID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BankAccountType"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="BANK_ACCOUNT_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BankCode"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="BANK_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BankBranchCode"
+    Precision="30"
+    ColumnName="BANK_BRANCH_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BankAccountNo"
+    Precision="30"
+    ColumnName="BANK_ACCOUNT_NO"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountStatus"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="ACCOUNT_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OpenDate"
+    IsNotNull="true"
+    ColumnName="OPEN_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="BusinessType"
+    IsUnique="true"
+    Precision="30"
+    ColumnName="BUSINESS_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BranchId"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="BRANCH_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="OperationTypeCode"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="OPERATION_TYPE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BankAcTypeCode"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="BANK_AC_TYPE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BusinessTypeCode"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="BUSINESS_TYPE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubProductId"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="SUB_PRODUCT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="MarginId"
+    ColumnName="MARGIN_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="InterestRateId"
+    ColumnName="INTEREST_RATE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="ProfileId"
+    Precision="10"
+    Scale="0"
+    ColumnName="PROFILE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="INVESTOR_ACCOUNTS"/>
+  <Attribute
+    Name="Name"
+    Precision="80"
+    ColumnName="NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVESTOR_ACCOUNTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="BdaSalesOrder"
+    Association="leads.capita.trade.model.entity.FkBdaSalesOrdInvaccIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkBdaSalesOrdInvaccIdAssoc.BdaSalesOrder"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkBdaSalesOrdInvaccIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="BdaPurchaseOrder"
+    Association="leads.capita.trade.model.entity.FkBdaPurOrdInvaccIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkBdaPurOrdInvaccIdAssoc.BdaPurchaseOrder"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkBdaPurOrdInvaccIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="BdaSalesOrder1"
+    Association="leads.capita.trade.model.entity.assoc.BdaSalesOrdFkInvestorAccountsAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.BdaSalesOrdFkInvestorAccountsAssoc.BdaSalesOrder1"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.BdaSalesOrdFkInvestorAccountsAssoc.InvestorAccounts1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="BdaPurchaseOrder1"
+    Association="leads.capita.trade.model.entity.assoc.BdaPurchaseOrdFkInvestorAccountAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.BdaPurchaseOrdFkInvestorAccountAssoc.BdaPurchaseOrder1"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.BdaPurchaseOrdFkInvestorAccountAssoc.InvestorAccounts1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="TradeInvestorNetting"
+    Association="leads.capita.trade.model.entity.FkInvestorNettingAccountIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInvestorNettingAccountIdAssoc.TradeInvestorNetting"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInvestorNettingAccountIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="TradeInstrumentSettlements"
+    Association="leads.capita.trade.model.entity.FkInstruSettleAccountIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInstruSettleAccountIdAssoc.TradeInstrumentSettlements"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInstruSettleAccountIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="BdaOrderDetail"
+    Association="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc.BdaOrderDetail"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="Products"
+    Association="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc.Products"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc.InvestorAccounts"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="InstrumentBalances"
+    Association="leads.capita.trade.model.entity.assoc.FkInsBalanceAccIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.FkInsBalanceAccIdAssoc.InstrumentBalances"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.FkInsBalanceAccIdAssoc.InvestorAccounts"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkInvestorAccounts"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_INVESTOR_ACCOUNTS"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkInvestorCode">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_INVESTOR_CODE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BusinessType"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BranchId"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.InvestorCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkBankBranch">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_BANK_BRANCHES"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_BANK_BRANCH"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BankCode"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BankBranchCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInvAcSubPrd">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_PRODUCT_GROUP"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INV_AC_SUB_PRD"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.ProductId"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.SubProductId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInvAccInterestRateId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_MARGIN_INTEREST_SETUP"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INV_ACC_INTEREST_RATE_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.InterestRateId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkInvAccountsMarginId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_MARGIN_INTEREST_SETUP"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INV_ACCOUNTS_MARGIN_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.MarginId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkLookupBusinessType">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_LOOKUPS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_LOOKUP_BUSINESS_TYPE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BusinessTypeCode"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BusinessType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkLookupsBankAcType">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_LOOKUPS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_LOOKUPS_BANK_AC_TYPE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BankAcTypeCode"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.BankAccountType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkLookupsOperationType">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_LOOKUPS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_LOOKUPS_OPERATION_TYPE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.OperationTypeCode"/>
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.OperationType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkProductsId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_PRODUCT"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_PRODUCTS_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InvestorAccounts.ProductId"/>
+    </AttrArray>
+  </Key>
+</Entity>

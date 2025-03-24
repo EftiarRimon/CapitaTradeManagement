@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InstrumentGroup"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="INSTRUMENT_GROUP"
+  AliasName="InstrumentGroup"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="Code"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INSTRUMENT_GROUP"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Title"
+    Precision="10"
+    ColumnName="TITLE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INSTRUMENT_GROUP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="InstrumentPrice"
+    Association="leads.capita.trade.model.entity.FkInstrumentPriceGroupAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInstrumentPriceGroupAssoc.InstrumentPrice"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInstrumentPriceGroupAssoc.InstrumentGroup"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="TradeInvestorNetting"
+    Association="leads.capita.trade.model.entity.FkInvestorNettingInsGroupAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInvestorNettingInsGroupAssoc.TradeInvestorNetting"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInvestorNettingInsGroupAssoc.InstrumentGroup1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkInstrumentGroup"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_INSTRUMENT_GROUP"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.InstrumentGroup.Code"/>
+    </AttrArray>
+  </Key>
+</Entity>

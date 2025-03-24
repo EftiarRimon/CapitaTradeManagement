@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="MarketType"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="MARKET_TYPE"
+  AliasName="MarketType"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="Code"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="MARKET_TYPE"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Title"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="TITLE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="MARKET_TYPE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="TradeInvestorNetting"
+    Association="leads.capita.trade.model.entity.FkInvestorNettingMarketAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInvestorNettingMarketAssoc.TradeInvestorNetting"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInvestorNettingMarketAssoc.MarketType1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkMarket"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_MARKET"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.MarketType.Code"/>
+    </AttrArray>
+  </Key>
+</Entity>

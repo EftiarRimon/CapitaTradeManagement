@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="BdaBulkSalesAllocationPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator id="BdaOrderDetailDefaultVOIterator" Binds="BdaOrderDetailDefaultVO"
+                  DataControl="BdaServiceDataControl" RangeSize="-1"/>
+        <iterator Binds="BdaSalesAllocInvList" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaSalesAllocInvListIterator"/>
+        <searchRegion Binds="BdaSalesAllocInvListIterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BdaSalesAllocInvListQuery"/>
+        <iterator Binds="BdaOrdersFilterVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaOrdersFilterVOIterator"/>
+        <iterator Binds="InvestorListForBDALOV" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="InvestorListForBDALOVIterator"/>
+    </executables>
+    <bindings>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <tree IterBinding="BdaSalesAllocInvListIterator" id="BdaSalesAllocInvList">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaSalesAllocInvList" Name="BdaSalesAllocInvList0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="InstrumentName"/>
+                    <Item Value="ApplyFor"/>
+                    <Item Value="SalableQty"/>
+                    <Item Value="TotalQty"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="TradePrice"/>
+                    <Item Value="TradeQuantity"/>
+                    <Item Value="OrderQuantity"/>
+                    <Item Value="DetailId"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="CurrentBalance"/>
+                    <Item Value="PurchasePower"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <list IterBinding="BdaOrdersFilterVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderDate">
+            <AttrNames>
+                <Item Value="OrderDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderId">
+            <AttrNames>
+                <Item Value="OrderId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderPrice">
+            <AttrNames>
+                <Item Value="OrderPrice"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="TradeCode">
+            <AttrNames>
+                <Item Value="TradeCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="TradePrice">
+            <AttrNames>
+                <Item Value="TradePrice"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="TradeQuantity">
+            <AttrNames>
+                <Item Value="TradeQuantity"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="InvestorListForBDALOVIterator" id="InvestorListForBDALOV">
+            <nodeDefinition DefName="leads.capita.trade.model.view.lov.InvestorListForBDALOV"
+                            Name="InvestorListForBDALOV0">
+                <AttrNames>
+                    <Item Value="AccountId"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="isEqualDate">
+            <AttrNames>
+                <Item Value="isEqualDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl0" inlineStyle="height:480px; width:600px;" layout="vertical">                
+  <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;">
+    <f:facet name="center">
+      <af:panelGroupLayout id="pgl4">
+        <af:panelBox text="Manual Sattlement" id="pb1" titleHalign="center">
+          <f:facet name="toolbar">
+            <af:panelGroupLayout id="pgl2" halign="right" layout="horizontal">
+                <af:outputText value="()" id="ot22"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <af:panelGroupLayout id="pgl1" inlineStyle="height:20px;" layout="horizontal">
+            <af:inputDate label="Trade Date" id="id1" binding="#{ManualSettlement.toDate}" autoSubmit="true"
+                          valueChangeListener="#{ManualSettlement.filterChange}">
+                <af:convertDateTime secondaryPattern="ddMMyyyy"/>
+        </af:inputDate>
+            <af:selectOneRadio id="sor1" binding="#{ManualSettlement.filterType}" autoSubmit="true" value="F"
+                               valueChangeListener="#{ManualSettlement.filterChange}">
+              <af:selectItem label="Foreign" value="F" id="si1"/>
+              <af:selectItem label="DVP" value="D" id="si2"/>
+            </af:selectOneRadio>
+          </af:panelGroupLayout>
+          <af:panelTabbed id="pt1" inlineStyle="width:600px;">
+            <af:showDetailItem text="Fund Settlement" id="sdi1">
+              <af:panelCollection id="pc2" inlineStyle="width:580px;" featuresOff="viewMenu">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                  <af:toolbar id="t3">
+                    <af:commandButton text="Reload" id="cb4" icon="/images/refresh.png"
+                                      actionListener="#{ManualSettlement.fundAction}"/>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.FundSettlemetVO.collectionModel}" var="row"
+                          rows="#{bindings.FundSettlemetVO.rangeSize}"
+                          emptyText="#{bindings.FundSettlemetVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.FundSettlemetVO.rangeSize}" rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.FundSettlemetVO.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.FundSettlemetVO.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t1">
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.ExchangeId.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.ExchangeId.label}" id="c1" rendered="false">
+                    <af:outputText value="#{row.ExchangeId}" id="ot1">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.FundSettlemetVO.hints.ExchangeId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.ShortName.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.ShortName.label}" id="c2" width="50">
+                    <af:outputText value="#{row.ShortName}" id="ot2"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.AccountId.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.AccountId.label}" id="c3" rendered="false">
+                    <af:outputText value="#{row.AccountId}" id="ot3">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.FundSettlemetVO.hints.AccountId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.InvestorCode.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.InvestorCode.label}" id="c4" width="80">
+                    <af:outputText value="#{row.InvestorCode}" id="ot4"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.BuyAmount.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.BuyAmount.label}" id="c5" width="80">
+                    <af:outputText value="#{row.BuyAmount}" id="ot5"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.SellAmount.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.SellAmount.label}" id="c6" width="80">
+                    <af:outputText value="#{row.SellAmount}" id="ot6"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.NettedAmount.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.NettedAmount.label}" id="c7" width="80">
+                    <af:outputText value="#{row.NettedAmount}" id="ot7"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.IsForeign.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.IsForeign.label}" id="c8" rendered="false">
+                    <af:outputText value="#{row.IsForeign}" id="ot8"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.HowlaType.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.HowlaType.label}" id="c9" rendered="false">
+                    <af:outputText value="#{row.HowlaType}" id="ot9"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.TradingDate.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.TradingDate.label}" id="c10" width="60">
+                    <af:outputText value="#{row.TradingDate}" id="ot10">
+                      <af:convertDateTime pattern="#{bindings.FundSettlemetVO.hints.TradingDate.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.FundSettlemetVO.hints.SettlementDate.name}" sortable="false"
+                             headerText="#{bindings.FundSettlemetVO.hints.SettlementDate.label}" id="c11" width="60">
+                    <af:outputText value="#{row.SettlementDate}" id="ot11">
+                      <af:convertDateTime pattern="#{bindings.FundSettlemetVO.hints.SettlementDate.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column id="c12" width="30">
+                    <af:commandButton text=":::" id="cb1" disabled="#{!pageFlowScope.editable}">
+                        <af:showPopupBehavior triggerType="click" popupId=":::popFund"/>
+                      </af:commandButton>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem text="Share Settlement" id="sdi2">
+              <af:panelCollection id="pc1" inlineStyle="width:580px;" featuresOff="viewMenu ">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                  <af:toolbar id="t4">
+                    <af:commandButton text="Reload" id="cb5" icon="/images/refresh.png"
+                                      actionListener="#{ManualSettlement.instrumentAction}"/>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.InstrumentSettlementsVO.collectionModel}" var="row"
+                          rows="#{bindings.InstrumentSettlementsVO.rangeSize}"
+                          emptyText="#{bindings.InstrumentSettlementsVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.InstrumentSettlementsVO.rangeSize}" rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.InstrumentSettlementsVO.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.InstrumentSettlementsVO.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t2" autoHeightRows="10">
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.ExchangeId.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.ExchangeId.label}" id="c13"
+                             rendered="false">
+                    <af:outputText value="#{row.ExchangeId}" id="ot12">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InstrumentSettlementsVO.hints.ExchangeId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.ShortName.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.ShortName.label}" id="c14" width="55">
+                    <af:outputText value="#{row.ShortName}" id="ot13"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.AccountId.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.AccountId.label}" id="c15"
+                             rendered="false">
+                    <af:outputText value="#{row.AccountId}" id="ot14">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InstrumentSettlementsVO.hints.AccountId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.InvestorCode.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.InvestorCode.label}" id="c16"
+                             width="85">
+                    <af:outputText value="#{row.InvestorCode}" id="ot15"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.Buy.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.Buy.label}" id="c17" width="85">
+                    <af:outputText value="#{row.Buy}" id="ot16">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InstrumentSettlementsVO.hints.Buy.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.Sell.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.Sell.label}" id="c18" width="85">
+                    <af:outputText value="#{row.Sell}" id="ot17">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.InstrumentSettlementsVO.hints.Sell.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.IsForeign.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.IsForeign.label}" id="c19"
+                             rendered="false">
+                    <af:outputText value="#{row.IsForeign}" id="ot18"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.HowlaType.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.HowlaType.label}" id="c20"
+                             rendered="false">
+                    <af:outputText value="#{row.HowlaType}" id="ot19"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.TradingDate.name}" sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.TradingDate.label}" id="c21"
+                             width="64">
+                    <af:outputText value="#{row.TradingDate}" id="ot20">
+                      <af:convertDateTime pattern="#{bindings.InstrumentSettlementsVO.hints.TradingDate.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.InstrumentSettlementsVO.hints.SettlementDate.name}"
+                             sortable="false"
+                             headerText="#{bindings.InstrumentSettlementsVO.hints.SettlementDate.label}" id="c22"
+                             width="66">
+                    <af:outputText value="#{row.SettlementDate}" id="ot21">
+                      <af:convertDateTime pattern="#{bindings.InstrumentSettlementsVO.hints.SettlementDate.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column id="c23" width="30">
+                    <af:commandButton text=":::" id="cb2" disabled="#{!pageFlowScope.editable}">
+                        <af:showPopupBehavior popupId=":::popInstrument" triggerType="click"/>
+                      </af:commandButton>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:showDetailItem>
+          </af:panelTabbed>
+        </af:panelBox>
+      </af:panelGroupLayout>
+    </f:facet>
+    
+  </af:decorativeBox>
+
+      <af:popup childCreation="deferred" id="popFund" >
+      <af:dialog id="d1" dialogListener="#{ManualSettlement.popFundSettle}"
+                 title="Are you sure you want to Change?">
+        <f:facet name="buttonBar"/>
+        <af:inputText label="Previous" id="it1" columns="20" readOnly="true"
+                      value="#{bindings.FundSettlementDate.inputValue}"/>
+        <af:inputDate label="Current" id="id2" columns="20" binding="#{ManualSettlement.settleDate}"/>
+      </af:dialog>
+    </af:popup>
+    
+    <af:popup childCreation="deferred" id="popInstrument">
+      <af:dialog id="d2" dialogListener="#{ManualSettlement.popInstruSettle}"
+                 title="Are you sure you want to Change?">
+        <f:facet name="buttonBar"/>
+        <af:inputText label="Previous" id="it2" columns="20" readOnly="true"
+                      value="#{bindings.InstruSettlementDate.inputValue}"/>
+        <af:inputDate label="Current" id="id3" columns="20" binding="#{ManualSettlement.settleDate}"/>
+      </af:dialog>
+    </af:popup>  
+    
+  </af:panelGroupLayout>
+</ui:composition>

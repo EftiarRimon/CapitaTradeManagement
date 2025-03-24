@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="BdaAllocationPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="InvListForBdaAllocationVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="InvListForBdaAllocationVOIterator"/>
+        <searchRegion Criteria="InvListForBdaAllocationVOCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="InvListForBdaAllocationVOIterator" id="InvListForBdaAllocationVOCriteriaQuery"/>
+        <iterator Binds="BDASearchPurchaseOrderVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BDASearchPurchaseOrderVOIterator"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="BDASearchPurchaseOrderVOIterator" id="BDASearchPurchaseOrderVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BDASearchPurchaseOrderVO"
+                            Name="BDASearchPurchaseOrderVO0">
+                <AttrNames>
+                    <Item Value="AccountId"/>
+                    <Item Value="AllocationDate"/>
+                    <Item Value="AllocationQty"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="Price"/>
+                    <Item Value="PurchaseOrderId"/>
+                    <Item Value="Status"/>
+                    <Item Value="TradeCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <tree IterBinding="InvListForBdaAllocationVOIterator" id="InvListForBdaAllocationVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.InvListForBdaAllocationVO"
+                            Name="InvListForBdaAllocationVO0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="Price"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="InstrumentName"/>
+                    <Item Value="ShortName"/>
+                    <Item Value="PurchaseOrderId"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="Status"/>
+                    <Item Value="AppliedQty"/>
+                    <Item Value="TradeQty"/>
+                    <Item Value="TradePrice"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

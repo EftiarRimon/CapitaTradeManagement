@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InstrumentGroupLOV"
+  Version="11.1.2.60.81"
+  SelectList="InstrumentGroup.CODE, 
+       InstrumentGroup.TITLE"
+  FromList="INSTRUMENT_GROUP InstrumentGroup"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="InstrumentGroup.Title &lt;> 'ABGN'">
+  <EntityUsage
+    Name="InstrumentGroup"
+    Entity="leads.capita.trade.model.entity.InstrumentGroup"/>
+  <ViewAttribute
+    Name="Code"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Code"
+    EntityUsage="InstrumentGroup"
+    AliasName="CODE"/>
+  <ViewAttribute
+    Name="Title"
+    PrecisionRule="true"
+    EntityAttrName="Title"
+    EntityUsage="InstrumentGroup"
+    AliasName="TITLE"/>
+</ViewObject>

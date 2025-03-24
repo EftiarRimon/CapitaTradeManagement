@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="year-end-flow">
+    <default-activity>YearEnd</default-activity>
+    <managed-bean id="__1">
+      <managed-bean-name>YearEndProcessor</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.YearEndProcessor</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="YearEnd">
+      <page>/tmFragments/YearEnd.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

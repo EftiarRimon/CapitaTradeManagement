@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiErrSummaryDetailsVO"
+  Version="11.1.2.60.81"
+  SelectList="FtiErrSummaryDetails.ROW_SEQ_ID, 
+       FtiErrSummaryDetails.SUM_SEQ_ID, 
+       FtiErrSummaryDetails.ERR_TEXT, 
+       FtiErrSummaryDetails.COL_NUM, 
+       FtiErrSummaryDetails.LINE_NUM, 
+       FtiErrSummaryDetails.ERR_CODE, 
+       FtiErrSummaryDetails.XML_TAG"
+  FromList="FTI_ERR_SUMMARY_DETAILS FtiErrSummaryDetails"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <EntityUsage
+    Name="FtiErrSummaryDetails"
+    Entity="leads.capita.trade.model.entity.FtiErrSummaryDetails"/>
+  <ViewAttribute
+    Name="RowSeqId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RowSeqId"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="ROW_SEQ_ID"
+    IsUpdateable="while_insert"/>
+  <ViewAttribute
+    Name="SumSeqId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="SumSeqId"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="SUM_SEQ_ID"/>
+  <ViewAttribute
+    Name="ErrText"
+    PrecisionRule="true"
+    EntityAttrName="ErrText"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="ERR_TEXT"/>
+  <ViewAttribute
+    Name="ColNum"
+    PrecisionRule="true"
+    EntityAttrName="ColNum"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="COL_NUM"/>
+  <ViewAttribute
+    Name="LineNum"
+    PrecisionRule="true"
+    EntityAttrName="LineNum"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="LINE_NUM"/>
+  <ViewAttribute
+    Name="ErrCode"
+    PrecisionRule="true"
+    EntityAttrName="ErrCode"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="ERR_CODE"/>
+  <ViewAttribute
+    Name="XmlTag"
+    PrecisionRule="true"
+    EntityAttrName="XmlTag"
+    EntityUsage="FtiErrSummaryDetails"
+    AliasName="XML_TAG"/>
+</ViewObject>

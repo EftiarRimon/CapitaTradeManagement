@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="bdaAllocationPageDef"
+                Package="tmTestPages">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <taskFlow id="bdaallocationflow1" taskFlowId="/tmPageFlows/bda-allocation-flow.xml#bda-allocation-flow"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    </executables>
+    <bindings/>
+</pageDefinition>

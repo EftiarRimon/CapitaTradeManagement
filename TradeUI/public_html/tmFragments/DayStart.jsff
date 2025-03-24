@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+  <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                  xmlns:f="http://java.sun.com/jsf/core" xmlns:facelets="http://xmlns.oracle.com/jdev/webapp/facelets">
+    <af:panelGroupLayout id="pgl0" inlineStyle="height:480px; width:750px;" layout="vertical">
+      <af:decorativeBox id="db1" inlineStyle="height:480px; width:750px;">
+        <f:facet name="center">
+        <af:panelBox text="Day Start Process" id="pb1">
+          <f:facet name="toolbar">
+            <af:panelGroupLayout id="pgl1" halign="right" layout="horizontal">
+              <af:commandButton text="Execute Day Start" id="cb1" action="#{EodBean.executeDayStart}"
+                                icon="/images/action.png" inlineStyle="font-weight:bolder;"
+                                disabled="#{!EodBean.allowDayStartPrevilige}"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <af:panelSplitter id="ps1" splitterPosition="100" orientation="vertical" collapsed="false">
+            <f:facet name="first">
+              <af:panelGroupLayout id="pgl2" layout="vertical" valign="middle" halign="center"
+                                   inlineStyle="padding:25px 0px 0px;">
+                <af:outputText value="#{EodBean.dayStartStatus}" id="ot7"
+                               inlineStyle="font-size:20px; text-align:center; font-weight:bolder;"/>
+              </af:panelGroupLayout>
+            </f:facet>
+            <f:facet name="second">
+              <af:decorativeBox id="db2">
+                <f:facet name="center">
+                  <af:table value="#{bindings.DayStartVO.collectionModel}" var="row"
+                            rows="#{bindings.DayStartVO.rangeSize}"
+                            emptyText="#{bindings.DayStartVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                            fetchSize="#{bindings.DayStartVO.rangeSize}" rowBandingInterval="0"
+                            selectedRowKeys="#{bindings.DayStartVO.collectionModel.selectedRow}"
+                            selectionListener="#{bindings.DayStartVO.collectionModel.makeCurrent}" rowSelection="single"
+                            id="t1">
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.Serial.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.Serial.label}" id="c1" width="30">
+                      <af:outputText value="#{row.Serial}" id="ot1">
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.DayStartVO.hints.Serial.format}"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.ChildId.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.ChildId.label}" id="c2" rendered="false">
+                      <af:outputText value="#{row.ChildId}" id="ot2">
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.DayStartVO.hints.ChildId.format}"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.Name.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.Name.label}" id="c3" width="200">
+                      <af:outputText value="#{row.Name}" id="ot3"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.ExecDate.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.ExecDate.label}" id="c0" rendered="false">
+                      <af:outputText value="#{row.Status}" id="ot0"/>
+                    </af:column>
+                    
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.Status.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.Status.label}" id="c4" width="30"
+                               inlineStyle="#{row.Status eq 'Failed'? 'color:red;':''}">
+                      <af:outputText value="#{row.Status}" id="ot4"/>
+                    </af:column>
+                    <af:column headerText="Branch Name" id="c7">
+                      <af:selectOneChoice value="#{row.bindings.BranchId.inputValue}"
+                                          label="#{row.bindings.BranchId.label}"
+                                          required="#{bindings.DayStartVO.hints.BranchId.mandatory}"
+                                          shortDesc="#{bindings.DayStartVO.hints.BranchId.tooltip}" readOnly="true"
+                                          id="soc1">
+                        <f:selectItems value="#{row.bindings.BranchId.items}" id="si1"/>
+                      </af:selectOneChoice>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.StoredProc.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.StoredProc.label}" id="c5" rendered="false">
+                      <af:outputText value="#{row.StoredProc}" id="ot5"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.DayStartVO.hints.ErrorText.name}" sortable="false"
+                               headerText="#{bindings.DayStartVO.hints.ErrorText.label}" id="c6" width="320">
+                      <af:outputText value="#{row.ErrorText}" id="ot6"/>
+                    </af:column>
+                  </af:table>
+                </f:facet>
+              </af:decorativeBox>
+            </f:facet>
+          </af:panelSplitter>
+        </af:panelBox>
+      </f:facet>
+      </af:decorativeBox>
+      
+    </af:panelGroupLayout>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:EodBean-->
+</ui:composition>
+

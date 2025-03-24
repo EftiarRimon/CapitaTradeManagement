@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="bda-purchase-flow">
+    <default-activity>BdaPurchaseDefault</default-activity>
+    <input-parameter-definition id="__1">
+      <name>editable</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <view id="BdaPurchase">
+      <page>/tmFragments/BdaPurchase.jsff</page>
+    </view>
+    <view id="BdaPurchaseDefault">
+      <page>/tmFragments/BdaPurchaseDefault.jsff</page>
+    </view>
+    <view id="BdaAllocation">
+      <page>/tmFragments/BdaPurchaseAllocation.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>BdaPurchaseDefault</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>goBdaPurchaseProcess</from-outcome>
+        <to-activity-id>BdaPurchase</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__8">
+        <from-outcome>goBdaAllocation</from-outcome>
+        <to-activity-id>BdaAllocation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>BdaPurchase</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>BdaPurchaseDefault</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>BdaAllocation</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>backAllocation</from-outcome>
+        <to-activity-id>BdaPurchaseDefault</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="bdaBuyDetailPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BdaBuyOrdersVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaBuyOrdersVOIterator"/>
+        <iterator Binds="BdaBuyOrdersDetailVO" RangeSize="-1" DataControl="BdaServiceDataControl"
+                  id="BdaBuyOrdersDetailVOIterator"/>
+        <searchRegion Binds="BdaBuyOrdersDetailVOIterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BdaBuyOrdersDetailVOQuery"/>
+        <iterator id="BdaBuyOrderInvListIterator" Binds="BdaBuyOrderInvList" DataControl="BdaServiceDataControl"
+                  RangeSize="-1"/>
+        <iterator id="BdaBuyAllocInvListIterator" Binds="BdaBuyAllocInvList" DataControl="BdaServiceDataControl"
+                  RangeSize="-1"/>
+        <iterator Binds="BdaOrdersFilterVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BdaOrdersFilterVOIterator"/>
+    </executables>
+    <bindings>
+        <list IterBinding="BdaBuyOrdersVOIterator" StaticList="false" Uses="LOV_ExchangeId" id="ExchangeId"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <list IterBinding="BdaBuyOrdersVOIterator" StaticList="false" Uses="LOV_BuySell" id="BuySell"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="AllocDate">
+            <AttrNames>
+                <Item Value="AllocDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="OrderDate">
+            <AttrNames>
+                <Item Value="OrderDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="ProcessDate">
+            <AttrNames>
+                <Item Value="ProcessDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="TradePrice">
+            <AttrNames>
+                <Item Value="TradePrice"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="TradeQuantity">
+            <AttrNames>
+                <Item Value="TradeQuantity"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BdaBuyOrdersVOIterator" StaticList="false" Uses="LOV_Status" id="Status"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="OrderId">
+            <AttrNames>
+                <Item Value="OrderId"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="BdaBuyOrdersDetailVOIterator" id="BdaBuyOrdersDetailVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaBuyOrdersDetailVO" Name="BdaBuyOrdersDetailVO0">
+                <AttrNames>
+                    <Item Value="AccountId"/>
+                    <Item Value="AllocQuantity"/>
+                    <Item Value="DetailId"/>
+                    <Item Value="OrderId"/>
+                    <Item Value="OrderQuantity"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action IterBinding="BdaBuyOrdersDetailVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BdaBuyOrdersDetailVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <action IterBinding="BdaOrdersFilterVOIterator" id="ExecuteWithParams"
+                InstanceName="BdaServiceDataControl.BdaOrdersFilterVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="executeWithParams">
+            <NamedData NDName="orderId" NDType="java.lang.Integer"/>
+        </action>
+        <listOfValues StaticList="false" IterBinding="BdaBuyOrdersDetailVOIterator" Uses="LOV_InvestorCode"
+                      id="InvestorCode"/>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="Name">
+            <AttrNames>
+                <Item Value="Name"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="AllocQuantity">
+            <AttrNames>
+                <Item Value="AllocQuantity"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="OrderQuantity">
+            <AttrNames>
+                <Item Value="OrderQuantity"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="AccountId">
+            <AttrNames>
+                <Item Value="AccountId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="DetailId">
+            <AttrNames>
+                <Item Value="DetailId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaBuyOrdersDetailVOIterator" id="OrderId1">
+            <AttrNames>
+                <Item Value="OrderId"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="isDateOver">
+            <AttrNames>
+                <Item Value="isDateOver"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BdaBuyOrdersVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+              DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaBuyOrdersVOIterator" id="OrderPrice">
+            <AttrNames>
+                <Item Value="OrderPrice"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BdaBuyOrdersVOIterator" StaticList="false" Uses="LOV_TradeCode" id="TradeCode"
+              DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    </bindings>
+</pageDefinition>

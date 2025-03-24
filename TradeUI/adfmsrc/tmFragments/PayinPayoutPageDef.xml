@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="PayinPayoutPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <iterator Binds="PayinPayoutVO" RangeSize="25" DataControl="TradeFileServiceDataControl" id="PayinPayoutVOIterator"
+              ChangeEventPolicy="none"/>
+    <iterator Binds="PayinSettlementListVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="PayinSettlementListVOIterator" ChangeEventPolicy="none"/>
+    <iterator Binds="PayoutSettlementListVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="PayoutSettlementListVOIterator" ChangeEventPolicy="none"/>
+    <iterator id="InstrPayinOutVOIterator" Binds="InstrPayinOutVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="-1"/>
+    <iterator id="InstrPayOutVOIterator" Binds="InstrPayOutVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_BusinessType" id="BusinessType"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Type" id="Type" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Broker" id="Broker" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="PayinPayoutVOIterator" id="generatedFileName">
+      <AttrNames>
+        <Item Value="generatedFileName"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="PayinPayoutVOIterator" StaticList="false" Uses="LOV_Exchange" id="Exchange" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <tree IterBinding="PayinSettlementListVOIterator" id="PayinSettlementListVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PayinSettlementListVO" Name="PayinSettlementListVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Boid"/>
+          <Item Value="BranchId"/>
+          <Item Value="BrokerCode"/>
+          <Item Value="BusinessType"/>
+          <Item Value="ExchangeCode"/>
+          <Item Value="InsSettleId"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="Isin"/>
+          <Item Value="Name"/>
+          <Item Value="Sell"/>
+          <Item Value="ProductName"/>
+          <Item Value="Buy"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PayoutSettlementListVOIterator" id="PayoutSettlementListVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PayoutSettlementListVO" Name="PayoutSettlementListVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Boid"/>
+          <Item Value="BranchId"/>
+          <Item Value="BrokerCode"/>
+          <Item Value="BusinessType"/>
+          <Item Value="ExchangeCode"/>
+          <Item Value="InsSettleId"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="Isin"/>
+          <Item Value="Name"/>
+          <Item Value="Sell"/>
+          <Item Value="ProductName"/>
+          <Item Value="Buy"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PayinPayoutVOIterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="PayinPayoutVOIterator" id="ProductType" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="ProductType"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

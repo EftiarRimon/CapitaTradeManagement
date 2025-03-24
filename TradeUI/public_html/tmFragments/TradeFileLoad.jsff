@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+  <af:panelGroupLayout id="pgl1" inlineStyle="height:480px; width:800px;" layout="vertical">
+    <af:decorativeBox id="db1" inlineStyle="height:480px; width:900px;" dimensionsFrom="children">
+      <f:facet name="center">
+        <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top" inlineStyle="height:inherit; width:inherit;">
+          <af:panelBox text="Trade File Process" id="pb1" background="light" titleHalign="center"
+                       inlineStyle="height:inherit; width:600px;" type="flow" showDisclosure="false">
+            <f:facet name="toolbar">
+              <af:panelGroupLayout id="pgl2" halign="end" layout="horizontal">
+                <af:outputText id="ot8" inlineStyle="font-weight:bold; text-align:center;"
+                               value="#{FileUploadBean.onloadText}"/>
+                <af:commandButton text="Load" id="cbUpLoad" icon="/images/import.png" inlineStyle="font-weight:bold;"
+                                  partialTriggers="pc1:t1" disabled="#{FileUploadBean.fileCode.value=='x'}"
+                                  clientComponent="true" action="#{FileUploadBean.doUpload}" partialSubmit="true"/>
+              </af:panelGroupLayout>
+            </f:facet>
+            <af:panelGroupLayout id="pgl3" layout="horizontal" valign="middle" inlineStyle="width:590px;">
+              <af:panelFormLayout id="pfl1" rows="6">
+                <af:inputDate label="Trading Date" id="idToDate" binding="#{FileUploadBean.toDate}" autoSubmit="true"
+                              valueChangeListener="#{FileUploadBean.dateExchageChange}">
+                  <af:convertDateTime pattern="dd/MM/yyyy"/>
+                </af:inputDate>
+                <af:outputText id="otTradeFile" partialTriggers=""/>
+                <af:inputFile id="ifSelect" simple="false" valueChangeListener="#{FileUploadBean.fileSelect}"
+                              label="File Name"/>
+                <af:inputFile label="Control File Name" id="if1" shortDesc="Upload Control File"
+                              valueChangeListener="#{FileUploadBean.fileSelectControl}"
+                              disabled="#{!FileUploadBean.controlRequired}"/>
+                <af:selectOneChoice value="#{bindings.TradeFileConfVO.inputValue}"
+                                    label="File Type"
+                                    required="#{bindings.TradeFileConfVO.hints.mandatory}"
+                                    shortDesc="#{bindings.TradeFileConfVO.hints.tooltip}" id="soc1"
+                                    binding="#{FileUploadBean.tradeFileRadio}" autoSubmit="true"
+                                    valueChangeListener="#{FileUploadBean.tradeFileChange}">
+                  <f:selectItems value="#{bindings.TradeFileConfVO.items}" id="si1"/>
+                </af:selectOneChoice>
+              </af:panelFormLayout>
+            </af:panelGroupLayout>
+            <af:panelBox text="PanelBox1" id="pb2" showHeader="never" type="stretch" inlineStyle="width:590px;"
+                         partialTriggers="idToDate pc1 pc1:t1">
+              <f:facet name="toolbar"/>
+              <af:panelCollection id="pc1" featuresOff="viewMenu" inlineStyle="width:inherit; height:inherit;">
+                <f:facet name="menus">
+                  <af:menu text="File List" id="m1" icon="/images/list.png" inlineStyle="font-weight:bolder;"/>
+                </f:facet>
+                <f:facet name="toolbar"/>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.ImportExtFilesVO.collectionModel}" var="row"
+                          rows="#{bindings.ImportExtFilesVO.rangeSize}"
+                          emptyText="#{bindings.ImportExtFilesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.ImportExtFilesVO.rangeSize}" rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.ImportExtFilesVO.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.ImportExtFilesVO.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                          inlineStyle="background-color:White; height:inherit; width:inherit;"
+                          partialTriggers=":::cbUpLoad :::idToDate :::soc1">
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.ImportId.name}" sortable="false"
+                             headerText="#{bindings.ImportExtFilesVO.hints.ImportId.label}" id="c1" rendered="false">
+                    <af:outputText value="#{row.ImportId}" id="ot1">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ImportExtFilesVO.hints.ImportId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.FileId.name}" sortable="false"
+                             headerText="File" id="c2" rendered="false">
+                    <af:outputText value="#{row.FileId}" id="ot2"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.FileTitle.name}" sortable="false"
+                             headerText="File" id="c0" rendered="true" width="60">
+                    <af:outputText value="#{row.FileTitle}" id="ot0"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.FileDate.name}" sortable="false"
+                             headerText="Import Date" id="c4" width="70">
+                    <af:outputText value="#{row.FileDate}" id="ot4">
+                      <af:convertDateTime pattern="#{bindings.ImportExtFilesVO.hints.FileDate.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.ValidateRec.name}" sortable="false"
+                             headerText="Validate" id="c7" width="45">
+                    <af:outputText value="#{row.ValidateRec}" id="ot7">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ImportExtFilesVO.hints.ValidateRec.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.ErrorRec.name}" sortable="false"
+                             headerText="Error" id="c3" width="30">
+                    <af:outputText value="#{row.ErrorRec}" id="ot3">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ImportExtFilesVO.hints.ErrorRec.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.ProcessedRec.name}" sortable="false"
+                             headerText="Processed" id="c5" width="50">
+                    <af:outputText value="#{row.ProcessedRec}" id="ot5">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ImportExtFilesVO.hints.ProcessedRec.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.TotalRec.name}" sortable="false"
+                             headerText="Total" id="c6" width="40">
+                    <af:outputText value="#{row.TotalRec}" id="ot6">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ImportExtFilesVO.hints.TotalRec.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.ImportExtFilesVO.hints.FileName.name}" sortable="false"
+                             headerText="#{bindings.ImportExtFilesVO.hints.FileName.label}" id="c18">
+                    <af:inputText value="#{row.bindings.FileName.inputValue}"
+                                  label="#{bindings.ImportExtFilesVO.hints.FileName.label}"
+                                  required="#{bindings.ImportExtFilesVO.hints.FileName.mandatory}"
+                                  columns="#{bindings.ImportExtFilesVO.hints.FileName.displayWidth}"
+                                  maximumLength="#{bindings.ImportExtFilesVO.hints.FileName.precision}"
+                                  shortDesc="#{bindings.ImportExtFilesVO.hints.FileName.tooltip}" id="it2"
+                                  readOnly="true">
+                      <f:validator binding="#{row.bindings.FileName.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column id="c14" width="50" align="center" rendered="false">
+                    <af:commandButton id="cbPreview" icon="/images/previewsmall.png" shortDesc=" Preview Price File"
+                                      action="goPriceFile" text="Price"/>
+                  </af:column>
+                  <af:column id="c10" width="30" rendered="false">
+                    <af:commandButton id="cb1" icon="/images/previewsmall.png" shortDesc="Preview MSA File"
+                                      action="#{FileUploadBean.getTaskFlow}"/>
+                  </af:column>
+                  <af:column id="c11" width="30" align="center">
+                    <af:commandButton id="cb3" icon="/images/previewsmall.png" shortDesc="View File Detail"
+                                      action="#{FileUploadBean.getPageName}"
+                                      actionListener="#{FileUploadBean.goToTaskFlow}"
+                                      disabled="#{(FileUploadBean.tradeFileType eq 'TB_TRADE_DSE') or (FileUploadBean.tradeFileType eq 'TB_TRADE_CSE') or (FileUploadBean.tradeFileType eq 'TB_PRICE')}"/>
+                  </af:column>
+                  <af:column id="c12" width="50" align="center" rendered="false">
+                    <af:commandButton id="cb4" icon="/images/previewsmall.png" shortDesc="Preview BT File"
+                                      action="goBtFile" text="BT"/>
+                  </af:column>
+                  <af:column id="c16" width="30" align="center">
+                    <af:commandButton id="cb2" action="goFileErrors" icon="/images/error.png"
+                                      shortDesc="Show Error List"
+                                      disabled="#{row.bindings.ProcessedRec.inputValue gt 0}"/>
+                  </af:column>
+                  <af:column id="c8" width="30" rendered="false">
+                    <af:commandButton id="cbReloadData" rendered="#{FileUploadBean.tradeFileType!='PRICE'}"
+                                      icon="/images/reload.png" shortDesc="Reload"/>
+                  </af:column>
+                  <af:column id="c9" width="40" align="center">
+                    <af:commandButton id="cbDelete" icon="/images/remove_file.png" shortDesc="Delete File"
+                                      action="#{FileUploadBean.deleteThisFile}"
+                                      disabled="#{(row.bindings.FileId.inputValue eq 'PRICE_DSE_REPORT' and row.bindings.ProcessedRec.inputValue gt 0) or (row.bindings.ProcessedRec.inputValue gt 0)}"
+                                      partialTriggers="c0 c5"/>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:panelBox>
+          </af:panelBox>
+          <af:panelBox text="Trade File List" id="pb3" inlineStyle="width:280px;" partialTriggers="pc2 pc2:t3"
+                       showDisclosure="false" background="light" type="stretch">
+            <f:facet name="toolbar">
+              <af:toolbar id="t2">
+                <af:commandButton text="Load Files from FTP" id="cb5" icon="/images/go-down.png"
+                                  action="#{FileUploadBean.loadFilesFromFTP}"
+                                  disabled="#{bindings.FileId1.inputValue eq 'PRICE_DSE_REPORT' or bindings.FileId1.inputValue eq 'MSAPLUS' or bindings.FileId1.inputValue eq 'BT'}"
+                                  partialTriggers="soc1"/>
+              </af:toolbar>
+            </f:facet>
+            <af:panelCollection id="pc2" inlineStyle="height:inherit; width:inherit;">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar"/>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.FtiFtpFilesVO.collectionModel}" var="row"
+                        rows="#{bindings.FtiFtpFilesVO.rangeSize}"
+                        emptyText="#{bindings.FtiFtpFilesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.FtiFtpFilesVO.rangeSize}" rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.FtiFtpFilesVO.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.FtiFtpFilesVO.collectionModel.makeCurrent}" rowSelection="single"
+                        id="t3" inlineStyle="height:inherit; width:inherit;" autoHeightRows="10"
+                        contentDelivery="immediate" partialTriggers=":::soc1">
+                <af:column sortProperty="#{bindings.FtiFtpFilesVO.hints.FileName.name}" sortable="true"
+                           headerText="File Name" id="c13" width="180">
+                  <af:outputText value="#{row.FileName}" id="ot9"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.FtiFtpFilesVO.hints.Status.name}" sortable="false"
+                           headerText="#{bindings.FtiFtpFilesVO.hints.Status.label}" id="c17" width="30"
+                           visible="false">
+                  <af:inputText value="#{row.bindings.Status.inputValue}"
+                                label="#{bindings.FtiFtpFilesVO.hints.Status.label}"
+                                required="#{bindings.FtiFtpFilesVO.hints.Status.mandatory}"
+                                columns="#{bindings.FtiFtpFilesVO.hints.Status.displayWidth}"
+                                maximumLength="#{bindings.FtiFtpFilesVO.hints.Status.precision}"
+                                shortDesc="#{bindings.FtiFtpFilesVO.hints.Status.tooltip}" id="it1" readOnly="true">
+                    <f:validator binding="#{row.bindings.Status.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column id="c15" align="center" width="60">
+                  <af:commandButton text="Load" id="cb6" icon="/images/file_upload.png" shortDesc="Upload FTP File"
+                                    action="#{FileUploadBean.dumpFlexTradeFileFrmFTP}"
+                                    disabled="#{bindings.FileId1.inputValue eq 'PRICE_DSE_REPORT' or bindings.FileId1.inputValue eq 'MSAPLUS' or bindings.FileId1.inputValue eq 'BT' or row.bindings.Status.inputValue eq 'P'}"
+                                    partialTriggers="::t3"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelBox>
+        </af:panelGroupLayout>
+      </f:facet>
+    </af:decorativeBox>
+     <af:resource type="javascript">
+          function onPopupOpened(event){
+          AdfCustomEvent.queue(event.getSource(), "popupOpenListner",{ }, false);
+        }      
+     </af:resource>
+
+    <af:popup childCreation="deferred" autoCancel="disabled" id="spinnerPopUp" contentDelivery="immediate"
+              clientComponent="true">
+        <af:dialog id="d11" title=" " closeIconVisible="false" type="none"
+                   inlineStyle="width:200px; height:50px;">
+            <af:panelGroupLayout id="pgl14" layout="vertical"
+                                 inlineStyle="width:200px; height:50px;">
+                <af:panelGroupLayout id="pgl13" layout="horizontal">
+                    <af:spacer width="80" height="10" id="s1"/>
+                    <af:image shortDesc="Wait" id="i1"
+                              inlineStyle="text-align:center;" source="/images/loading.gif"/>
+                </af:panelGroupLayout>
+                <af:outputText value="Wait  to complete  ..." id="ot12"
+                               inlineStyle="color:Purple; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10pt;"/>
+            </af:panelGroupLayout>
+        </af:dialog>
+        <af:clientListener method="onPopupOpened" type="popupOpened"/>
+        <af:serverListener type="popupOpenListner" method="#{FileUploadBean.ProcessAction}"/>
+    </af:popup>
+    <af:popup childCreation="deferred" id="pNoPriceFile" binding="#{FileUploadBean.popNoPriceFile}"
+              popupCanceledListener=" ">
+      <af:dialog id="d1" title="Today's price file not found ! Please upload the price file!!" type="ok">
+        <f:facet name="buttonBar"/>
+      </af:dialog>
+    </af:popup>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="popFileDelete">
+      <af:dialog id="d2" dialogListener="#{FileUploadBean.showPopupFileDeletion}"
+                 title="Are you sure you want to delete?">
+        <f:facet name="buttonBar"/>
+      </af:dialog>
+    </af:popup>
+  </af:panelGroupLayout>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:FileUploadBean-->
+</ui:composition>

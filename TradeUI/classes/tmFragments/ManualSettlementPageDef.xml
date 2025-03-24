@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="ManualSettlementPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FundSettlemetVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FundSettlemetVOIterator"/>
+    <iterator Binds="InstrumentSettlementsVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="InstrumentSettlementsVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FundSettlemetVOIterator" id="FundSettlemetVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FundSettlemetVO" Name="FundSettlemetVO0">
+        <AttrNames>
+          <Item Value="Id"/>
+          <Item Value="ExchangeId"/>
+          <Item Value="ShortName"/>
+          <Item Value="AccountId"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="BuyAmount"/>
+          <Item Value="SellAmount"/>
+          <Item Value="NettedAmount"/>
+          <Item Value="IsForeign"/>
+          <Item Value="HowlaType"/>
+          <Item Value="TradingDate"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="InstrumentSettlementsVOIterator" id="InstrumentSettlementsVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.InstrumentSettlementsVO" Name="InstrumentSettlementsVO0">
+        <AttrNames>
+          <Item Value="Id"/>        
+          <Item Value="ExchangeId"/>
+          <Item Value="ShortName"/>
+          <Item Value="AccountId"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="Buy"/>
+          <Item Value="Sell"/>
+          <Item Value="IsForeign"/>
+          <Item Value="HowlaType"/>
+          <Item Value="TradingDate"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="FundSettlemetVOIterator" id="FundSettlementDate">
+      <AttrNames>
+        <Item Value="SettlementDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InstrumentSettlementsVOIterator" id="InstruSettlementDate">
+      <AttrNames>
+        <Item Value="SettlementDate"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

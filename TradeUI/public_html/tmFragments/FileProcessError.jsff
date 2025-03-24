@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:group id="g1">
+                <af:decorativeBox id="db1" inlineStyle="height:480px; width:700px;" dimensionsFrom="children">
+                    <f:facet name="center">
+                        <af:panelGroupLayout layout="default" id="pgl2" inlineStyle="height:inherit; width:inherit;">
+                            <af:panelBox text="Error Details" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                         type="flow">
+                                <f:facet name="toolbar">
+                                    <af:panelGroupLayout id="pgl3">
+                                        <af:commandButton text="Back to File List" id="cb1" icon="/images/go-table.png"
+                                                          action="backFromError"
+                                                          actionListener="#{bindings.Rollback.execute}"/>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                                <af:panelGroupLayout layout="vertical" id="pgl4"
+                                                     inlineStyle="height:inherit; width:inherit;">
+                                    <af:query id="qryId1" headerText="Search" disclosed="true"
+                                              value="#{bindings.FileProcessErrorVOCriteriaQuery.queryDescriptor}"
+                                              model="#{bindings.FileProcessErrorVOCriteriaQuery.queryModel}"
+                                              queryListener="#{bindings.FileProcessErrorVOCriteriaQuery.processQuery}"
+                                              queryOperationListener="#{bindings.FileProcessErrorVOCriteriaQuery.processQueryOperation}"
+                                              resultComponentId="::pc1:resId1" saveQueryMode="hidden"
+                                              modeChangeVisible="false" inlineStyle="height:inherit; width:inherit;"/>
+                                    <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                                        <f:facet name="menus">
+                                            <af:menu text="Error Details" id="m1" inlineStyle="font-weight:bolder;"/>
+                                        </f:facet>
+                                        <f:facet name="toolbar">
+                                            <af:toolbar id="t1">
+                                                <af:commandButton text="Delete" id="deleteBtn" icon="/images/delete.png">
+                                                    <af:showPopupBehavior popupId="::fileProcessErrorDelete"
+                                                                          triggerType="action"/>
+                                                </af:commandButton>
+                                                <af:commandButton text="Validate" id="validateBtn"
+                                                                  icon="/images/execute.png"
+                                                                  action="#{backingBeanScope.FileProcessErrorBean.validateBtn_action}"/>
+                                                <af:commandButton text="Deleted Rows" id="cb2" icon="/images/action.png"
+                                                                  action="goDeletedData"/>
+                                            </af:toolbar>
+                                        </f:facet>
+                                        <f:facet name="statusbar"/>
+                                        <af:table value="#{bindings.FileProcessErrorVO.collectionModel}" var="row"
+                                                  rows="#{bindings.FileProcessErrorVO.rangeSize}"
+                                                  emptyText="#{bindings.FileProcessErrorVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                                  fetchSize="#{bindings.FileProcessErrorVO.rangeSize}"
+                                                  rowBandingInterval="1"
+                                                  selectedRowKeys="#{bindings.FileProcessErrorVO.collectionModel.selectedRow}"
+                                                  selectionListener="#{bindings.FileProcessErrorVO.collectionModel.makeCurrent}"
+                                                  rowSelection="single" id="resId1" columnBandingInterval="0"
+                                                  inlineStyle="height:inherit; width:inherit;" autoHeightRows="15"
+                                                  contentDelivery="immediate">
+                                            <af:column sortProperty="#{bindings.FileProcessErrorVO.hints.ImportId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FileProcessErrorVO.hints.ImportId.label}"
+                                                       id="resId1c1" inlineStyle="height:inherit;" width="100">
+                                                <af:outputText value="#{row.ImportId}" id="ot1">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FileProcessErrorVO.hints.ImportId.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FileProcessErrorVO.hints.ErrType.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FileProcessErrorVO.hints.ErrType.label}"
+                                                       id="resId1c2" inlineStyle="height:inherit;" width="100">
+                                                <af:selectOneChoice value="#{row.bindings.ErrType.inputValue}"
+                                                                    label="#{row.bindings.ErrType.label}"
+                                                                    required="#{bindings.FileProcessErrorVO.hints.ErrType.mandatory}"
+                                                                    shortDesc="#{bindings.FileProcessErrorVO.hints.ErrType.tooltip}"
+                                                                    readOnly="true" id="soc1">
+                                                    <f:selectItems value="#{row.bindings.ErrType.items}" id="si1"/>
+                                                </af:selectOneChoice>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FileProcessErrorVO.hints.ErrorDetail.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FileProcessErrorVO.hints.ErrorDetail.label}"
+                                                       id="resId1c3" inlineStyle="height:inherit;" width="155">
+                                                <af:outputText value="#{row.ErrorDetail}" id="ot2"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FileProcessErrorVO.hints.Remarks.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FileProcessErrorVO.hints.Remarks.label}"
+                                                       id="resId1c4" inlineStyle="height:inherit;" width="213">
+                                                <af:outputText value="#{row.Remarks}" id="ot3"/>
+                                            </af:column>
+                                        </af:table>
+                                    </af:panelCollection>
+                                </af:panelGroupLayout>
+                            </af:panelBox>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+                <af:popup childCreation="deferred" autoCancel="disabled" id="fileProcessErrorDelete">
+                    <af:dialog id="d1"
+                               title="Are You Sure You Want To Delete?"
+                               dialogListener="#{FileProcessErrorBean.fileProcErrDelDialogListener}">
+                        <f:facet name="buttonBar"/>
+                    </af:dialog>
+                </af:popup>
+            </af:group>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:FileProcessErrorBean-->
+</ui:composition>

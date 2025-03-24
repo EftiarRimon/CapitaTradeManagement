@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BdaPurchaseOrderVO_Not_Used"
+  Version="11.1.2.60.81"
+  SelectList="BdaPurchaseOrder.ACCOUNT_ID, 
+       BdaPurchaseOrder.PURCHASE_ORDER_ID, 
+       BdaPurchaseOrder.INSTRUMENT_ID, 
+       BdaPurchaseOrder.ORDER_QTY, 
+       BdaPurchaseOrder.ORDER_DATE, 
+       BdaPurchaseOrder.STATUS, 
+       InvestorAccounts.INVESTOR_CODE, 
+       InvestorAccounts.ACCOUNT_ID AS ACCOUNT_ID1, 
+       InvestorAccounts.NAME, 
+       BdaPurchaseOrder.PRICE, 
+       BdaPurchaseOrder.ALLOCATION_DATE, 
+       BdaPurchaseOrder.ALLOCATION_QTY"
+  FromList="BDA_PURCHASE_ORDER BdaPurchaseOrder, INVESTOR_ACCOUNTS InvestorAccounts"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="BdaPurchaseOrder.ACCOUNT_ID = InvestorAccounts.ACCOUNT_ID"
+  RowClass="leads.capita.trade.model.view.BdaPurchaseOrderVO_Not_UsedRowImpl"
+  ComponentClass="leads.capita.trade.model.view.BdaPurchaseOrderVO_Not_UsedImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.BdaPurchaseOrderVO_Not_Used_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="InstrumentLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InstrumentLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CustomLoookupLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['BAD_PURCHASE_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="InvestorAccountsLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InvestorAccountsLOV"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="CustomLoookupLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InvestorCode"
+    ListVOName="InvestorAccountsLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="InvestorCode"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="InvestorCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InvestorCode"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InstrumentId"
+    ListVOName="InstrumentLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InstrumentName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <EntityUsage
+    Name="BdaPurchaseOrder"
+    Entity="leads.capita.trade.model.entity.BdaPurchaseOrder"/>
+  <EntityUsage
+    Name="InvestorAccounts"
+    Entity="leads.capita.trade.model.entity.InvestorAccounts"
+    Association="leads.capita.trade.model.entity.FkBdaPurOrdInvaccIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkBdaPurOrdInvaccIdAssoc.InvestorAccounts"
+    SourceUsage="leads.capita.trade.model.view.BdaPurchaseOrderVO_Not_Used.BdaPurchaseOrder"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="leads.capita.trade.model.entity.BdaPurchaseOrder.AccountId"/>
+      </AttrArray>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="leads.capita.trade.model.entity.InvestorAccounts.AccountId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
+  <ViewAttribute
+    Name="AccountId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AccountId"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="ACCOUNT_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AccountId_LABEL"/>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PurchaseOrderId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PurchaseOrderId"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="PURCHASE_ORDER_ID"
+    IsUpdateable="while_insert"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="PurchaseOrderId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentId"
+    PrecisionRule="true"
+    EntityAttrName="InstrumentId"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="INSTRUMENT_ID"
+    IsQueriable="false"
+    LOVName="LOV_InstrumentId">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="InstrumentId_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderQty"
+    PrecisionRule="true"
+    EntityAttrName="OrderQty"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="ORDER_QTY"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="OrderDate"
+    PrecisionRule="true"
+    EntityAttrName="OrderDate"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="ORDER_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="OrderDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="OrderDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="STATUS"
+    LOVName="LOV_Status"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvestorCode"
+    IsUnique="true"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="InvestorCode"
+    EntityUsage="InvestorAccounts"
+    AliasName="INVESTOR_CODE"
+    LOVName="LOV_InvestorCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="InvestorCode_LABEL"/>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountId1"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AccountId"
+    EntityUsage="InvestorAccounts"
+    AliasName="ACCOUNT_ID1"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="Name"
+    PrecisionRule="true"
+    EntityAttrName="Name"
+    EntityUsage="InvestorAccounts"
+    AliasName="NAME"/>
+  <ViewAttribute
+    Name="Price"
+    PrecisionRule="true"
+    EntityAttrName="Price"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="PRICE"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="AllocationDate"
+    PrecisionRule="true"
+    EntityAttrName="AllocationDate"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="ALLOCATION_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AllocationDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocationQty"
+    PrecisionRule="true"
+    EntityAttrName="AllocationQty"
+    EntityUsage="BdaPurchaseOrder"
+    AliasName="ALLOCATION_QTY"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AllocationQty_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BdaPurchaseOrderVOCriteria"
+    ViewObjectName="leads.capita.trade.model.view.BdaPurchaseOrderVO_Not_Used"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="BdaPurchaseOrderVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="OrderDate"
+        ViewAttribute="OrderDate"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional">
+        <Properties>
+          <CustomProperties>
+            <Property
+              Name="renderedMode"
+              Value="Basic"/>
+          </CustomProperties>
+        </Properties>
+      </ViewCriteriaItem>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="PurchaseOrderId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

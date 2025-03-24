@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TradeFileConf"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="TRADE_FILE_CONF"
+  AliasName="TradeFileConf"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="SerialNo"
+    IsNotNull="true"
+    Precision="3"
+    Scale="0"
+    ColumnName="SERIAL_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_FILE_CONF"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ExchangeId"
+    IsUnique="true"
+    IsNotNull="true"
+    ColumnName="EXCHANGE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="TRADE_FILE_CONF"/>
+  <Attribute
+    Name="FileId"
+    IsUnique="true"
+    Precision="30"
+    ColumnName="FILE_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_FILE_CONF">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileType"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="FILE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_FILE_CONF">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Status"
+    Precision="10"
+    ColumnName="STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_FILE_CONF">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DefaultLocation"
+    Precision="100"
+    ColumnName="DEFAULT_LOCATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="TRADE_FILE_CONF">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="EffectedDate"
+    ColumnName="EFFECTED_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_FILE_CONF"/>
+  <Attribute
+    Name="DiscardedDate"
+    ColumnName="DISCARDED_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="TRADE_FILE_CONF"/>
+  <AccessorAttribute
+    Name="Exchanges"
+    Association="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc.Exchanges"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc.TradeFileConf"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="NnlTradeFileExchangeId">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="NNL_TRADE_FILE_EXCHANGE_ID"/>
+      <Attr Name="_checkCondition" Value="EXCHANGE_ID IS NOT NULL"/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="PkTradeFileConf"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_TRADE_FILE_CONF"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeFileConf.SerialNo"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="TradeConfFileIdUk">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="TRADE_CONF_FILE_ID_UK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeFileConf.FileId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="TradeFileConfType">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="TRADE_FILE_CONF_TYPE"/>
+      <Attr Name="_checkCondition" Value="FILE_TYPE IN ('T', 'P', 'O')"/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="FkTradeFileExchange">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_EXCHANGES"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_TRADE_FILE_EXCHANGE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.TradeFileConf.ExchangeId"/>
+    </AttrArray>
+  </Key>
+</Entity>

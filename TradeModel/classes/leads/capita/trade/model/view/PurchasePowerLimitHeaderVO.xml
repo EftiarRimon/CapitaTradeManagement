@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PurchasePowerLimitHeaderVO"
+  Version="11.1.2.60.81"
+  SelectList="PurchasePowerLimitHeader.ACTIVE_DATE, 
+       PurchasePowerLimitHeader.APPROVE_DT, 
+       PurchasePowerLimitHeader.APPROVED_BY, 
+       PurchasePowerLimitHeader.AT_ACTUAL, 
+       PurchasePowerLimitHeader.CREATED_BY, 
+       PurchasePowerLimitHeader.CREATION_DT, 
+       PurchasePowerLimitHeader.LAST_UPDATE_DT, 
+       PurchasePowerLimitHeader.LAST_UPDATED_BY, 
+       PurchasePowerLimitHeader.OBJECT_VERSION_ID, 
+       PurchasePowerLimitHeader.OPERAND, 
+       PurchasePowerLimitHeader.PCT, 
+       PurchasePowerLimitHeader.PRODUCT_ID, 
+       PurchasePowerLimitHeader.PRODUCT_TYPE, 
+       PurchasePowerLimitHeader.SESSION_ID, 
+       PurchasePowerLimitHeader.STATUS, 
+       PurchasePowerLimitHeader.UK_ID"
+  FromList="PURCHASE_POWER_LIMIT_HEADER PurchasePowerLimitHeader"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.PurchasePowerLimitHeaderVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="CustomLoookupLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['PRODUCT_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ProductsLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.ProductsLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FormulaOperandsLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.FormulaOperandsLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CustomLoookupLOVStatus"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['ACTIVE_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_ProductType"
+    ListVOName="CustomLoookupLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ProductType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ProductId"
+    ListVOName="ProductsLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ProductId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ProductId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ProductName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Operand"
+    ListVOName="FormulaOperandsLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Operand"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Code"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Name"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="CustomLoookupLOVStatus"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <EntityUsage
+    Name="PurchasePowerLimitHeader"
+    Entity="leads.capita.trade.model.entity.PurchasePowerLimitHeader"/>
+  <ViewAttribute
+    Name="ActiveDate"
+    PrecisionRule="true"
+    EntityAttrName="ActiveDate"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="ACTIVE_DATE"/>
+  <ViewAttribute
+    Name="ApproveDt"
+    PrecisionRule="true"
+    EntityAttrName="ApproveDt"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="APPROVE_DT"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="ApprovedBy"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedBy"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="APPROVED_BY"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="AtActual"
+    PrecisionRule="true"
+    EntityAttrName="AtActual"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="AT_ACTUAL"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDt"
+    PrecisionRule="true"
+    EntityAttrName="CreationDt"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="CREATION_DT"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="LastUpdateDt"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDt"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="LAST_UPDATE_DT"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="LAST_UPDATED_BY"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="ObjectVersionId"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionId"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="OBJECT_VERSION_ID"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="Operand"
+    PrecisionRule="true"
+    EntityAttrName="Operand"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="OPERAND"
+    LOVName="LOV_Operand">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Pct"
+    PrecisionRule="true"
+    EntityAttrName="Pct"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="PCT"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="ProductId"
+    PrecisionRule="true"
+    EntityAttrName="ProductId"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="PRODUCT_ID"
+    LOVName="LOV_ProductId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductType"
+    PrecisionRule="true"
+    EntityAttrName="ProductType"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="PRODUCT_TYPE"
+    LOVName="LOV_ProductType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SessionId"
+    PrecisionRule="true"
+    EntityAttrName="SessionId"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="SESSION_ID"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="STATUS"
+    LOVName="LOV_Status">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UkId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="UkId"
+    EntityUsage="PurchasePowerLimitHeader"
+    AliasName="UK_ID"/>
+  <ViewCriteria
+    Name="PurchasePowerLimitHeaderVOCriteria"
+    ViewObjectName="leads.capita.trade.model.view.PurchasePowerLimitHeaderVO"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PurchasePowerLimitHeaderVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="ProductId"
+        ViewAttribute="ProductId"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="ProductType"
+        ViewAttribute="ProductType"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewLinkAccessor
+    Name="PurchasePowerLimitSlabVO"
+    ViewLink="leads.capita.trade.model.view.link.PurchasePowerLimitHeaderSlabLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

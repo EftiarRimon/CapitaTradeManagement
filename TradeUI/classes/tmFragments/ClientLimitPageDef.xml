@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="ClientLimitPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ClientLimitVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="ClientLimitVOIterator"/>
+    <iterator Binds="ClientParameterVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="ClientParameterVOIterator"/>
+    <iterator id="BrokerLOVIterator" Binds="BrokerLOV" DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="MerchantBankVOIterator" Binds="MerchantBankVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <searchRegion Criteria="ClientLimitVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="ClientLimitVOIterator" id="ClientLimitVOCriteriaQuery"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="FlexTradeLimitLOVIterator" Binds="FlexTradeLimitLOV" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="ClientLimitDeactivateAllVOIterator" Binds="ClientLimitDeactivateAllVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="FtiFtpClientFilesVOIterator" Binds="FtiFtpClientFilesVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="InvestorBoardLimitVOIterator" Binds="InvestorBoardLimitVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="-1"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ClientLimitVOIterator" id="ClientLimitVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.ClientLimitVO" Name="ClientLimitVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Boid"/>
+          <Item Value="ProductType"/>
+          <Item Value="BusinessType"/>
+          <Item Value="Name"/>
+          <Item Value="Category"/>
+          <Item Value="BrokerId"/>
+          <Item Value="TradingCode"/>
+          <Item Value="PurchasePower"/>
+          <Item Value="Address"/>
+          <Item Value="Mobile"/>
+          <Item Value="NationalId"/>
+          <Item Value="RatioRate"/>
+          <Item Value="CalculatedPurchasePower"/>
+          <Item Value="AccountStatus"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="ClientParameterVOIterator" id="SystemDate">
+      <AttrNames>
+        <Item Value="SystemDate"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="ClientParameterVOIterator" id="DeactivateAll" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="DeactivateAll"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <button IterBinding="ClientParameterVOIterator" id="DirectFTP" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="DirectFTP"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <button IterBinding="ClientParameterVOIterator" id="WithOwn" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="WithOwn"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <list IterBinding="ClientParameterVOIterator" StaticList="false" Uses="LOV_FileOption" id="FileOption"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="ClientParameterVOIterator" id="BuyLimit">
+      <AttrNames>
+        <Item Value="BuyLimit"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" Uses="LOV_VersionNo" IterBinding="ClientLimitVOIterator" id="VersionNo"/>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiFtpClientFilesVOIterator" id="FtiFtpClientFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFtpClientFilesVO" Name="FtiFtpClientFilesVO0">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="LoadDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="ClientParameterVOIterator" StaticList="false" Uses="LOV_BrokerId" id="BrokerId"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

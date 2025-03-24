@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TransiantVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.TransiantVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="InstrumentTypeLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InstrumentTypeLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="InstrumentByTypeLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomInstrumentLOV">
+    <ViewCriteriaUsage
+      Name="CustomInstrumentLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomInstrumentLOV.CustomInstrumentLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="instrumentType">
+        <TransientExpression><![CDATA[InstrumentType]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_InstrumentType"
+    ListVOName="InstrumentTypeLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InstrumentType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InstrumentId"
+    ListVOName="InstrumentByTypeLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InstrumentName"/>
+      <Item Value="ShortName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery><![CDATA[SELECT pkg_capita_sys.get_current_system_date FROM DUAL]]></SQLQuery>
+  <ViewAttribute
+    Name="GetCurrentSystemDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="GET_CURRENT_SYSTEM_DATE"
+    Expression="GET_CURRENT_SYSTEM_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="Total"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Price"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    IsQueriable="false">
+    <RecalcCondition><![CDATA[false]]></RecalcCondition>
+    <TransientExpression><![CDATA[0]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentType"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    IsQueriable="false"
+    LOVName="LOV_InstrumentType"
+    Precision="25">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+        <AUTOSUBMIT
+          Value="true"/>
+        <LABEL
+          ResId="InstrumentType_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentId"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER"
+    IsQueriable="false"
+    LOVName="LOV_InstrumentId">
+    <Dependencies>
+      <Item
+        Value="InstrumentType"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="InstrumentId_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="GetCurrentSystemDate"/>
+    <Item Value="InstrumentType"/>
+    <Item Value="InstrumentId"/>
+  </AttrArray>
+</ViewObject>

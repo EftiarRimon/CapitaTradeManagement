@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FileProcessErrImportIdFkLink"
+  Version="11.1.2.60.81"
+  EntityAssociation="leads.capita.trade.model.entity.FileProcessErrImportIdFkAssoc">
+  <ViewLinkDefEnd
+    Name="ImportExtFilesVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.ImportExtFilesVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="ImportExtFilesVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.ImportExtFilesVO.ImportId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="FileProcessErrorVO"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.FileProcessErrorVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FileProcessErrorVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FileProcessErrorVO.ImportId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="trdCommChng-foreign-inv-flow">
+    <template-reference>
+      <document>/WEB-INF/templates/capita-task-flow-template.xml</document>
+      <id>capita-task-flow-template</id>
+    </template-reference>
+    <default-activity>ForeignInvTradeCommChnge</default-activity>
+    <managed-bean id="__1">
+      <managed-bean-name>TrdCommChngForeignInv</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.TrdCommChngForeignInv</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="TradeCommChngForeignInv">
+      <page>/tmFragments/TradeCommChngForeignInv.jsff</page>
+    </view>
+    <view id="ForeignInvTradeCommChnge">
+      <page>/tmFragments/ForeignInvTradeCommChnge.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

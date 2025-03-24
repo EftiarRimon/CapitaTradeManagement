@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="bdaBuyOrderPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BDAProductLOV" RangeSize="10" DataControl="BdaServiceDataControl" id="BDAProductLOVIterator"/>
+        <iterator id="BdaOrderDetailForSearchVOIterator" Binds="BdaOrderDetailForSearchVO"
+                  DataControl="BdaServiceDataControl" RangeSize="-1"/>
+        <iterator Binds="BdaOrdersFilterVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaOrdersFilterVOIterator"/>
+        <iterator Binds="BdaBuyOrderInvList" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaBuyOrderInvListIterator"/>
+        <searchRegion Binds="BdaBuyOrderInvListIterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BdaBuyOrderInvListQuery"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="BDAProductLOVIterator" id="BDAProductLOV">
+            <nodeDefinition DefName="leads.capita.trade.model.view.lov.ProductLOV" Name="BDAProductLOV0">
+                <AttrNames>
+                    <Item Value="ProductName"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action IterBinding="BdaOrderDetailForSearchVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BdaOrderDetailForSearchVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <list IterBinding="BdaOrdersFilterVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderDate">
+            <AttrNames>
+                <Item Value="OrderDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderId">
+            <AttrNames>
+                <Item Value="OrderId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderPrice">
+            <AttrNames>
+                <Item Value="OrderPrice"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <tree IterBinding="BdaBuyOrderInvListIterator" id="BdaBuyOrderInvList">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaBuyOrderInvList" Name="BdaBuyOrderInvList0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="ProductId"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="OrderFor"/>
+                    <Item Value="PurchasePower"/>
+                    <Item Value="RemainingPurchasePower"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="TotalShare"/>
+                    <Item Value="AvgCost"/>
+                    <Item Value="CurrentBalance"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

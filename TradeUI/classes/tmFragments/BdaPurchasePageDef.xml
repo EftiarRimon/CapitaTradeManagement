@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="BdaPurchasePageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="InvestorListForBDAPurchaseVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="InvestorListForBDAPurchaseVOIterator"/>
+        <searchRegion Criteria="InvestorListForBDAPurchaseVOCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="InvestorListForBDAPurchaseVOIterator" id="InvestorListForBDAPurchaseVOCriteriaQuery"/>
+        <iterator Binds="TransiantVO" RangeSize="25" DataControl="BdaServiceDataControl" id="TransiantVOIterator"/>
+        <iterator Binds="BDASearchPurchaseOrderVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BDASearchPurchaseOrderVOIterator"/>
+    </executables>
+    <bindings>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action IterBinding="BDASearchPurchaseOrderVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BDASearchPurchaseOrderVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <attributeValues IterBinding="TransiantVOIterator" id="Total">
+            <AttrNames>
+                <Item Value="Total"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="TransiantVOIterator" id="Price">
+            <AttrNames>
+                <Item Value="Price"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <tree IterBinding="BDASearchPurchaseOrderVOIterator" id="BDASearchPurchaseOrderVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BDASearchPurchaseOrderVO"
+                            Name="BDASearchPurchaseOrderVO0">
+                <AttrNames>
+                    <Item Value="AccountId"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="LastUpdatedBy"/>
+                    <Item Value="LastUpdateDt"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="Price"/>
+                    <Item Value="PurchaseOrderId"/>
+                    <Item Value="Status"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="InvestorListForBDAPurchaseVOIterator" id="InvestorListForBDAPurchaseVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.InvestorListForBDAPurchaseVO"
+                            Name="InvestorListForBDAPurchaseVO0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="ProductId"/>
+                    <Item Value="SubProductId"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="Purchasepower"/>
+                    <Item Value="ProductType"/>
+                    <Item Value="Quantity"/>
+                    <Item Value="RemainingPurchasePower"/>
+                    <Item Value="Orderedamnt"/>
+                    <Item Value="TotalOrderFor"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <list IterBinding="TransiantVOIterator" StaticList="false" Uses="LOV_InstrumentType" id="InstrumentType"
+              DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <list IterBinding="TransiantVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+              DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="TransiantVOIterator" id="GetCurrentSystemDate">
+            <AttrNames>
+                <Item Value="GetCurrentSystemDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

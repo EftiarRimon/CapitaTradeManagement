@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="bda-orders-alloc-flow">
+    <template-reference>
+      <document>/WEB-INF/templates/capita-task-flow-template.xml</document>
+      <id>capita-task-flow-template</id>
+    </template-reference>
+    <default-activity>BdaOrderFlow</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name>bdaOrderAllocManageBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.BdaOrderAllocManageBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="BdaOrderFlow">
+      <page>/tmFragments/BdaOrderFlow.jsff</page>
+    </view>
+    <view id="BdaOrderDetails">
+      <page>/tmFragments/BdaOrderDetails.jsff</page>
+    </view>
+    <view id="bulkSalesOrder">
+      <page>/tmFragments/bulkSalesOrder.jsff</page>
+    </view>
+    <view id="BdaBulkSalesAllocation">
+      <page>/tmFragments/BdaBulkSalesAllocation.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>BdaOrderFlow</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goOrderDetails</from-outcome>
+        <to-activity-id>BdaOrderDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>BdaOrderDetails</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>BdaOrderFlow</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>goProcessSalesOrder</from-outcome>
+        <to-activity-id>bulkSalesOrder</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>goSalesAlloc</from-outcome>
+        <to-activity-id>BdaBulkSalesAllocation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>BdaBulkSalesAllocation</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>BdaOrderDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__12">
+      <from-activity-id>bulkSalesOrder</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>BdaOrderDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

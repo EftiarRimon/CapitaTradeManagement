@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkFileidMrgshareDetDealerAssoc"
+  Version="11.1.2.60.81">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="FtiFileMergeShareDealer"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.entity.FtiFileMergeShareDealer">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="FtiFileMergeShareDealer"/>
+      <Attr Name="_foreignKey"
+        Value="leads.capita.trade.model.entity.FtiFileMergeShareDealer.PkFileidFilemrgShareDealer"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMergeShareDealer.FileId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="FtiFileMrgShareDetDealer"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="FtiFileMrgShareDetDealer"/>
+      <Attr Name="_foreignKey"
+        Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.FkFileidMrgshareDetDealer"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.FileId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

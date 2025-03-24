@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="task-flow-definition">
+    <template-reference>
+      <document>/WEB-INF/templates/capita-task-flow-template.xml</document>
+      <id>capita-task-flow-template</id>
+    </template-reference>
+    <default-activity>PayinPayout</default-activity>
+    <input-parameter-definition id="__1">
+      <name>editable</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <view id="PayinPayout">
+      <page>/tmFragments/PayinPayout.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

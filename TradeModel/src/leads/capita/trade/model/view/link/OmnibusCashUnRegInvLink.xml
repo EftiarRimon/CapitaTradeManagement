@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OmnibusCashUnRegInvLink"
+  Version="11.1.2.60.81">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.link.OmnibusCashUnRegInvLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="FtiFileMergeCashVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.FtiFileMergeCashVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiFileMergeCashVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiFileMergeCashVO.FileId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="OmnubusCashUnRegInvestorVO"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.OmnubusCashUnRegInvestorVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="OmnubusCashUnRegInvestorVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.OmnubusCashUnRegInvestorVO.FileId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiFtpFiles"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="FTI_FTP_FILES"
+  AliasName="FtiFtpFiles"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="FtiFileId"
+    IsNotNull="true"
+    ColumnName="FTI_FILE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_FTP_FILES"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="FileName"
+    Precision="100"
+    ColumnName="FILE_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FTP_FILES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileType"
+    Precision="30"
+    ColumnName="FILE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FTP_FILES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileSize"
+    Precision="100"
+    ColumnName="FILE_SIZE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FTP_FILES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LoadDate"
+    ColumnName="LOAD_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="FTI_FTP_FILES"/>
+  <Attribute
+    Name="Status"
+    Precision="5"
+    ColumnName="STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FTP_FILES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Key
+    Name="PkFtiFileId"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_FTI_FILE_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFtpFiles.FtiFileId"/>
+    </AttrArray>
+  </Key>
+</Entity>

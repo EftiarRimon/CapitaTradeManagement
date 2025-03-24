@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiErrSummaryDetails"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="FTI_ERR_SUMMARY_DETAILS"
+  AliasName="FtiErrSummaryDetails"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="RowSeqId"
+    ColumnName="ROW_SEQ_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="FTI_ERR_SUMMARY_DETAILS"
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true"/>
+  <Attribute
+    Name="SumSeqId"
+    IsNotNull="true"
+    ColumnName="SUM_SEQ_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY_DETAILS"/>
+  <Attribute
+    Name="ErrText"
+    Precision="100"
+    ColumnName="ERR_TEXT"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY_DETAILS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ColNum"
+    ColumnName="COL_NUM"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY_DETAILS"/>
+  <Attribute
+    Name="LineNum"
+    ColumnName="LINE_NUM"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY_DETAILS"/>
+  <Attribute
+    Name="ErrCode"
+    ColumnName="ERR_CODE"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY_DETAILS"/>
+  <Attribute
+    Name="XmlTag"
+    Precision="50"
+    ColumnName="XML_TAG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY_DETAILS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="FtiErrSummary"
+    Association="leads.capita.trade.model.entity.FkSumSeqIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkSumSeqIdAssoc.FtiErrSummary"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkSumSeqIdAssoc.FtiErrSummaryDetails"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PkSeqIdErrDetails"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_SEQ_ID_ERR_DETAILS"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiErrSummaryDetails.RowSeqId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkSumSeqId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_SEQ_ID_ERR_SUMM"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_SUM_SEQ_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiErrSummaryDetails.SumSeqId"/>
+    </AttrArray>
+  </Key>
+</Entity>

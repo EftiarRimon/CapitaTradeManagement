@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OmgeoTradeFileVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.OmgeoTradeFileVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[SELECT ROWNUM,
+       LOWER('BLOCK_KEYS,') BLOCK_KEYS,
+       '1,' BLOCKVER,
+       'BRACEPSL,' EXECBROKER,
+       ia.investor_code INVESTORCODE,
+       (CASE WHEN ia.bic_code = '' THEN ',' ELSE ia.bic_code||',' END) INSTRPARTY,                
+       LOWER(ia.investor_code) || to_char(t.trading_date, 'YYYYMMDD') || ROWNUM MASTERREF,
+       
+       LOWER('TRADE_SECURITY_ID,') TRADE_SECURITY_ID,
+       ',ISIN,' AGENCYCODE,
+       i.isin || ',' SECURITYCODE,
+       TRIM(i.short_name) || ' ,EQT' SECURITYTYPE,
+       LOWER('TRADE_INFO,') TRADE_INFO,
+       t.buy_sell BUY_OR_SELL,
+       ',BDT,' INDICATORNCURR,       
+       TRIM(TO_CHAR(SUM(t.quantity * t.price) / SUM(t.quantity),'9999999999.9999')) RATE,
+       SUM(t.quantity) QUANTITY,
+       ROUND(SUM(t.quantity * t.price),2) TRADEAMOUNT,
+       get_settlement_date(t.account_id,t.instrument_id,t.instrument_group,t.market_type,t.trading_date) SETTLEMENTDATE,
+       t.trading_date TRADEDATE,       
+       LOWER('BLOCK_TOTALS,') BLOCK_TOTALS,
+       ',' TOTALSETTLAMT,
+       --' ' SETTLCURRCODE,       
+       (CASE t.buy_sell
+         WHEN 'B' then
+          ROUND((((SUM(t.quantity * t.price) / SUM(t.quantity)) * t.quantity) + t.commission),2)
+         ELSE
+          ROUND((((SUM(t.quantity * t.price) / SUM(t.quantity)) * t.quantity) - t.commission),2)
+       END) TOTALNETCASH,
+       ',,,Y' AUTOCREATECONFRM,       
+       LOWER('BLOCK_COMMISSIONS,') BLOCK_COMMISSIONS,
+       'FLAT,' COMMINDICATOR,
+       'EXEC,' COMMTYPE,
+       round((nvl(sum(t.commission), 0) -
+             sum((t.quantity * t.price) *
+                  pkg_charge.get_investor_charge_rate(t.account_id, 69) / 100)),
+             2) COMMAMOUNT,       
+       LOWER('BLOCK_CHARGES_TEXES,') BLOCK_CHARGES_TAXES,
+       'OTHR,' CHAGTAXTYPE,
+       sum((t.quantity * t.price) *
+           pkg_charge.get_investor_charge_rate(t.account_id, 69) / 100) CHRGAMT,
+       LOWER('BLOCK_SSI_KEYS,') BLOCK_SSI_KEYS,
+       'ALRT,' INSTRINDICATOR,
+       'BGD,' ALRTCOUNTRYCODE,
+       'DSE,EQU,EQ-BRACEPSL' ALRTMETHODTYPE
+  FROM trades t
+ INNER JOIN investor_accounts ia
+    ON ia.account_id = t.account_id
+ INNER JOIN instruments i
+    ON i.instrument_id = t.instrument_id
+ WHERE ia.is_foreign = 'Y' AND ia.foreign_type = 'omgeo'
+ GROUP BY rownum,
+          ia.investor_code,
+          ia.bic_code,
+          i.short_name,
+          t.trading_date,
+          i.isin,
+          t.buy_sell,
+          t.price,
+          t.quantity,
+          t.commission,     
+          t.account_id,
+          t.instrument_id,
+          t.instrument_group,
+          t.market_type]]></SQLQuery>
+  <ViewAttribute
+    Name="Rownum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName='"ROWNUM"'
+    Expression='"ROWNUM"'
+    SQLType="INTEGER"/>
+  <ViewAttribute
+    Name="BlockKeys"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCK_KEYS"
+    Expression="BLOCK_KEYS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Blockver"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCKVER"
+    Expression="BLOCKVER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Execbroker"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="EXECBROKER"
+    Expression="EXECBROKER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Investorcode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVESTORCODE"
+    Expression="INVESTORCODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="Investorcode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Instrparty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="41"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INSTRPARTY"
+    Expression="INSTRPARTY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="41"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Masterref"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="68"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MASTERREF"
+    Expression="MASTERREF"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="68"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeSecurityId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="17"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="TRADE_SECURITY_ID"
+    Expression="TRADE_SECURITY_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Agencycode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="AGENCYCODE"
+    Expression="AGENCYCODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Securitycode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SECURITYCODE"
+    Expression="SECURITYCODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Securitytype"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="55"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SECURITYTYPE"
+    Expression="SECURITYTYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="55"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeInfo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="TRADE_INFO"
+    Expression="TRADE_INFO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BuyOrSell"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BUY_OR_SELL"
+    Expression="BUY_OR_SELL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Indicatorncurr"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="INDICATORNCURR"
+    Expression="INDICATORNCURR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RATE"
+    Expression="RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Scale="0"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    AliasName="QUANTITY"
+    Expression="QUANTITY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Tradeamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TRADEAMOUNT"
+    Expression="TRADEAMOUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Settlementdate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="SETTLEMENTDATE"
+    Expression="SETTLEMENTDATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="Tradedate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="TRADEDATE"
+    Expression="TRADEDATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="Tradedate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BlockTotals"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="12"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCK_TOTALS"
+    Expression="BLOCK_TOTALS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="12"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Totalsettlamt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="TOTALSETTLAMT"
+    Expression="TOTALSETTLAMT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Totalnetcash"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TOTALNETCASH"
+    Expression="TOTALNETCASH"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Autocreateconfrm"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="AUTOCREATECONFRM"
+    Expression="AUTOCREATECONFRM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BlockCommissions"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="17"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCK_COMMISSIONS"
+    Expression="BLOCK_COMMISSIONS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Commindicator"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="COMMINDICATOR"
+    Expression="COMMINDICATOR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Commtype"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="COMMTYPE"
+    Expression="COMMTYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Commamount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="COMMAMOUNT"
+    Expression="COMMAMOUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BlockChargesTaxes"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="19"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCK_CHARGES_TAXES"
+    Expression="BLOCK_CHARGES_TAXES"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="19"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Chagtaxtype"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="CHAGTAXTYPE"
+    Expression="CHAGTAXTYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Chrgamt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CHRGAMT"
+    Expression="CHRGAMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BlockSsiKeys"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="14"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="BLOCK_SSI_KEYS"
+    Expression="BLOCK_SSI_KEYS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="14"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Instrindicator"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="INSTRINDICATOR"
+    Expression="INSTRINDICATOR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Alrtcountrycode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="ALRTCOUNTRYCODE"
+    Expression="ALRTCOUNTRYCODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Alrtmethodtype"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="19"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="ALRTMETHODTYPE"
+    Expression="ALRTMETHODTYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="19"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="OmgeoTradeFileVOCriteria"
+    ViewObjectName="leads.capita.trade.model.view.OmgeoTradeFileVO"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="Never"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="OmgeoTradeFileVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="Investorcode"
+        ViewAttribute="Investorcode"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Tradedate"
+        ViewAttribute="Tradedate"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Rownum"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="YearEndReverseTestPageDef"
+                Package="tmTestPages">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="Year_End_Reverse1" taskFlowId="/tmPageFlows/Year_End_Reverse.xml#Year_End_Reverse"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="yearendreverse1" taskFlowId="/tmPageFlows/year-end-reverse.xml#year-end-reverse" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

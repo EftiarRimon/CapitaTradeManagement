@@ -1,0 +1,596 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:decorativeBox id="db1" inlineStyle="height:480px; width:1000px;">
+    <f:facet name="center">
+      <af:panelBox text="MSAPLUS File [#{bindings.FileName.inputValue}]" id="pb1" background="light"
+                   titleHalign="center" inlineStyle="width:inherit;">
+        <f:facet name="toolbar">
+          <af:panelGroupLayout id="pgl2" halign="end" layout="horizontal">
+            <af:activeOutputText value="#{MasPlusFileBean.onloadText}" id="aot1"/>
+            <af:commandButton text="Process" id="cbProcess" icon="/images/action.png"
+                              action="#{MasPlusFileBean.process}" immediate="false"
+                              disabled="#{bindings.ErrorRec.inputValue gt 0 or MasPlusFileBean.bdaCount gt 0 or MasPlusFileBean.overPurchaseCount  gt 0 or MasPlusFileBean.shortSellCount  gt 0 or
+ MasPlusFileBean.unapprovedInstrumentCount  gt 0 or bindings.ProcessedRec.inputValue gt 0 or MasPlusFileBean.insNonMgrCount gt 0 or MasPlusFileBean.invNonMgrCount gt 0}"/>
+            <af:commandButton text="Verify" id="cbValidate" icon="/images/verify.png"
+                              action="#{MasPlusFileBean.validate}" disabled="#{bindings.ProcessedRec.inputValue gt 0}"/>
+            <af:commandButton text="Back to Main" id="cbBack" icon="/images/go-list.png" action="backFromMsaPlus"
+                              actionListener="#{MasPlusFileBean.refreshCall}"/>
+          </af:panelGroupLayout>
+        </f:facet>
+        <af:panelSplitter id="ps1" inlineStyle="height:150px; width:1000px;" splitterPosition="400">
+          <f:facet name="first">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.TradeFileMsaPlusVOCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.TradeFileMsaPlusVOCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.TradeFileMsaPlusVOCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.TradeFileMsaPlusVOCriteriaQuery.processQueryOperation}"
+                      saveQueryMode="hidden" modeChangeVisible="false" modeButtonPosition="footer" rows="2"
+                      maxColumns="2"/>
+          </f:facet>
+          <f:facet name="second">
+            <af:decorativeBox id="db2" inlineStyle="width:500px;">
+              <f:facet name="center">
+                <af:panelGroupLayout layout="default" id="pgl5" inlineStyle="width:inherit;">
+                  <af:panelFormLayout id="pfl1" rows="4" maxColumns="2" labelAlignment="start"
+                                      partialTriggers="cbProcess cbValidate popSSOP d1" inlineStyle="width:inherit;">
+                    <af:inputText label="Valid Records:" id="it20" readOnly="true"
+                                  value="#{bindings.ValidateRec.inputValue}" autoSubmit="false"/>
+                    <af:inputText label="Invalid Records:" id="it21" readOnly="true"
+                                  value="#{bindings.ErrorRec.inputValue}" autoSubmit="false"/>
+                    <af:inputText label="Total Records:" id="it22" readOnly="true"
+                                  value="#{bindings.TotalRec.inputValue}" autoSubmit="false"/>
+                    <af:inputText label="Processed Records:" id="it26" readOnly="true"
+                                  value="#{bindings.ProcessedRec.inputValue}"
+                                  inlineStyle="font-weight:bolder; font-style:normal; color:Black;"/>
+                    <af:inputText label="Short Sell:" id="it23" readOnly="true"
+                                  value="#{MasPlusFileBean.shortSellCount}"/>
+                    <af:inputText label="Over Purchase:" id="it24" readOnly="true" autoSubmit="true"
+                                  value="#{MasPlusFileBean.overPurchaseCount}"/>
+                    <af:inputText label="Unapproved Instrument:" id="it25" readOnly="true" autoSubmit="true"
+                                  value="#{MasPlusFileBean.unapprovedInstrumentCount}"/>
+                    <af:inputText label="BDA Allocation Pending:" id="it27" readOnly="true" autoSubmit="true"
+                                  value="#{MasPlusFileBean.bdaCount}" visible="#{sessionScope.BUSINESS_TYPE=='MBANK'}"/>
+                    <af:inputText label="Non Marginable Investors:" id="it28" readOnly="true" autoSubmit="true"
+                                  value="#{MasPlusFileBean.invNonMgrCount}"/>
+                    <af:inputText label="Non Marginable Instruments:" id="it29" readOnly="true" autoSubmit="true"
+                                  value="#{MasPlusFileBean.insNonMgrCount}"/>
+                    <af:inputText label="Total Buy Howla" id="it34" value="#{MasPlusFileBean.totalBuyHowla}"
+                                  readOnly="true" autoSubmit="true"/>
+                    <af:inputText label="Total Sell Howla" id="it35" value="#{MasPlusFileBean.totalSellHowla}"
+                                  readOnly="true" autoSubmit="true"/>
+                  </af:panelFormLayout>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:decorativeBox>
+          </f:facet>
+        </af:panelSplitter>
+        <af:panelCollection id="pc1" inlineStyle="width:inherit; vertical-align:baseline; height:inherit;"
+                            featuresOff="viewMenu" partialTriggers="::qryId1">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t2" flex="1">
+              <af:commandButton id="cb2" icon="/images/add.png" shortDesc="Add Record"
+                                actionListener="#{MasPlusFileBean.createRecord}"/>
+              <af:commandButton id="cb1" icon="/images/refresh.png" actionListener="#{MasPlusFileBean.customRollBack}"/>
+              <af:commandButton id="cb3" icon="/images/Save.png" shortDesc="Save"
+                                actionListener="#{MasPlusFileBean.saveRecord}"
+                                disabled="#{bindings.ProcessedRec.inputValue gt 0 or bindings.TradeFileMsaPlusVOIterator.estimatedRowCount lt 1}"
+                                partialTriggers="::qryId1"/>
+              <af:selectOneChoice id="socOPSSUI" value="al" valueChangeListener="#{MasPlusFileBean.filterOnValidation}"
+                                  partialTriggers="t1" autoSubmit="true" binding="#{MasPlusFileBean.opssuiStatus}">
+                <af:selectItem label="All" value="al" id="si7"/>
+                <af:selectItem label="Short Sell" value="ss" id="si8"/>
+                <af:selectItem label="Over Purchased" value="op" id="si9"/>
+                <af:selectItem label="Unapproved Instruments" value="ui" id="si10"/>
+                <af:selectItem label="BDA" value="bda" id="si11"/>
+                <af:selectItem label="Non-Marginable Investor" value="invmg" id="si20"/>
+                <af:selectItem label="Non-Marginable Instrument" value="insmg" id="si21"/>
+                <af:selectItem label="Invalid" value="n" id="si12"/>
+              </af:selectOneChoice>
+              <af:commandButton id="cbpopup" icon="/images/go-pencil.png"
+                                disabled="#{(bindings.ValidateRec.inputValue eq bindings.TotalRec.inputValue or MasPlusFileBean.opssuiStatus.value eq 'al' or MasPlusFileBean.opssuiStatus.value eq 'n' or MasPlusFileBean.opssuiStatus.value eq 'bda') or bindings.TradeFileMsaPlusVOIterator.estimatedRowCount lt 1}"
+                                partialTriggers="socOPSSUI" shortDesc="Allow to validate">
+                <af:showPopupBehavior triggerType="click" popupId="::popSSOP"/>
+              </af:commandButton>
+              <af:commandButton id="cb8" icon="/images/edit-ena.png"
+                                shortDesc="Trade Commission Change" partialTriggers="::qryId1"
+                                disabled="#{bindings.ProcessedRec.inputValue gt 0 or bindings.TradeFileMsaPlusVOIterator.estimatedRowCount lt 1}">
+                <af:showPopupBehavior popupId="::p3" triggerType="action"/>
+              </af:commandButton>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar">
+            <af:toolbar id="t5">
+              <af:activeOutputText value="Total Record: #{bindings.TradeFileMsaPlusVOIterator.estimatedRowCount}" id="aot2"
+                                   partialTriggers="::qryId1"/>
+            </af:toolbar>
+          </f:facet>
+          <af:table value="#{bindings.TradeFileMsaPlusVO.collectionModel}" var="row"
+                    rows="#{bindings.TradeFileMsaPlusVO.rangeSize}"
+                    fetchSize="#{bindings.TradeFileMsaPlusVO.rangeSize}" rowBandingInterval="1"
+                    selectedRowKeys="#{bindings.TradeFileMsaPlusVO.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.TradeFileMsaPlusVO.collectionModel.makeCurrent}" rowSelection="single"
+                    id="t1" editingMode="clickToEdit" contentDelivery="immediate"
+                    inlineStyle="width:inherit; height:inherit;" autoHeightRows="12"
+                    emptyText="#{bindings.TradeFileMsaPlusVO.viewable ? 'No data to display.' : 'Access Denied.'}">
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.name}" sortable="false"
+                       headerText="Tracer No." id="c1" width="50">
+              <af:inputText value="#{row.bindings.TracerNo.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.tooltip}" id="it1" readOnly="true">
+                <f:validator binding="#{row.bindings.TracerNo.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Born.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.Born.label}" id="c2" rendered="false">
+              <af:inputText value="#{row.bindings.Born.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.Born.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.Born.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.Born.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.Born.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.Born.tooltip}" id="it2">
+                <f:validator binding="#{row.bindings.Born.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileMsaPlusVO.hints.Born.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Customer.name}" sortable="true"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.Customer.label}" id="c15" width="60">
+              <af:inputText value="#{row.bindings.Customer.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.Customer.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.Customer.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.Customer.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.Customer.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.Customer.tooltip}" id="it10"
+                            readOnly="#{bindings.ProcessedRec.inputValue gt 0}">
+                <f:validator binding="#{row.bindings.Customer.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.label}" id="c3" width="84">
+              <af:inputText value="#{row.bindings.InstrumentCode.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.tooltip}" id="it3"
+                            readOnly="true">
+                <f:validator binding="#{row.bindings.InstrumentCode.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Isin.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.Isin.label}" id="c4" width="60" rendered="false">
+              <af:inputText value="#{row.bindings.Isin.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.Isin.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.Isin.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.Isin.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.Isin.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.Isin.tooltip}" id="it4">
+                <f:validator binding="#{row.bindings.Isin.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TraderId.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.TraderId.label}" id="c5" width="65"
+                       rendered="false">
+              <af:inputText value="#{row.bindings.TraderId.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.TraderId.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.TraderId.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.TraderId.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.TraderId.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.TraderId.tooltip}" id="it5">
+                <f:validator binding="#{row.bindings.TraderId.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.BuySell.name}" sortable="false"
+                       headerText="B/S" id="c6" width="45">
+              <af:selectOneChoice value="#{row.bindings.BuySell.inputValue}" label="#{row.bindings.BuySell.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.BuySell.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.BuySell.tooltip}" id="soc1"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.BuySell.items}" id="si1"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.label}" id="c7" width="73">
+              <af:inputText value="#{row.bindings.TradeQuantity.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.tooltip}" id="it6"
+                            readOnly="true">
+                <f:validator binding="#{row.bindings.TradeQuantity.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Price.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.Price.label}" id="c8" width="50">
+              <af:inputText value="#{row.bindings.Price.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.Price.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.Price.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.Price.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.Price.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.Price.tooltip}" id="it7" readOnly="true">
+                <f:validator binding="#{row.bindings.Price.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.label}" id="c9" rendered="false">
+              <af:inputDate value="#{row.bindings.TradeDate.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.displayWidth}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.tooltip}" id="id1">
+                <f:validator binding="#{row.bindings.TradeDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.TradeFileMsaPlusVO.hints.TradeDate.format}"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.label}" id="c10" rendered="false">
+              <af:inputText value="#{row.bindings.TradeTime.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.TradeTime.tooltip}" id="it8">
+                <f:validator binding="#{row.bindings.TradeTime.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.MarketType.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.MarketType.label}" id="c11" width="55">
+              <af:selectOneChoice value="#{row.bindings.MarketType.inputValue}" label="#{row.bindings.MarketType.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.MarketType.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.MarketType.tooltip}" id="soc2"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.MarketType.items}" id="si2"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.FillType.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.FillType.label}" id="c12" rendered="false">
+              <af:inputText value="#{row.bindings.FillType.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.FillType.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.FillType.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.FillType.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.FillType.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.FillType.tooltip}" id="it9">
+                <f:validator binding="#{row.bindings.FillType.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.label}" id="c13" width="55">
+              <af:selectOneChoice value="#{row.bindings.HowlaType.inputValue}" label="#{row.bindings.HowlaType.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.tooltip}" id="soc3"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.HowlaType.items}" id="si3"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ForeignFlag.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ForeignFlag.label}" id="c14" width="55">
+              <af:selectOneChoice value="#{row.bindings.ForeignFlag.inputValue}"
+                                  label="#{row.bindings.ForeignFlag.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.ForeignFlag.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ForeignFlag.tooltip}" id="soc4"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.ForeignFlag.items}" id="si4"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Boid.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.Boid.label}" id="c16" width="75">
+              <af:inputText value="#{row.bindings.Boid.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.Boid.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.Boid.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.Boid.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.Boid.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.Boid.tooltip}" id="it11" readOnly="true">
+                <f:validator binding="#{row.bindings.Boid.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.label}" id="c17" rendered="false">
+              <af:inputText value="#{row.bindings.ContractNo.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ContractNo.tooltip}" id="it12">
+                <f:validator binding="#{row.bindings.ContractNo.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.CompulsorySpot.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.CompulsorySpot.label}" id="c18" width="55">
+              <af:selectOneChoice value="#{row.bindings.CompulsorySpot.inputValue}"
+                                  label="#{row.bindings.CompulsorySpot.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.CompulsorySpot.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.CompulsorySpot.tooltip}" id="soc5"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.CompulsorySpot.items}" id="si5"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.InstrumentGroup.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.InstrumentGroup.label}" id="c19" width="50">
+              <af:selectOneChoice value="#{row.bindings.InstrumentGroup.inputValue}"
+                                  label="#{row.bindings.InstrumentGroup.label}"
+                                  required="#{bindings.TradeFileMsaPlusVO.hints.InstrumentGroup.mandatory}"
+                                  shortDesc="#{bindings.TradeFileMsaPlusVO.hints.InstrumentGroup.tooltip}" id="soc6"
+                                  readOnly="true">
+                <f:selectItems value="#{row.bindings.InstrumentGroup.items}" id="si6"/>
+              </af:selectOneChoice>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.label}" id="c20" rendered="false">
+              <af:inputDate value="#{row.bindings.ProcDate.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.displayWidth}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.tooltip}" id="id2">
+                <f:validator binding="#{row.bindings.ProcDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.TradeFileMsaPlusVO.hints.ProcDate.format}"/>
+              </af:inputDate>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.name}" sortable="true"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.label}" id="c21" width="34">
+              <af:inputText value="#{row.bindings.ProcStatus.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ProcStatus.tooltip}" id="it13"
+                            rendered="true" readOnly="true">
+                <f:validator binding="#{row.bindings.ProcStatus.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.label}" id="c22" rendered="false">
+              <af:inputText value="#{row.bindings.ValidStatus.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ValidStatus.tooltip}" id="it14">
+                <f:validator binding="#{row.bindings.ValidStatus.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.label}" id="c23" rendered="false">
+              <af:inputText value="#{row.bindings.ValidInvestor.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.tooltip}" id="it15">
+                <f:validator binding="#{row.bindings.ValidInvestor.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.TradeFileMsaPlusVO.hints.ValidInvestor.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.label}" id="c24"
+                       rendered="false">
+              <af:inputText value="#{row.bindings.ValidInstrument.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.tooltip}" id="it16">
+                <f:validator binding="#{row.bindings.ValidInstrument.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.TradeFileMsaPlusVO.hints.ValidInstrument.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.label}" id="c25" rendered="false">
+              <af:inputText value="#{row.bindings.ValidTws.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.tooltip}" id="it17">
+                <f:validator binding="#{row.bindings.ValidTws.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileMsaPlusVO.hints.ValidTws.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.ImportId.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.ImportId.label}" id="c26" rendered="false">
+              <af:inputText value="#{row.bindings.ImportId.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.ImportId.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.ImportId.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.ImportId.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.ImportId.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.ImportId.tooltip}" id="it18">
+                <f:validator binding="#{row.bindings.ImportId.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileMsaPlusVO.hints.ImportId.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.RowID.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.RowID.label}" id="c27" rendered="false">
+              <af:inputText value="#{row.bindings.RowID.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.RowID.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.RowID.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.RowID.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.RowID.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.RowID.tooltip}" id="it19">
+                <f:validator binding="#{row.bindings.RowID.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column id="c37" width="30" rendered="false">
+              <af:commandButton text="::" id="cb6" action="#{MasPlusFileBean.allowSingleOPSSUI}"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.CommRate.name}" sortable="false"
+                       headerText="#{bindings.TradeFileMsaPlusVO.hints.CommRate.label}" id="c38" width="40"
+                       visible="false">
+              <af:inputText value="#{row.bindings.CommRate.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.CommRate.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.CommRate.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.CommRate.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.CommRate.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.CommRate.tooltip}" id="it30" readOnly="true">
+                <f:validator binding="#{row.bindings.CommRate.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileMsaPlusVO.hints.CommRate.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.name}" sortable="false"
+                       headerText="New Rate" id="c39" width="60">
+              <af:inputText value="#{row.bindings.NewCommRate.inputValue}"
+                            label="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.label}"
+                            required="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.mandatory}"
+                            columns="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.displayWidth}"
+                            maximumLength="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.precision}"
+                            shortDesc="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.tooltip}" id="it31"
+                            readOnly="true">
+                <f:validator binding="#{row.bindings.NewCommRate.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.TradeFileMsaPlusVO.hints.NewCommRate.format}"/>
+              </af:inputText>
+            </af:column>
+            <af:column id="c40" width="30">
+              <af:commandButton id="cb9" icon="/images/report.png" action="#{MasPlusFileBean.allowSingleOPSSUI}"
+                                shortDesc="Allow Single Investor"
+                                disabled="#{MasPlusFileBean.opssuiStatus.value eq 'al' or MasPlusFileBean.opssuiStatus.value eq 'n' or MasPlusFileBean.opssuiStatus.value eq 'bda'}"/>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+        <af:panelGroupLayout id="pgl1" layout="vertical">
+         <!-- <af:poll id="p1">
+            <af:poll id="p2"/>
+          </af:poll>-->
+          <af:popup childCreation="deferred" autoCancel="disabled" id="popBrokerDelete">
+            <af:dialog id="d2" dialogListener="#{MasPlusFileBean.showPopupRecDeletion}"
+                       title="Are you sure you want to delete?">
+              <f:facet name="buttonBar"/>
+            </af:dialog>
+          </af:popup>
+          <af:popup childCreation="deferred" id="popSSOP"
+                    binding="#{MasPlusFileBean.allowInstrumentForTrdPopUP}" contentDelivery="immediate"
+                    autoCancel="disabled">
+            <af:dialog id="d1" title="......." dialogListener="#{MasPlusFileBean.statusRefreshDiallogListnr}">
+              <f:facet name="buttonBar"/>
+              <af:panelCollection id="pc2" inlineStyle="width:600px;" featuresOff="viewMenu">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                  <af:toolbar id="t4" flex="1">
+                    <af:commandButton text="Allow all" id="cb5" action="#{MasPlusFileBean.allowAllOPSSUI}"
+                                      icon="/images/action.png"/>
+                    <af:commandButton text="Reset All" id="cb7" action="#{MasPlusFileBean.resetAllOPSSUI}"
+                                      icon="/images/cancel.png"/>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.TradeFileMsaPlusVO.collectionModel}" var="row"
+                          rows="#{bindings.TradeFileMsaPlusVO.rangeSize}"
+                          emptyText="#{bindings.TradeFileMsaPlusVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.TradeFileMsaPlusVO.rangeSize}" rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.TradeFileMsaPlusVO.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.TradeFileMsaPlusVO.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t3">
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.label}" id="c28" width="34">
+                    <af:outputText value="#{row.TracerNo}" id="ot1">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.TradeFileMsaPlusVO.hints.TracerNo.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Customer.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.Customer.label}" id="c29" width="76">
+                    <af:outputText value="#{row.Customer}" id="ot2"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.InstrumentCode.label}" id="c30"
+                             width="105">
+                    <af:outputText value="#{row.InstrumentCode}" id="ot3"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.BuySell.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.BuySell.label}" id="c31" width="45">
+                    <af:selectOneChoice value="#{row.bindings.BuySell.inputValue}" label="#{row.bindings.BuySell.label}"
+                                        required="#{bindings.TradeFileMsaPlusVO.hints.BuySell.mandatory}"
+                                        shortDesc="#{bindings.TradeFileMsaPlusVO.hints.BuySell.tooltip}" readOnly="true"
+                                        id="soc8">
+                      <f:selectItems value="#{row.bindings.BuySell.items}" id="si15"/>
+                    </af:selectOneChoice>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.Price.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.Price.label}" id="c32" width="45">
+                    <af:outputText value="#{row.Price}" id="ot4"/>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.label}" id="c33" width="65">
+                    <af:outputText value="#{row.TradeQuantity}" id="ot5">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.TradeFileMsaPlusVO.hints.TradeQuantity.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.label}" id="c34" width="65">
+                    <af:selectOneChoice value="#{row.bindings.HowlaType.inputValue}"
+                                        label="#{row.bindings.HowlaType.label}"
+                                        required="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.mandatory}"
+                                        shortDesc="#{bindings.TradeFileMsaPlusVO.hints.HowlaType.tooltip}"
+                                        readOnly="true" id="soc9">
+                      <f:selectItems value="#{row.bindings.HowlaType.items}" id="si122"/>
+                    </af:selectOneChoice>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.TradeFileMsaPlusVO.hints.MarketType.name}" sortable="false"
+                             headerText="#{bindings.TradeFileMsaPlusVO.hints.MarketType.label}" id="c35" width="75">
+                    <af:selectOneChoice value="#{row.bindings.MarketType.inputValue}"
+                                        label="#{row.bindings.MarketType.label}"
+                                        required="#{bindings.TradeFileMsaPlusVO.hints.MarketType.mandatory}"
+                                        shortDesc="#{bindings.TradeFileMsaPlusVO.hints.MarketType.tooltip}"
+                                        readOnly="true" id="soc10">
+                      <f:selectItems value="#{row.bindings.MarketType.items}" id="si13"/>
+                    </af:selectOneChoice>
+                  </af:column>
+                  <af:column id="c36" headerText=".." width="35" visible="false">
+                    <af:commandButton id="cb4" icon="/images/report.png" action="#{MasPlusFileBean.allowSingleOPSSUI}"
+                                      shortDesc="Allow to validate" partialSubmit="true"/>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:dialog>
+          </af:popup>
+          <af:popup childCreation="deferred" autoCancel="disabled" id="p3">
+            <af:dialog id="d3" dialogListener="#{MasPlusFileBean.trdCommsionChange}">
+              <f:facet name="buttonBar"/>
+              <af:panelFormLayout id="pfl2">
+                <af:selectOneChoice value="#{bindings.ProductId.inputValue}" label="Product"
+                                    shortDesc="#{bindings.ProductId.hints.tooltip}" id="soc11" autoSubmit="true"
+                                    binding="#{MasPlusFileBean.productIdUI}" showRequired="true">
+                  <f:selectItems value="#{bindings.ProductId.items}" id="si16"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.InvestorCode.inputValue}" label="Investor Code"
+                              required="#{bindings.InvestorCode.hints.mandatory}"
+                              columns="#{bindings.InvestorCode.hints.displayWidth}"
+                              maximumLength="#{bindings.InvestorCode.hints.precision}"
+                              shortDesc="#{bindings.InvestorCode.hints.tooltip}" id="it32">
+                  <f:validator binding="#{bindings.InvestorCode.validator}"/>
+                </af:inputText>
+                <af:selectOneChoice value="#{bindings.InstrumentId.inputValue}" label="Instrument"
+                                    required="#{bindings.InstrumentId.hints.mandatory}"
+                                    shortDesc="#{bindings.InstrumentId.hints.tooltip}" id="soc7" autoSubmit="true"
+                                    binding="#{MasPlusFileBean.instrumentIdUI}">
+                  <f:selectItems value="#{bindings.InstrumentId.items}" id="si14"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice value="#{bindings.Buy_Sell.inputValue}" label="#{bindings.Buy_Sell.label}"
+                                    required="#{bindings.Buy_Sell.hints.mandatory}"
+                                    shortDesc="#{bindings.Buy_Sell.hints.tooltip}" id="soc12">
+                  <f:selectItems value="#{bindings.Buy_Sell.items}" id="si17"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.NewRate.inputValue}" label="New Rate"
+                              columns="#{bindings.NewRate.hints.displayWidth}"
+                              maximumLength="#{bindings.NewRate.hints.precision}"
+                              shortDesc="#{bindings.NewRate.hints.tooltip}" id="it33" showRequired="true">
+                  <f:validator binding="#{bindings.NewRate.validator}"/>
+                </af:inputText>
+              </af:panelFormLayout>
+            </af:dialog>
+          </af:popup>
+        </af:panelGroupLayout>
+      </af:panelBox>
+    </f:facet>
+  </af:decorativeBox>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:MasPlusFileBean-->
+</ui:composition>

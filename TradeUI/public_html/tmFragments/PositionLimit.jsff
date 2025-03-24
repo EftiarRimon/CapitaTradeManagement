@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:500px; width:850px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="scroll" id="pgl1">
+                        <af:panelSplitter id="ps1" dimensionsFrom="children" splitterPosition="512">
+                            <f:facet name="first">
+                                <af:panelBox id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                             showDisclosure="false">
+                                    <f:facet name="toolbar">
+                                        <af:group id="g1">
+                                            <af:outputText id="ot11"
+                                                           value="#{PositionLimitFile.renderBrokerIdFromViewCriteria}"/>
+                                            <af:commandButton text="Validate" id="cb3" icon="/images/verify.png"
+                                                              shortDesc="Validate Position File"
+                                                              action="#{PositionLimitFile.validatePositionFileWithXsd}"
+                                                              disabled="#{bindings.PositionLimitVOIterator.estimatedRowCount eq 0 or PositionLimitFile.executeLovIteratorVersion}"
+                                                              partialTriggers="qryId1 pc1:t2"/>
+                                            <af:commandButton text="Write File" id="cb1"
+                                                              icon="/images/action.png"
+                                                              action="#{PositionLimitFile.processPositionFile}"
+                                                              shortDesc="Generate Position &amp; Control File"
+                                                              disabled="#{bindings.PositionLimitVOIterator.estimatedRowCount eq 0 or PositionLimitFile.executeLovIteratorVersion}"
+                                                              partialTriggers="qryId1 pc1:t2"/>
+                                            <af:commandButton text="Send FTP" id="cb2"
+                                                              disabled="#{bindings.DirectFTP.inputValue eq 'N'}"
+                                                              action="#{PositionLimitFile.sendFileThroughFTP}"
+                                                              shortDesc="Send Position &amp; Control File"
+                                                              icon="/images/go-document.png"/>
+                                            <af:commandImageLink id="cil3" icon="/images/view.png"
+                                                                 shortDesc="View Remote Position Files">
+                                                <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                                            </af:commandImageLink>
+                                        </af:group>
+                                    </f:facet>
+                                    <af:query id="qryId1" headerText="Generate Position Limit (Search)" disclosed="true"
+                                              value="#{bindings.PositionLimitVOCriteriaQuery.queryDescriptor}"
+                                              model="#{bindings.PositionLimitVOCriteriaQuery.queryModel}"
+                                              queryListener="#{bindings.PositionLimitVOCriteriaQuery.processQuery}"
+                                              queryOperationListener="#{bindings.PositionLimitVOCriteriaQuery.processQueryOperation}"
+                                              saveQueryMode="hidden" modeChangeVisible="false"
+                                              modeButtonPosition="footer"
+                                              binding="#{PositionLimitFile.richPositionUIQuery}"
+                                              partialTriggers="::pc1:cb4"/>
+                                </af:panelBox>
+                            </f:facet>
+                            <f:facet name="second">
+                                <af:panelFormLayout id="pfl1">
+                                    <af:inputDate value="#{bindings.SystemDate.inputValue}"
+                                                  label="#{bindings.SystemDate.hints.label}"
+                                                  required="#{bindings.SystemDate.hints.mandatory}"
+                                                  columns="#{bindings.SystemDate.hints.displayWidth}"
+                                                  shortDesc="#{bindings.SystemDate.hints.tooltip}" id="id1"
+                                                  disabled="true">
+                                        <f:validator binding="#{bindings.SystemDate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.SystemDate.format}"/>
+                                    </af:inputDate>
+                                    <af:selectOneRadio value="#{bindings.FileOption.inputValue}"
+                                                       label="#{bindings.FileOption.label}"
+                                                       required="#{bindings.FileOption.hints.mandatory}"
+                                                       shortDesc="#{bindings.FileOption.hints.tooltip}" id="sor1"
+                                                       layout="horizontal" autoSubmit="true">
+                                        <f:selectItems value="#{bindings.FileOption.items}" id="si1"/>
+                                    </af:selectOneRadio>
+                                    <af:selectBooleanCheckbox value="#{bindings.DirectFTP.inputValue}"
+                                                              label="#{bindings.DirectFTP.label}"
+                                                              shortDesc="#{bindings.DirectFTP.hints.tooltip}" id="sbc2"
+                                                              autoSubmit="true"/>
+                                    <af:selectBooleanCheckbox value="#{bindings.WithOwn.inputValue}"
+                                                              label="#{bindings.WithOwn.label}"
+                                                              shortDesc="#{bindings.WithOwn.hints.tooltip}" id="sbc3"
+                                                              rendered="false"/>
+                                </af:panelFormLayout>
+                            </f:facet>
+                        </af:panelSplitter>
+                        <af:panelCollection id="pc1" featuresOff="viewMenu"
+                                            inlineStyle="height:inherit; width:inherit;" partialTriggers="::qryId1">
+                            <f:facet name="menus">
+                                <af:menu text="Position Limit List" id="m1" inlineStyle="font-weight:bolder;"
+                                         icon="/images/list.png"/>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1">
+                                    <af:commandButton text="Generate Data" id="cb4"
+                                                      action="#{PositionLimitFile.generatePositionData}"
+                                                      partialSubmit="true" shortDesc="Generate Position Data"
+                                                      icon="/images/generate_add.png"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t3">
+                                    <af:outputText value="Total Record : #{bindings.PositionLimitVOIterator.estimatedRowCount}" id="ot9"
+                                                   partialTriggers="::qryId1 t2"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.PositionLimitVO.collectionModel}" var="row"
+                                      rows="#{bindings.PositionLimitVO.rangeSize}"
+                                      emptyText="#{bindings.PositionLimitVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.PositionLimitVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.PositionLimitVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.PositionLimitVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="t2" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;" partialTriggers=":::qryId1">
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.InvestorCode.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.InvestorCode.label}" id="c1">
+                                    <af:outputText value="#{row.InvestorCode}" id="ot1"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.PositionLimitVO.hints.Name.label}" id="c11">
+                                    <af:outputText value="#{row.Name}" id="ot10"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.ShortName.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.ShortName.label}" id="c2">
+                                    <af:outputText value="#{row.ShortName}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.SalableQty.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.SalableQty.label}" id="c3">
+                                    <af:outputText value="#{row.SalableQty}" id="ot3">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.PositionLimitVO.hints.SalableQty.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.Isin.name}" sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.Isin.label}" id="c4">
+                                    <af:outputText value="#{row.Isin}" id="ot4"/>
+                                </af:column>
+                               
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.BrokerId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.BrokerId.label}" id="c6"
+                                           visible="false">
+                                    <af:outputText value="#{row.BrokerId}" id="ot6">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.PositionLimitVO.hints.BrokerId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.PositionLimitVO.hints.TradingCode.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.PositionLimitVO.hints.TradingCode.label}" id="c7"
+                                           visible="false">
+                                    <af:outputText value="#{row.TradingCode}" id="ot7"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.PositionLimitVO.hints.AccountStatus.label}" id="c9">
+                                    <af:outputText value="#{row.AccountStatus}" id="ot8"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.PositionLimitVO.hints.Operation.label}" id="c10">
+                                    <af:outputText value="#{row.Operation}" id="ot5"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                        <af:panelBox text="Generated File List" id="pb2" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar"/>
+                            <af:panelGroupLayout id="pgl2" layout="horizontal"
+                                                 inlineStyle="height:inherit; width:inherit;">
+                                <af:commandImageLink id="cil1" icon="/images/import.png" shortDesc="Download Position">
+                                    <af:fileDownloadActionListener method="#{PositionLimitFile.generatedPositionListener}"
+                                                                   filename="#{PositionLimitFile.generatedPositionFileUI.value}"/>
+                                </af:commandImageLink>
+                                <af:spacer width="20" height="10" id="s1"/>
+                                <af:inputText label="Generated File" id="it1" readOnly="true"
+                                              binding="#{PositionLimitFile.generatedPositionFileUI}"
+                                              value="#{PositionLimitFile.newGenFile}"
+                                              autoSubmit="true"/>
+                            </af:panelGroupLayout>
+                            <af:spacer width="10" height="4" id="s3"/>
+                            <af:panelGroupLayout id="pgl3" layout="horizontal">
+                                <af:commandImageLink id="cil2" icon="/images/import.png"
+                                                     shortDesc="Download Position Control">
+                                    <af:fileDownloadActionListener method="#{PositionLimitFile.generatedPositionControlListener}"
+                                                                   filename="#{PositionLimitFile.generatedPositionControlFileUI.value}"/>
+                                </af:commandImageLink>
+                                <af:spacer width="20" height="10" id="s2"/>
+                                <af:inputText label="Generated Control File" id="it2" readOnly="true"
+                                              binding="#{PositionLimitFile.generatedPositionControlFileUI}"
+                                              value="#{PositionLimitFile.newGenControlFile}"
+                                              autoSubmit="true"/>
+                            </af:panelGroupLayout>
+                        </af:panelBox>
+                        <af:popup autoCancel="disabled" id="p1" contentDelivery="lazyUncached"
+                                  popupFetchListener="#{PositionLimitFile.showPositionFileFetchListener}">
+                            <af:dialog id="d1" dialogListener="#{PositionLimitFile.showPositionFileDialogListener}" inlineStyle="height:200px; width:300px;"
+                                       type="cancel">
+                                <f:facet name="buttonBar"/>
+                                <af:panelCollection id="pc2" inlineStyle="width:inherit; height:inherit;"
+                                                    featuresOff="viewMenu">
+                                    <f:facet name="menus"/>
+                                    <f:facet name="toolbar"/>
+                                    <f:facet name="statusbar"/>
+                                    <af:table value="#{bindings.FtiFtpPositionFilesVO.collectionModel}" var="row"
+                                              rows="#{bindings.FtiFtpPositionFilesVO.rangeSize}"
+                                              emptyText="#{bindings.FtiFtpPositionFilesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                              fetchSize="#{bindings.FtiFtpPositionFilesVO.rangeSize}"
+                                              rowBandingInterval="1"
+                                              selectedRowKeys="#{bindings.FtiFtpPositionFilesVO.collectionModel.selectedRow}"
+                                              selectionListener="#{bindings.FtiFtpPositionFilesVO.collectionModel.makeCurrent}"
+                                              rowSelection="single" id="t4" autoHeightRows="10"
+                                              contentDelivery="immediate" inlineStyle="height:inherit; width:inherit;">
+                                        <af:column sortProperty="#{bindings.FtiFtpPositionFilesVO.hints.FileName.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.FtiFtpPositionFilesVO.hints.FileName.label}"
+                                                   id="c5" width="250">
+                                            <af:inputText value="#{row.bindings.FileName.inputValue}"
+                                                          label="#{bindings.FtiFtpPositionFilesVO.hints.FileName.label}"
+                                                          required="#{bindings.FtiFtpPositionFilesVO.hints.FileName.mandatory}"
+                                                          columns="#{bindings.FtiFtpPositionFilesVO.hints.FileName.displayWidth}"
+                                                          maximumLength="#{bindings.FtiFtpPositionFilesVO.hints.FileName.precision}"
+                                                          shortDesc="#{bindings.FtiFtpPositionFilesVO.hints.FileName.tooltip}"
+                                                          id="it3" readOnly="true">
+                                                <f:validator binding="#{row.bindings.FileName.validator}"/>
+                                            </af:inputText>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.label}"
+                                                   id="c8">
+                                            <af:inputDate value="#{row.bindings.LoadDate.inputValue}"
+                                                          label="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.label}"
+                                                          required="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.mandatory}"
+                                                          columns="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.displayWidth}"
+                                                          shortDesc="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.tooltip}"
+                                                          id="id2" readOnly="true">
+                                                <f:validator binding="#{row.bindings.LoadDate.validator}"/>
+                                                <af:convertDateTime pattern="#{bindings.FtiFtpPositionFilesVO.hints.LoadDate.format}"/>
+                                            </af:inputDate>
+                                        </af:column>
+                                    </af:table>
+                                </af:panelCollection>
+                            </af:dialog>
+                        </af:popup>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:PositionLimitFile-->
+</ui:composition>

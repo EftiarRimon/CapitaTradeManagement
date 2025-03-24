@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="BDASalesPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="InvestorListForBDASalesVO" RangeSize="-1" DataControl="BdaServiceDataControl"
+                  id="InvestorListForBDASalesVOIterator"/>
+        <searchRegion Criteria="InvestorListForBDASalesVOCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="InvestorListForBDASalesVOIterator" id="InvestorListForBDASalesVOCriteriaQuery"/>
+        <iterator Binds="TransiantVO" RangeSize="25" DataControl="BdaServiceDataControl" id="TransiantVOIterator"/>
+        <iterator Binds="BDaSalesCriteriaVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BDaSalesCriteriaVOIterator"/>
+    </executables>
+    <bindings>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action IterBinding="BDaSalesCriteriaVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BDaSalesCriteriaVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <tree IterBinding="InvestorListForBDASalesVOIterator" id="InvestorListForBDASalesVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.InvestorListForBDASalesVO"
+                            Name="InvestorListForBDASalesVO0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="ProductId"/>
+                    <Item Value="Quantity"/>
+                    <Item Value="TotalQty"/>
+                    <Item Value="Salable"/>
+                    <Item Value="SalableQty"/>
+                    <Item Value="CurrentBalance"/>
+                    <Item Value="AvailableBalance"/>
+                    <Item Value="ProductType"/>
+                    <Item Value="InstrumentType"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="TradeCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="TransiantVOIterator" id="Total">
+            <AttrNames>
+                <Item Value="Total"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <tree IterBinding="BDaSalesCriteriaVOIterator" id="BDaSalesCriteriaVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BDaSalesCriteriaVO" Name="BDaSalesCriteriaVO0">
+                <AttrNames>
+                    <Item Value="AccountId"/>
+                    <Item Value="AllocationDate"/>
+                    <Item Value="AllocationQty"/>
+                    <Item Value="ApprovalStatus"/>
+                    <Item Value="ApprovedBy"/>
+                    <Item Value="ApproveDt"/>
+                    <Item Value="CreatedBy"/>
+                    <Item Value="CreationDt"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="LastUpdatedBy"/>
+                    <Item Value="LastUpdateDt"/>
+                    <Item Value="ObjectVersionId"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="SalesOrderId"/>
+                    <Item Value="Status"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="TransiantVOIterator" id="GetCurrentSystemDate">
+            <AttrNames>
+                <Item Value="GetCurrentSystemDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

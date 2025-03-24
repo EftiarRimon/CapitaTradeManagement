@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:700px;" dimensionsFrom="auto">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.FtiFileMergeCashVOCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.FtiFileMergeCashVOCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.FtiFileMergeCashVOCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.FtiFileMergeCashVOCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc1:resId1" modeButtonPosition="footer" saveQueryMode="hidden"
+                                  modeChangeVisible="false"/>
+                        <af:panelCollection id="pc1" inlineStyle="width:inherit;" featuresOff="viewMenu"
+                                            partialTriggers="resId1">
+                            <f:facet name="menus">
+                                <af:menu text="Client Limit List" id="m1" inlineStyle="font-weight:bolder;"/>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1">
+                                    <af:commandButton text="Add" id="cb2" icon="/images/add.png"
+                                                      shortDesc="Add New Client Limit"
+                                                      actionListener="#{FileMergeCashShare.createClientLimit}"
+                                                      action="goCashDetail"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t2">
+                                    <af:outputText value="Total Records : #{bindings.FtiFileMergeCashVOIterator.estimatedRowCount}" id="ot4"
+                                                   partialTriggers="::qryId1 resId1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiFileMergeCashVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiFileMergeCashVO.rangeSize}"
+                                      emptyText="#{bindings.FtiFileMergeCashVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiFileMergeCashVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.FtiFileMergeCashVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiFileMergeCashVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="resId1" inlineStyle="height:inherit; width:inherit;"
+                                      autoHeightRows="10" contentDelivery="immediate">
+                                <af:column sortProperty="#{bindings.FtiFileMergeCashVO.hints.MDate.name}"
+                                           sortable="false"
+                                           headerText="Date" id="c1" width="100">
+                                    <af:inputDate value="#{row.bindings.MDate.inputValue}"
+                                                  label="#{bindings.FtiFileMergeCashVO.hints.MDate.label}"
+                                                  required="#{bindings.FtiFileMergeCashVO.hints.MDate.mandatory}"
+                                                  columns="#{bindings.FtiFileMergeCashVO.hints.MDate.displayWidth}"
+                                                  shortDesc="#{bindings.FtiFileMergeCashVO.hints.MDate.tooltip}"
+                                                  id="id1" readOnly="true">
+                                        <f:validator binding="#{row.bindings.MDate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeCashVO.hints.MDate.format}"/>
+                                    </af:inputDate>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeCashVO.hints.MTime.name}"
+                                           sortable="true" headerText="Time"
+                                           id="resId1c1" width="100">
+                                    <af:outputText value="#{row.MTime}" id="ot1">
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeCashVO.hints.MTime.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeCashVO.hints.FileDescription.name}"
+                                           sortable="true"
+                                           headerText="File Description"
+                                           id="resId1c2" width="250">
+                                    <af:outputText value="#{row.FileDescription}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeCashVO.hints.FileVersion.name}"
+                                           sortable="true"
+                                           headerText="File Version"
+                                           id="resId1c3" width="100">
+                                    <af:outputText value="#{row.FileVersion}" id="ot3"/>
+                                </af:column>
+                                <af:column id="c2" width="60" align="center">
+                                    <af:commandButton text="View" id="cb1" icon="/images/previewsmall.png"
+                                                      shortDesc="Detail" action="goCashDetail"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

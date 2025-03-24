@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:500px; width:850px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="horizontal" id="pgl1" inlineStyle="height:inherit; width:inherit;"
+                                         valign="top">
+                        <af:panelBox text="PanelBox2" id="pb3" showHeader="never" inlineStyle="width:500px;">
+                            <f:facet name="toolbar"/>
+                            <af:panelBox text="Upload Log File" id="pb1" showDisclosure="false">
+                                <f:facet name="toolbar">
+                                    <af:group id="g1">
+                                        <af:commandButton text="Upload" id="cb2" icon="/images/file_upload.png"
+                                                          action="#{FlexErrorFileBean.doUploadErrFile}"/>
+                                    </af:group>
+                                </f:facet>
+                                <af:inputFile label="File Name" id="if1"
+                                              valueChangeListener="#{FlexErrorFileBean.fileSelectValChangeListener}"/>
+                                <af:panelFormLayout id="pfl1">
+                                    <af:inputDate value="#{bindings.Sysdate.inputValue}"
+                                                  label="#{bindings.Sysdate.hints.label}"
+                                                  required="#{bindings.Sysdate.hints.mandatory}"
+                                                  columns="#{bindings.Sysdate.hints.displayWidth}"
+                                                  shortDesc="#{bindings.Sysdate.hints.tooltip}" id="id1"
+                                                  visible="false">
+                                        <f:validator binding="#{bindings.Sysdate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.Sysdate.format}"/>
+                                    </af:inputDate>
+                                    <af:selectOneChoice value="#{bindings.FileType.inputValue}"
+                                                        label="#{bindings.FileType.label}"
+                                                        shortDesc="#{bindings.FileType.hints.tooltip}" id="socType"
+                                                        autoSubmit="true" showRequired="true" required="true">
+                                        <f:selectItems value="#{bindings.FileType.items}" id="si1"/>
+                                    </af:selectOneChoice>
+                                    <af:selectOneChoice value="#{bindings.FileVersion.inputValue}"
+                                                        label="#{bindings.FileVersion.label}"
+                                                        shortDesc="#{bindings.FileVersion.hints.tooltip}" id="soc2"
+                                                        partialTriggers="it3">
+                                        <f:selectItems value="#{bindings.FileVersion.items}" id="si2"/>
+                                    </af:selectOneChoice>
+                                    <af:inputText value="#{bindings.FileVersionLOVSwitcher.inputValue}"
+                                                  label="#{bindings.FileVersionLOVSwitcher.hints.label}"
+                                                  required="#{bindings.FileVersionLOVSwitcher.hints.mandatory}"
+                                                  columns="#{bindings.FileVersionLOVSwitcher.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileVersionLOVSwitcher.hints.precision}"
+                                                  shortDesc="#{bindings.FileVersionLOVSwitcher.hints.tooltip}" id="it3"
+                                                  visible="false" partialTriggers="socType" autoSubmit="true">
+                                        <f:validator binding="#{bindings.FileVersionLOVSwitcher.validator}"/>
+                                    </af:inputText>
+                                </af:panelFormLayout>
+                            </af:panelBox>
+                            <af:query id="qryId1" headerText="Search"
+                                      value="#{bindings.FtiErrSummaryVOCriteriaQuery.queryDescriptor}"
+                                      model="#{bindings.FtiErrSummaryVOCriteriaQuery.queryModel}"
+                                      queryListener="#{bindings.FtiErrSummaryVOCriteriaQuery.processQuery}"
+                                      queryOperationListener="#{bindings.FtiErrSummaryVOCriteriaQuery.processQueryOperation}"
+                                      resultComponentId="::pc1:resId1" saveQueryMode="hidden"
+                                      modeButtonPosition="footer" inlineStyle="height:inherit; width:inherit;"/>
+                            <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;"
+                                                featuresOff="viewMenu" partialTriggers="::qryId1">
+                                <f:facet name="menus">
+                                    <af:menu text="Log File List" id="m1" inlineStyle="font-weight:bolder;"/>
+                                </f:facet>
+                                <f:facet name="toolbar"/>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t3">
+                                        <af:outputText value="Total Record(s): #{bindings.FtiErrSummaryVOIterator.estimatedRowCount}" id="ot9"
+                                                       partialTriggers="resId1 ::pc1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.FtiErrSummaryVO.collectionModel}" var="row"
+                                          rows="#{bindings.FtiErrSummaryVO.rangeSize}"
+                                          emptyText="#{bindings.FtiErrSummaryVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.FtiErrSummaryVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.FtiErrSummaryVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.FtiErrSummaryVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="resId1" autoHeightRows="5"
+                                          contentDelivery="immediate" inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.RowSeqId.name}"
+                                               sortable="false" headerText="Seq. ID" id="c2" width="30">
+                                        <af:inputText value="#{row.bindings.RowSeqId.inputValue}"
+                                                      label="#{bindings.FtiErrSummaryVO.hints.RowSeqId.label}"
+                                                      required="#{bindings.FtiErrSummaryVO.hints.RowSeqId.mandatory}"
+                                                      columns="#{bindings.FtiErrSummaryVO.hints.RowSeqId.displayWidth}"
+                                                      maximumLength="#{bindings.FtiErrSummaryVO.hints.RowSeqId.precision}"
+                                                      shortDesc="#{bindings.FtiErrSummaryVO.hints.RowSeqId.tooltip}"
+                                                      id="it1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.RowSeqId.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiErrSummaryVO.hints.RowSeqId.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.FileType.name}"
+                                               sortable="true" headerText="File Type" id="resId1c1" width="50">
+                                        <af:outputText value="#{row.FileType}" id="ot1"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.DateProcessed.name}"
+                                               sortable="true" headerText="Date Processed" id="resId1c2" width="60"
+                                               align="center">
+                                        <af:outputText value="#{row.DateProcessed}" id="ot2"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.TotalDuration.name}"
+                                               sortable="true" headerText="Duration" id="resId1c3" width="80">
+                                        <af:outputText value="#{row.TotalDuration}" id="ot3"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.FileStatus.name}"
+                                               sortable="true" headerText="File Status" id="resId1c4" width="50">
+                                        <af:outputText value="#{row.FileStatus}" id="ot4"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.NoOfRecord.name}"
+                                               sortable="true" headerText="Total Record" id="resId1c5" width="40"
+                                               align="center">
+                                        <af:outputText value="#{row.NoOfRecord}" id="ot5">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiErrSummaryVO.hints.NoOfRecord.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.SuccessfulRecord.name}"
+                                               sortable="true" headerText="Successful" id="resId1c6" width="40"
+                                               align="center">
+                                        <af:outputText value="#{row.SuccessfulRecord}" id="ot6">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiErrSummaryVO.hints.SuccessfulRecord.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrSummaryVO.hints.Wrong.name}"
+                                               sortable="true"
+                                               headerText="#{bindings.FtiErrSummaryVO.hints.Wrong.label}" id="resId1c7"
+                                               width="40" align="center">
+                                        <af:outputText value="#{row.Wrong}" id="ot7">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiErrSummaryVO.hints.Wrong.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column id="c1" width="40" align="center">
+                                        <af:commandButton id="cb1" icon="/images/previewsmall.png"
+                                                          shortDesc="See Detail" action="goDetails"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                        <af:panelBox text="Log File List" id="pb2" inlineStyle="width:340px;"
+                                     partialTriggers="pc2 pc2:t2" showDisclosure="false">
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1">
+                                    <af:commandButton text="Load File From FTP" id="cb3" icon="/images/go-down.png"
+                                                      action="#{FlexErrorFileBean.loadErrFileFromFTP}"/>
+                                    <af:spacer width="10" height="10" id="s1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:panelCollection id="pc2" featuresOff="viewMenu"
+                                                inlineStyle="width:auto; height:inherit;">
+                                <f:facet name="toolbar"/>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t4">
+                                        <af:outputText value="Total File(s): #{bindings.FtiErrFilesVOIterator.estimatedRowCount}" id="ot10"
+                                                       partialTriggers="t2 ::pc2"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.FtiErrFilesVO.collectionModel}" var="row"
+                                          rows="#{bindings.FtiErrFilesVO.rangeSize}"
+                                          emptyText="#{bindings.FtiErrFilesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.FtiErrFilesVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.FtiErrFilesVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.FtiErrFilesVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t2" autoHeightRows="10" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.FtiErrFilesVO.hints.FileName.name}"
+                                               sortable="true"
+                                               headerText="File Name List" id="c3" width="220">
+                                        <af:outputText value="#{row.FileName}" id="ot8"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiErrFilesVO.hints.Status.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.FtiErrFilesVO.hints.Status.label}" id="c5"
+                                               width="40" visible="false">
+                                        <af:inputText value="#{row.bindings.Status.inputValue}"
+                                                      label="#{bindings.FtiErrFilesVO.hints.Status.label}"
+                                                      required="#{bindings.FtiErrFilesVO.hints.Status.mandatory}"
+                                                      columns="#{bindings.FtiErrFilesVO.hints.Status.displayWidth}"
+                                                      maximumLength="#{bindings.FtiErrFilesVO.hints.Status.precision}"
+                                                      shortDesc="#{bindings.FtiErrFilesVO.hints.Status.tooltip}"
+                                                      id="it2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Status.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column id="c4" width="65">
+                                        <af:commandButton text="Load" id="cb4" icon="/images/file_upload.png"
+                                                          shortDesc="Upload Error File"
+                                                          action="#{FlexErrorFileBean.uploadErrFile}"
+                                                          partialTriggers="::t2"
+                                                          disabled="#{row.bindings.Status.inputValue eq 'P'}"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:FlexErrorFileBean-->
+</ui:composition>

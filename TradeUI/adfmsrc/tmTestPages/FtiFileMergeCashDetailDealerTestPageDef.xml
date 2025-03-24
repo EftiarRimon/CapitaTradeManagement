@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="FtiFileMergeCashDetailDealerTestPageDef" Package="tmTestPages">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="ftifilemergecashdetaildealerflow1"
+              taskFlowId="/tmPageFlows/fti-file-merge-cash-detail-dealer-flow.xml#fti-file-merge-cash-detail-dealer-flow"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

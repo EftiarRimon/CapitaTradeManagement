@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="omgeoTradeFilePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="OmgeoTradeFileVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="OmgeoTradeFileVOIterator"/>
+    <searchRegion Criteria="OmgeoTradeFileVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="OmgeoTradeFileVOIterator" id="OmgeoTradeFileVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="OmgeoTradeFileVOIterator" id="OmgeoTradeFileVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.OmgeoTradeFileVO" Name="OmgeoTradeFileVO0">
+        <AttrNames>
+          <Item Value="Investorcode"/>
+          <Item Value="Tradedate"/>
+          <Item Value="BlockKeys"/>
+          <Item Value="Blockver"/>
+          <Item Value="Execbroker"/>
+          <Item Value="Masterref"/>
+          <Item Value="TradeSecurityId"/>
+          <Item Value="Agencycode"/>
+          <Item Value="Securitycode"/>
+          <Item Value="Securitytype"/>
+          <Item Value="TradeInfo"/>
+          <Item Value="BuyOrSell"/>
+          <Item Value="Indicatorncurr"/>
+          <Item Value="Quantity"/>
+          <Item Value="Tradeamount"/>
+          <Item Value="Totalnetcash"/>
+          <Item Value="BlockCommissions"/>
+          <Item Value="Commindicator"/>
+          <Item Value="Commtype"/>
+          <Item Value="BlockChargesTaxes"/>
+          <Item Value="Chagtaxtype"/>
+          <Item Value="BlockSsiKeys"/>
+          <Item Value="Instrindicator"/>
+          <Item Value="Alrtcountrycode"/>
+          <Item Value="Alrtmethodtype"/>
+          <Item Value="BlockTotals"/>
+          <Item Value="Chrgamt"/>
+          <Item Value="Commamount"/>
+          <Item Value="Rate"/>
+          <Item Value="Settlementdate"/>
+          <Item Value="Totalsettlamt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

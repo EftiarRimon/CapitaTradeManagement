@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtiFileMergePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiFileMergeCashVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMergeCashVOIterator"/>
+    <searchRegion Criteria="FtiFileMergeCashVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="FtiFileMergeCashVOIterator" id="FtiFileMergeCashVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiFileMergeCashVOIterator" id="FtiFileMergeCashVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFileMergeCashVO" Name="FtiFileMergeCashVO0">
+        <AttrNames>
+          <Item Value="MTime"/>
+          <Item Value="FileDescription"/>
+          <Item Value="FileVersion"/>
+          <Item Value="ProcessingMode"/>
+          <Item Value="FileId"/>
+          <Item Value="MDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FtiFileMergeCashVOIterator" id="CreateInsert"
+            InstanceName="TradeFileServiceDataControl.FtiFileMergeCashVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

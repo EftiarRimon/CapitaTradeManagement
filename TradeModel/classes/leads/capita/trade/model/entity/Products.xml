@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="Products"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="PRODUCTS"
+  AliasName="Products"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="ProductId"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="PRODUCT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ProductName"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="PRODUCT_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ShortName"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="SHORT_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BusinessType"
+    Precision="30"
+    ColumnName="BUSINESS_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ProductType"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="PRODUCT_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OpenDate"
+    ColumnName="OPEN_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="Status"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreatedBy"
+    Precision="50"
+    ColumnName="CREATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreationDt"
+    ColumnName="CREATION_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="ApprovedBy"
+    Precision="50"
+    ColumnName="APPROVED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ApproveDt"
+    ColumnName="APPROVE_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="LastUpdatedBy"
+    Precision="50"
+    ColumnName="LAST_UPDATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDt"
+    ColumnName="LAST_UPDATE_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="ObjectVersionId"
+    Precision="15"
+    Scale="0"
+    ColumnName="OBJECT_VERSION_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="ApprovalStatus"
+    Precision="30"
+    ColumnName="APPROVAL_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="MarginId"
+    ColumnName="MARGIN_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="InterestRateId"
+    ColumnName="INTEREST_RATE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="TradeCode"
+    Precision="20"
+    ColumnName="TRADE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="IsMarginable"
+    IsNotNull="true"
+    Precision="30"
+    ColumnName="IS_MARGINABLE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRODUCTS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SessionId"
+    ColumnName="SESSION_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="PurchasePowerFormulaId"
+    ColumnName="PURCHASE_POWER_FORMULA_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <Attribute
+    Name="EmailCode"
+    Precision="2"
+    Scale="0"
+    ColumnName="EMAIL_CODE"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRODUCTS"/>
+  <AccessorAttribute
+    Name="InvestorAccounts"
+    Association="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc.InvestorAccounts"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.invAccountFkProductsAssoc.Products"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkProduct"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_PRODUCT"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.ProductId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkProducts">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_PRODUCTS"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.ProductName"/>
+      <Item Value="leads.capita.trade.model.entity.Products.ProductType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkProductMarginId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_MARGIN_INTEREST_SETUP"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_PRODUCT_MARGIN_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.MarginId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkProductsEmailCode">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_EMAIL_TEMPLATE"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_PRODUCTS_EMAIL_CODE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.EmailCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkProductsSessionId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_APP_SESSION"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_PRODUCTS_SESSION_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.SessionId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkPurchasePowerFormulaId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_PURCHASE_POWER_FORMULAS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_PURCHASE_POWER_FORMULA_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Products.PurchasePowerFormulaId"/>
+    </AttrArray>
+  </Key>
+</Entity>

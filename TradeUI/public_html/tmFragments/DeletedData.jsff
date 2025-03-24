@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1" inlineStyle="height:100px; width:inherit;">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.DeletedTradeFileMsaVOCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.DeletedTradeFileMsaVOCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.DeletedTradeFileMsaVOCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.DeletedTradeFileMsaVOCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc1:resId1" inlineStyle="height:inherit; width:inherit;"
+                                  displayMode="default" saveQueryMode="hidden" labelAlignment="top"
+                                  modeChangeVisible="false"/>
+                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1" inlineStyle="height:auto; width:auto;">
+                                    <af:commandButton text="Back to Error Page" id="cb1" icon="/images/back.png"
+                                                      action="backFromDeleted" iconPosition="leading"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.DeletedTradeFileMsaVO.collectionModel}" var="row"
+                                      rows="#{bindings.DeletedTradeFileMsaVO.rangeSize}"
+                                      emptyText="#{bindings.DeletedTradeFileMsaVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.DeletedTradeFileMsaVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.DeletedTradeFileMsaVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.DeletedTradeFileMsaVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="resId1" inlineStyle="height:inherit; width:inherit;"
+                                      autoHeightRows="10" contentDelivery="immediate">
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Selection.name}"
+                                           sortable="false" id="c1" width="30" align="center">
+                                    <af:selectBooleanCheckbox value="#{row.bindings.Selection.inputValue}"
+                                                              label="#{row.bindings.Selection.label}"
+                                                              shortDesc="#{bindings.DeletedTradeFileMsaVO.hints.Selection.tooltip}"
+                                                              id="sbc1"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TracerNo.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TracerNo.label}"
+                                           id="resId1c2">
+                                    <af:outputText value="#{row.TracerNo}" id="ot1">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.DeletedTradeFileMsaVO.hints.TracerNo.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Born.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Born.label}"
+                                           id="resId1c3">
+                                    <af:outputText value="#{row.Born}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.InstrumentCode.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.InstrumentCode.label}"
+                                           id="resId1c4">
+                                    <af:outputText value="#{row.InstrumentCode}" id="ot3"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Isin.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Isin.label}"
+                                           id="resId1c5">
+                                    <af:outputText value="#{row.Isin}" id="ot4"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TraderId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TraderId.label}"
+                                           id="resId1c6">
+                                    <af:outputText value="#{row.TraderId}" id="ot5"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.BuySell.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.BuySell.label}"
+                                           id="resId1c7">
+                                    <af:outputText value="#{row.BuySell}" id="ot6"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TradeQuantity.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TradeQuantity.label}"
+                                           id="resId1c8">
+                                    <af:outputText value="#{row.TradeQuantity}" id="ot7">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.DeletedTradeFileMsaVO.hints.TradeQuantity.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Price.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Price.label}"
+                                           id="resId1c9">
+                                    <af:outputText value="#{row.Price}" id="ot8"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TradeDate.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TradeDate.label}"
+                                           id="resId1c10">
+                                    <af:outputText value="#{row.TradeDate}" id="ot9">
+                                        <af:convertDateTime pattern="#{bindings.DeletedTradeFileMsaVO.hints.TradeDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TradeTime.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TradeTime.label}"
+                                           id="resId1c11">
+                                    <af:outputText value="#{row.TradeTime}" id="ot10"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.MarketType.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.MarketType.label}"
+                                           id="resId1c12">
+                                    <af:outputText value="#{row.MarketType}" id="ot11"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.FillType.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.FillType.label}"
+                                           id="resId1c13">
+                                    <af:outputText value="#{row.FillType}" id="ot12"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.HowlaType.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.HowlaType.label}"
+                                           id="resId1c14">
+                                    <af:outputText value="#{row.HowlaType}" id="ot13"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.ForeignFlag.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.ForeignFlag.label}"
+                                           id="resId1c15">
+                                    <af:outputText value="#{row.ForeignFlag}" id="ot14"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Customer.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Customer.label}"
+                                           id="resId1c16">
+                                    <af:outputText value="#{row.Customer}" id="ot15"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Boid.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Boid.label}"
+                                           id="resId1c17">
+                                    <af:outputText value="#{row.Boid}" id="ot16"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.ContractNo.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.ContractNo.label}"
+                                           id="resId1c18">
+                                    <af:outputText value="#{row.ContractNo}" id="ot17"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.CompulsorySpot.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.CompulsorySpot.label}"
+                                           id="resId1c19">
+                                    <af:outputText value="#{row.CompulsorySpot}" id="ot18"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.InstrumentGroup.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.InstrumentGroup.label}"
+                                           id="resId1c20">
+                                    <af:outputText value="#{row.InstrumentGroup}" id="ot19"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.ProcDate.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.ProcDate.label}"
+                                           id="resId1c21">
+                                    <af:outputText value="#{row.ProcDate}" id="ot20">
+                                        <af:convertDateTime pattern="#{bindings.DeletedTradeFileMsaVO.hints.ProcDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.ImportId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.ImportId.label}"
+                                           id="resId1c27">
+                                    <af:outputText value="#{row.ImportId}" id="ot26">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.DeletedTradeFileMsaVO.hints.ImportId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Action.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Action.label}"
+                                           id="resId1c30">
+                                    <af:outputText value="#{row.Action}" id="ot29"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Status.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Status.label}"
+                                           id="resId1c31">
+                                    <af:outputText value="#{row.Status}" id="ot30"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Assetclass.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Assetclass.label}"
+                                           id="resId1c32">
+                                    <af:outputText value="#{row.Assetclass}" id="ot31"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.OrderId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.OrderId.label}"
+                                           id="resId1c33">
+                                    <af:outputText value="#{row.OrderId}" id="ot32"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TradeValue.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TradeValue.label}"
+                                           id="resId1c34">
+                                    <af:outputText value="#{row.TradeValue}" id="ot33"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Execid.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Execid.label}"
+                                           id="resId1c35">
+                                    <af:outputText value="#{row.Execid}" id="ot34"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.SessionId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.SessionId.label}"
+                                           id="resId1c36">
+                                    <af:outputText value="#{row.SessionId}" id="ot35"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.BranchId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.BranchId.label}"
+                                           id="resId1c37">
+                                    <af:outputText value="#{row.BranchId}" id="ot36"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.OwnerDealerId.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.OwnerDealerId.label}"
+                                           id="resId1c38">
+                                    <af:outputText value="#{row.OwnerDealerId}" id="ot37"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.Tradereporttype.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.Tradereporttype.label}"
+                                           id="resId1c39">
+                                    <af:outputText value="#{row.Tradereporttype}" id="ot38"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.TradeContractNo.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.TradeContractNo.label}"
+                                           id="resId1c40">
+                                    <af:outputText value="#{row.TradeContractNo}" id="ot39"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.SeqNo.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.SeqNo.label}"
+                                           id="resId1c41">
+                                    <af:outputText value="#{row.SeqNo}" id="ot40">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.DeletedTradeFileMsaVO.hints.SeqNo.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.DeletedTradeFileMsaVO.hints.ExchCharge.name}"
+                                           sortable="false"
+                                           headerText="#{bindings.DeletedTradeFileMsaVO.hints.ExchCharge.label}"
+                                           id="resId1c43">
+                                    <af:outputText value="#{row.ExchCharge}" id="ot42"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

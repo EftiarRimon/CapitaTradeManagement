@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ErrorSummaryDetalisViewLink"
+  Version="11.1.2.60.81">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.link.ErrorSummaryDetalisViewLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="FtiErrSummaryVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.FtiErrSummaryVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiErrSummaryVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiErrSummaryVO.RowSeqId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="FtiErrSummaryDetailsVO1"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.FtiErrSummaryDetailsVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiErrSummaryDetailsVO1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiErrSummaryDetailsVO.SumSeqId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="TradeModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

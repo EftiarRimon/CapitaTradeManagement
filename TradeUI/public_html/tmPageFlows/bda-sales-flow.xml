@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="bda-sales-flow">
+        <default-activity>BdaSalesDefault</default-activity>
+        <input-parameter-definition id="__8">
+            <name>editable</name>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <view id="BDASales">
+            <page>/tmFragments/BDASales.jsff</page>
+        </view>
+        <view id="BdaSalesDefault">
+            <page>/tmFragments/BdaSalesDefault.jsff</page>
+        </view>
+        <view id="bdaSalesAllocation">
+            <page>/tmFragments/bdaSalesAllocation.jsff</page>
+        </view>
+        <control-flow-rule id="__1">
+            <from-activity-id>BdaSalesDefault</from-activity-id>
+            <control-flow-case id="__2">
+                <from-outcome>goBdaSalesProcess</from-outcome>
+                <to-activity-id>BDASales</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__5">
+                <from-outcome>goSalesAllocation</from-outcome>
+                <to-activity-id>bdaSalesAllocation</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__3">
+            <from-activity-id>BDASales</from-activity-id>
+            <control-flow-case id="__4">
+                <from-outcome>back</from-outcome>
+                <to-activity-id>BdaSalesDefault</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__6">
+            <from-activity-id>bdaSalesAllocation</from-activity-id>
+            <control-flow-case id="__7">
+                <from-outcome>backSalesAllocation</from-outcome>
+                <to-activity-id>BdaSalesDefault</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

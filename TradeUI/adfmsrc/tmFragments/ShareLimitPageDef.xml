@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="ShareLimitPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BrokersVO" RangeSize="25" DataControl="CommonModelServiceDataControl" id="BrokersVOIterator"/>
+    <iterator Binds="FileTypeLOV" RangeSize="25" DataControl="TradeFileServiceDataControl" id="FileTypeLOVIterator"/>
+    <iterator Binds="ShareLimitVO" RangeSize="-1" DataControl="TradeFileServiceDataControl" id="ShareLimitVOIterator"/>
+    <iterator id="CSBrokerLOVIterator" Binds="CSBrokerLOV" DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="SpecialFunctionPermissionVOIterator" Binds="SpecialFunctionPermissionVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="BrokersVOIterator" ListOperMode="navigation" ListIter="BrokersVOIterator" id="BrokersVO"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="BrokerName"/>
+      </AttrNames>
+    </list>
+    <list IterBinding="FileTypeLOVIterator" ListOperMode="navigation" ListIter="FileTypeLOVIterator" id="FileTypeLOV"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </list>
+    <tree IterBinding="ShareLimitVOIterator" id="ShareLimitVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.ShareLimitVO" Name="ShareLimitVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="ProductType"/>
+          <Item Value="Name"/>
+          <Item Value="Boid"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="ShortName"/>
+          <Item Value="InstrumentType"/>
+          <Item Value="SalableQty"/>
+          <Item Value="BusinessType"/>
+          <Item Value="Isin"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="TotalQty"/>
+          <Item Value="BrokerId"/>
+          <Item Value="TradingCode"/>
+          <Item Value="FreeBalance"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

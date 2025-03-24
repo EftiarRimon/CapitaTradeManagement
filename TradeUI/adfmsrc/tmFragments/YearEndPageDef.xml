@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="YearEndPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="YearEndVO" RangeSize="25" DataControl="DayStartEndServiceDataControl" id="YearEndVOIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="YearEndVOIterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="YearEndVOIterator" id="DateOfYearEND">
+      <AttrNames>
+        <Item Value="DateOfYearEND"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="YearEndVOIterator" StaticList="false" Uses="LOV_branchId" id="branchId" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

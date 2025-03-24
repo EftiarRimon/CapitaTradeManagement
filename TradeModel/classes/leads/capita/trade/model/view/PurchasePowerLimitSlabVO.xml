@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PurchasePowerLimitSlabVO"
+  Version="11.1.2.60.81"
+  SelectList="PurchasePowerLimitSlab.ACCOUNT_ID, 
+       PurchasePowerLimitSlab.APPROVE_DT, 
+       PurchasePowerLimitSlab.APPROVED_BY, 
+       PurchasePowerLimitSlab.CREATED_BY, 
+       PurchasePowerLimitSlab.CREATION_DT, 
+       PurchasePowerLimitSlab.LAST_UPDATE_DT, 
+       PurchasePowerLimitSlab.LAST_UPDATED_BY, 
+       PurchasePowerLimitSlab.OBJECT_VERSION_ID, 
+       PurchasePowerLimitSlab.PCT, 
+       PurchasePowerLimitSlab.SESSION_ID, 
+       PurchasePowerLimitSlab.SLAB_ID, 
+       PurchasePowerLimitSlab.UK_ID"
+  FromList="PURCHASE_POWER_LIMIT_SLAB PurchasePowerLimitSlab"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.PurchasePowerLimitSlabVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="InvestorAccountsLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InvestorAccountsLOV"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_AccountId"
+    ListVOName="InvestorAccountsLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="AccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="AccountId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InvestorCode"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <EntityUsage
+    Name="PurchasePowerLimitSlab"
+    Entity="leads.capita.trade.model.entity.PurchasePowerLimitSlab"/>
+  <ViewAttribute
+    Name="AccountId"
+    PrecisionRule="true"
+    EntityAttrName="AccountId"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="ACCOUNT_ID"
+    LOVName="LOV_AccountId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ApproveDt"
+    PrecisionRule="true"
+    EntityAttrName="ApproveDt"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="APPROVE_DT"/>
+  <ViewAttribute
+    Name="ApprovedBy"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedBy"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="APPROVED_BY"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDt"
+    PrecisionRule="true"
+    EntityAttrName="CreationDt"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="CREATION_DT"/>
+  <ViewAttribute
+    Name="LastUpdateDt"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDt"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="LAST_UPDATE_DT"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="ObjectVersionId"
+    PrecisionRule="true"
+    EntityAttrName="ObjectVersionId"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="OBJECT_VERSION_ID"/>
+  <ViewAttribute
+    Name="Pct"
+    PrecisionRule="true"
+    EntityAttrName="Pct"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="PCT"/>
+  <ViewAttribute
+    Name="SessionId"
+    PrecisionRule="true"
+    EntityAttrName="SessionId"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="SESSION_ID"/>
+  <ViewAttribute
+    Name="SlabId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="SlabId"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="SLAB_ID"/>
+  <ViewAttribute
+    Name="UkId"
+    PrecisionRule="true"
+    EntityAttrName="UkId"
+    EntityUsage="PurchasePowerLimitSlab"
+    AliasName="UK_ID"/>
+</ViewObject>

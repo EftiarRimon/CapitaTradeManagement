@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;">
+    <f:facet name="center">
+      <af:panelGroupLayout id="pgl2" inlineStyle="height:480px; width:650px;">
+        <af:panelBox text="Price File [#{bindings.FileName.inputValue}]" id="pb1">
+          <f:facet name="toolbar">
+            <af:panelGroupLayout id="pgl3" layout="horizontal" halign="end">
+              <af:outputText value="#{bindings.ImportId.inputValue}" id="ot1" rendered="false"/>
+              <af:commandButton text="Process" id="cbProcess" icon="/images/action.png"
+                                action="#{PriceFileBean.process}" binding="#{PriceFileBean.cbProcessUI}"
+                                disabled="#{!PriceFileBean.processEnable or bindings.ProcStatus.inputValue eq 'P'}"
+                                partialTriggers="pc1:t1"/>
+              <af:commandButton text="Validate " id="cbValidate" icon="/images/verify.png"
+                                action="#{PriceFileBean.validate}" binding="#{PriceFileBean.cbValidatorUI}"
+                                disabled="#{PriceFileBean.processEnable}"/>
+              <af:commandButton text="Back to Main" id="cbBack" icon="/images/go-list.png" action="backFromPrice"
+                                actionListener="#{PriceFileBean.customRollBack}"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <af:panelGroupLayout layout="vertical" id="pgl4">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.TradePriceFileVOCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.TradePriceFileVOCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.TradePriceFileVOCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.TradePriceFileVOCriteriaQuery.processQueryOperation}"
+                      saveQueryMode="hidden" modeChangeVisible="false"/>
+          </af:panelGroupLayout>
+          <af:panelCollection id="pc1" inlineStyle="width:600px;">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+              <af:toolbar id="t2">
+                <af:commandButton id="cb2" icon="/images/add.png" shortDesc="Add Record"
+                                  actionListener="#{PriceFileBean.createRecord}"/>
+                <af:commandButton id="cb1" icon="/images/refresh.png"/>
+                <af:commandButton id="cb3" icon="/images/Save.png" shortDesc="Save"
+                                  actionListener="#{PriceFileBean.saveRecord}"/>
+              </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.TradePriceFileVO.collectionModel}" var="row"
+                      rows="#{bindings.TradePriceFileVO.rangeSize}"
+                      emptyText="#{bindings.TradePriceFileVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      fetchSize="#{bindings.TradePriceFileVO.rangeSize}" rowBandingInterval="0"
+                      selectedRowKeys="#{bindings.TradePriceFileVO.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.TradePriceFileVO.collectionModel.makeCurrent}" rowSelection="single"
+                      id="t1" autoHeightRows="15" editingMode="clickToEdit">
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.TracerNo.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.TracerNo.label}" id="c1" width="35">
+                <af:inputText value="#{row.bindings.TracerNo.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.TracerNo.label}"
+                              required="#{bindings.TradePriceFileVO.hints.TracerNo.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.TracerNo.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.TracerNo.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.TracerNo.tooltip}" id="it1" readOnly="true">
+                  <f:validator binding="#{row.bindings.TracerNo.validator}"/>
+                  <af:convertNumber groupingUsed="false" pattern="#{bindings.TradePriceFileVO.hints.TracerNo.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ExchangeId.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ExchangeId.label}" id="c2" rendered="false">
+                <af:inputText value="#{row.bindings.ExchangeId.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ExchangeId.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ExchangeId.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ExchangeId.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.ExchangeId.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ExchangeId.tooltip}" id="it2">
+                  <f:validator binding="#{row.bindings.ExchangeId.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.TradePriceFileVO.hints.ExchangeId.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.PriceDate.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.PriceDate.label}" id="c3" rendered="false">
+                <af:inputDate value="#{row.bindings.PriceDate.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.PriceDate.label}"
+                              required="#{bindings.TradePriceFileVO.hints.PriceDate.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.PriceDate.displayWidth}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.PriceDate.tooltip}" id="id1">
+                  <f:validator binding="#{row.bindings.PriceDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.TradePriceFileVO.hints.PriceDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.InstrCode.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.InstrCode.label}" id="c4" width="105">
+                <af:inputText value="#{row.bindings.InstrCode.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.InstrCode.label}"
+                              required="#{bindings.TradePriceFileVO.hints.InstrCode.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.InstrCode.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.InstrCode.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.InstrCode.tooltip}" id="it3">
+                  <f:validator binding="#{row.bindings.InstrCode.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.InstrIsin.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.InstrIsin.label}" id="c5" width="105">
+                <af:inputText value="#{row.bindings.InstrIsin.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.InstrIsin.label}"
+                              required="#{bindings.TradePriceFileVO.hints.InstrIsin.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.InstrIsin.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.InstrIsin.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.InstrIsin.tooltip}" id="it4">
+                  <f:validator binding="#{row.bindings.InstrIsin.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.InstrGroup.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.InstrGroup.label}" id="c6" width="46">
+                <af:selectOneChoice value="#{row.bindings.InstrGroup.inputValue}"
+                                    label="#{row.bindings.InstrGroup.label}"
+                                    required="#{bindings.TradePriceFileVO.hints.InstrGroup.mandatory}"
+                                    shortDesc="#{bindings.TradePriceFileVO.hints.InstrGroup.tooltip}" id="soc1">
+                  <f:selectItems value="#{row.bindings.InstrGroup.items}" id="si1"/>
+                </af:selectOneChoice>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.OpenPrice.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.OpenPrice.label}" id="c7" width="59">
+                <af:inputText value="#{row.bindings.OpenPrice.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.OpenPrice.label}"
+                              required="#{bindings.TradePriceFileVO.hints.OpenPrice.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.OpenPrice.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.OpenPrice.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.OpenPrice.tooltip}" id="it5">
+                  <f:validator binding="#{row.bindings.OpenPrice.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.HighPrice.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.HighPrice.label}" id="c8" width="60">
+                <af:inputText value="#{row.bindings.HighPrice.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.HighPrice.label}"
+                              required="#{bindings.TradePriceFileVO.hints.HighPrice.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.HighPrice.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.HighPrice.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.HighPrice.tooltip}" id="it6">
+                  <f:validator binding="#{row.bindings.HighPrice.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.LowPrice.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.LowPrice.label}" id="c9" width="60">
+                <af:inputText value="#{row.bindings.LowPrice.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.LowPrice.label}"
+                              required="#{bindings.TradePriceFileVO.hints.LowPrice.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.LowPrice.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.LowPrice.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.LowPrice.tooltip}" id="it7">
+                  <f:validator binding="#{row.bindings.LowPrice.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ClosePrice.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ClosePrice.label}" id="c10" width="60">
+                <af:inputText value="#{row.bindings.ClosePrice.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ClosePrice.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ClosePrice.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ClosePrice.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.ClosePrice.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ClosePrice.tooltip}" id="it8">
+                  <f:validator binding="#{row.bindings.ClosePrice.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ProcDate.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ProcDate.label}" id="c11" rendered="false">
+                <af:inputDate value="#{row.bindings.ProcDate.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ProcDate.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ProcDate.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ProcDate.displayWidth}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ProcDate.tooltip}" id="id2">
+                  <f:validator binding="#{row.bindings.ProcDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.TradePriceFileVO.hints.ProcDate.format}"/>
+                </af:inputDate>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ProcStatus.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ProcStatus.label}" id="c12" width="35">
+                <af:inputText value="#{row.bindings.ProcStatus.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ProcStatus.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ProcStatus.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ProcStatus.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.ProcStatus.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ProcStatus.tooltip}" id="it9"
+                              readOnly="true">
+                  <f:validator binding="#{row.bindings.ProcStatus.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ValidStatus.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ValidStatus.label}" id="c13" width="50"
+                         rendered="false">
+                <af:inputText value="#{row.bindings.ValidStatus.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ValidStatus.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ValidStatus.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ValidStatus.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.ValidStatus.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ValidStatus.tooltip}" id="it10">
+                  <f:validator binding="#{row.bindings.ValidStatus.validator}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.ImportId.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.ImportId.label}" id="c14" rendered="false">
+                <af:inputText value="#{row.bindings.ImportId.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.ImportId.label}"
+                              required="#{bindings.TradePriceFileVO.hints.ImportId.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.ImportId.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.ImportId.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.ImportId.tooltip}" id="it11">
+                  <f:validator binding="#{row.bindings.ImportId.validator}"/>
+                  <af:convertNumber groupingUsed="false" pattern="#{bindings.TradePriceFileVO.hints.ImportId.format}"/>
+                </af:inputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.TradePriceFileVO.hints.RowID.name}" sortable="false"
+                         headerText="#{bindings.TradePriceFileVO.hints.RowID.label}" id="c15" rendered="false">
+                <af:inputText value="#{row.bindings.RowID.inputValue}"
+                              label="#{bindings.TradePriceFileVO.hints.RowID.label}"
+                              required="#{bindings.TradePriceFileVO.hints.RowID.mandatory}"
+                              columns="#{bindings.TradePriceFileVO.hints.RowID.displayWidth}"
+                              maximumLength="#{bindings.TradePriceFileVO.hints.RowID.precision}"
+                              shortDesc="#{bindings.TradePriceFileVO.hints.RowID.tooltip}" id="it12">
+                  <f:validator binding="#{row.bindings.RowID.validator}"/>
+                </af:inputText>
+              </af:column>
+            </af:table>
+          </af:panelCollection>
+        </af:panelBox>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:decorativeBox>
+</ui:composition>

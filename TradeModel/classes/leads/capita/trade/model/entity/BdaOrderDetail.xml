@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BdaOrderDetail"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="BDA_ORDER_DETAIL"
+  AliasName="BdaOrderDetail"
+  BindingStyle="OracleName"
+  UseGlueCode="false"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+  <Attribute
+    Name="DetailId"
+    ColumnName="DETAIL_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="BDA_ORDER_DETAIL"
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true"/>
+  <Attribute
+    Name="OrderId"
+    ColumnName="ORDER_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="BDA_ORDER_DETAIL">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OrderId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="AccountId"
+    IsNotNull="true"
+    Precision="10"
+    Scale="0"
+    ColumnName="ACCOUNT_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="BDA_ORDER_DETAIL">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AccountId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="OrderQuantity"
+    IsNotNull="true"
+    Precision="10"
+    Scale="0"
+    ColumnName="ORDER_QUANTITY"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="BDA_ORDER_DETAIL">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OrderQuantity_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="AllocQuantity"
+    Precision="10"
+    Scale="0"
+    ColumnName="ALLOC_QUANTITY"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="BDA_ORDER_DETAIL">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AllocQuantity_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute
+    Name="BdaOrders"
+    Association="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetOrderIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetOrderIdAssoc.BdaOrders"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetOrderIdAssoc.BdaOrderDetail"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="InvestorAccounts"
+    Association="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc.InvestorAccounts"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersDetAccountIdAssoc.BdaOrderDetail"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PkBdaOrdersDetailId"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_BDA_ORDERS_DETAIL_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.BdaOrderDetail.DetailId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkBdaOrdersDetAccountId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_INVESTOR_ACCOUNTS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_BDA_ORDERS_DET_ACCOUNT_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.BdaOrderDetail.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkBdaOrdersDetOrderId">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_BDA_ORDERS"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_BDA_ORDERS_DET_ORDER_ID"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.BdaOrderDetail.OrderId"/>
+    </AttrArray>
+  </Key>
+  <validation:CompareValidationBean
+    Name="BdaOrderDetail_Rule_0"
+    ResId="leads.capita.trade.model.entity.BdaOrderDetail_Rule_0"
+    OnAttribute="AllocQuantity"
+    OperandType="ATTR"
+    Inverse="false"
+    CompareType="LESSTHANEQUALTO"
+    CompareValue="OrderQuantity">
+    <validation:OnAttributes>
+      <validation:Item
+        Value="AllocQuantity"/>
+      <validation:Item
+        Value="OrderQuantity"/>
+    </validation:OnAttributes>
+    <validation:OnCondition><![CDATA[AllocQuantity != null]]></validation:OnCondition>
+  </validation:CompareValidationBean>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</Entity>

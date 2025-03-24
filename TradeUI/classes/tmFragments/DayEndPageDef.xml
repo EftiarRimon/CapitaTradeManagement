@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="DayEndPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="DayEndVOIterator" Binds="DayEndVO" DataControl="DayStartEndServiceDataControl" RangeSize="500"/>
+    <iterator Binds="ConnectedUsersVO" RangeSize="500" DataControl="DayStartEndServiceDataControl"
+              id="ConnectedUsersVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DayEndVOIterator" id="DayEndVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.DayEndVO" Name="DayEndVO0">
+        <AttrNames>
+          <Item Value="Serial"/>
+          <Item Value="ChildId"/>
+          <Item Value="ErrorText"/>
+          <Item Value="ExecDate"/>
+          <Item Value="Name"/>
+          <Item Value="Status"/>
+          <Item Value="StoredProc"/>
+          <Item Value="BranchId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="ConnectedUsersVOIterator" id="ConnectedUsersVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.ConnectedUsersVO" Name="ConnectedUsersVO0">
+        <AttrNames>
+          <Item Value="UserName"/>
+          <Item Value="LoginTime"/>
+          <Item Value="BranchName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

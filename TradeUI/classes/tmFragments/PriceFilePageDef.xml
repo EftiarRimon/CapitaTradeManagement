@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="PriceFilePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradePriceFileVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradePriceFileVOIterator"/>
+    <searchRegion Criteria="TradePriceFileVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="TradePriceFileVOIterator" id="TradePriceFileVOCriteriaQuery"/>
+    <iterator Binds="ImportExtFilesVO" RangeSize="10" DataControl="TradeFileServiceDataControl"
+              id="ImportExtFilesVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TradePriceFileVOIterator" id="TradePriceFileVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradePriceFileVO" Name="TradePriceFileVO0">
+        <AttrNames>
+          <Item Value="TracerNo"/>
+          <Item Value="ExchangeId"/>
+          <Item Value="PriceDate"/>
+          <Item Value="InstrCode"/>
+          <Item Value="InstrIsin"/>
+          <Item Value="InstrGroup"/>
+          <Item Value="OpenPrice"/>
+          <Item Value="HighPrice"/>
+          <Item Value="LowPrice"/>
+          <Item Value="ClosePrice"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="ImportId"/>
+          <Item Value="RowID"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="TradePriceFileVOIterator" id="CreateInsert"
+            InstanceName="TradeFileServiceDataControl.TradePriceFileVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+    <action IterBinding="TradePriceFileVOIterator" id="Delete"
+            InstanceName="TradeFileServiceDataControl.TradePriceFileVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ImportId">
+      <AttrNames>
+        <Item Value="ImportId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TradePriceFileVOIterator" id="ProcStatus">
+      <AttrNames>
+        <Item Value="ProcStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="FileName">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

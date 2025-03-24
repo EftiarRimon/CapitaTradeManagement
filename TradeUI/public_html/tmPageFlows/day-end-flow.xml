@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="day-end-flow">
+    <default-activity>DayEnd</default-activity>
+    <managed-bean id="__1">
+      <managed-bean-name>EodBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.EodBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="DayEnd">
+      <page>/tmFragments/DayEnd.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

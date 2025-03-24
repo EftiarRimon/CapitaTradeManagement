@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="TradeReversePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradeReverseFileListVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeReverseFileListVOIterator"/>
+    <searchRegion Criteria="TradeReverseFileListVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="TradeReverseFileListVOIterator"
+                  id="TradeReverseFileListVOCriteriaQuery"/>
+    <iterator Binds="ConnectedUsersVO" RangeSize="25" DataControl="DayStartEndServiceDataControl"
+              id="ConnectedUsersVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TradeReverseFileListVOIterator" id="TradeReverseFileListVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradeReverseFileListVO" Name="TradeReverseFileListVO0">
+        <AttrNames>
+          <Item Value="ImportId"/>
+          <Item Value="FileId"/>
+          <Item Value="FileName"/>
+          <Item Value="FileDate"/>
+          <Item Value="TotalRec"/>
+          <Item Value="ValidateRec"/>
+          <Item Value="ErrorRec"/>
+          <Item Value="ProcessedRec"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDt"/>
+          <Item Value="LastUpdatedBy"/>
+          <Item Value="LastUpdateDt"/>
+          <Item Value="ApprovalStatus"/>
+          <Item Value="ApprovalRef"/>
+          <Item Value="ObjectVersionId"/>
+          <Item Value="BusinessType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="ConnectedUsersVOIterator" id="ConnectedUsersVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.ConnectedUsersVO" Name="ConnectedUsersVO0">
+        <AttrNames>
+          <Item Value="UserName"/>
+          <Item Value="LoginTime"/>
+          <Item Value="BranchName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TradeReverseFileListVOIterator" id="TotalRec">
+      <AttrNames>
+        <Item Value="TotalRec"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TradeReverseFileListVOIterator" id="ProcessedRec">
+      <AttrNames>
+        <Item Value="ProcessedRec"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="BtFilePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradeFileBtVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeFileBtVOIterator"/>
+    <searchRegion Criteria="TradeFileBtVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="TradeFileBtVOIterator" id="TradeFileBtVOCriteriaQuery"/>
+    <iterator Binds="ImportExtFilesVO" RangeSize="10" DataControl="TradeFileServiceDataControl"
+              id="ImportExtFilesVOIterator"/>
+    <iterator Binds="TradeCommissionChargeVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeCommissionChargeVOIterator"/>
+  </executables>
+  <bindings>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="TradeFileBtVOIterator" id="CreateInsert"
+            InstanceName="TradeFileServiceDataControl.TradeFileBtVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+    <action IterBinding="TradeFileBtVOIterator" id="Delete" InstanceName="TradeFileServiceDataControl.TradeFileBtVO"
+            DataControl="TradeFileServiceDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <tree IterBinding="TradeFileBtVOIterator" id="TradeFileBtVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradeFileBtVO" Name="TradeFileBtVO0">
+        <AttrNames>
+          <Item Value="TracerNo"/>
+          <Item Value="TraderId"/>
+          <Item Value="Scrip"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="BuySell"/>
+          <Item Value="TradeQuantity"/>
+          <Item Value="Price"/>
+          <Item Value="Customer"/>
+          <Item Value="Opbrker"/>
+          <Item Value="Optrder"/>
+          <Item Value="Tid"/>
+          <Item Value="TradeDate"/>
+          <Item Value="TradeTime"/>
+          <Item Value="OrderDate"/>
+          <Item Value="OrderTime"/>
+          <Item Value="MarketType"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="ValidInvestor"/>
+          <Item Value="ValidInstrument"/>
+          <Item Value="ValidTws"/>
+          <Item Value="ImportId"/>
+          <Item Value="RowID"/>
+          <Item Value="CommRate"/>
+          <Item Value="NewCommRate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ImportId">
+      <AttrNames>
+        <Item Value="ImportId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="TotalRec">
+      <AttrNames>
+        <Item Value="TotalRec"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ValidateRec">
+      <AttrNames>
+        <Item Value="ValidateRec"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ErrorRec">
+      <AttrNames>
+        <Item Value="ErrorRec"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ProcessedRec">
+      <AttrNames>
+        <Item Value="ProcessedRec"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="FileDate">
+      <AttrNames>
+        <Item Value="FileDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="FileName">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="TradeCommissionChargeVOIterator" id="InvestorCode">
+      <AttrNames>
+        <Item Value="InvestorCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="TradeCommissionChargeVOIterator" id="NewRate">
+      <AttrNames>
+        <Item Value="NewRate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_Product" id="ProductId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_Buy_Sell" id="Buy_Sell"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkFileIdMergeDetDealerLink"
+  Version="11.1.2.60.81"
+  EntityAssociation="leads.capita.trade.model.entity.FkFileIdMergeDetDealerAssoc">
+  <ViewLinkDefEnd
+    Name="FtiFileMergeCashDealerVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.FtiFileMergeCashDealerVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiFileMergeCashDealerVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiFileMergeCashDealerVO.FileId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="FtiFileMrgCashDetDealerVO"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.FtiFileMrgCashDetDealerVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="FtiFileMrgCashDetDealerVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.FtiFileMrgCashDetDealerVO.FileId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

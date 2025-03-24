@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BdaOrdersFilterVO"
+  Version="11.1.2.60.81"
+  SelectList="BdaOrders.ALLOC_DATE, 
+       BdaOrders.BUY_SELL, 
+       BdaOrders.EXCHANGE_ID, 
+       BdaOrders.INSTRUMENT_ID, 
+       BdaOrders.ORDER_DATE, 
+       BdaOrders.ORDER_ID, 
+       BdaOrders.ORDER_PRICE, 
+       BdaOrders.PROCESS_DATE, 
+       BdaOrders.STATUS, 
+       BdaOrders.TRADE_CODE, 
+       BdaOrders.TRADE_PRICE, 
+       BdaOrders.TRADE_QUANTITY"
+  FromList="BDA_ORDERS BdaOrders"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="BdaOrders.ORDER_ID=:orderId">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.BdaOrdersFilterVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="orderId"
+    Kind="where"
+    Type="java.lang.Integer"/>
+  <ViewAccessor
+    Name="BuySellLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.BuySellLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ExchangeLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.ExchangeLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="InstrumentLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InstrumentLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="BdaStatusLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['BDA_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_BuySell"
+    ListVOName="BuySellLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="BuySell"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="key"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="val"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ExchangeId"
+    ListVOName="ExchangeLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ExchangeId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ExchangeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ExchangeName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InstrumentId"
+    ListVOName="InstrumentLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InstrumentName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="BdaStatusLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <EntityUsage
+    Name="BdaOrders"
+    Entity="leads.capita.trade.model.entity.BdaOrders"/>
+  <ViewAttribute
+    Name="AllocDate"
+    PrecisionRule="true"
+    EntityAttrName="AllocDate"
+    EntityUsage="BdaOrders"
+    AliasName="ALLOC_DATE"/>
+  <ViewAttribute
+    Name="BuySell"
+    PrecisionRule="true"
+    EntityAttrName="BuySell"
+    EntityUsage="BdaOrders"
+    AliasName="BUY_SELL"
+    LOVName="LOV_BuySell">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExchangeId"
+    PrecisionRule="true"
+    EntityAttrName="ExchangeId"
+    EntityUsage="BdaOrders"
+    AliasName="EXCHANGE_ID"
+    LOVName="LOV_ExchangeId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="InstrumentId"
+    EntityUsage="BdaOrders"
+    AliasName="INSTRUMENT_ID"
+    LOVName="LOV_InstrumentId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OrderDate"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_DATE"/>
+  <ViewAttribute
+    Name="OrderId"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="OrderId"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_ID"/>
+  <ViewAttribute
+    Name="OrderPrice"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OrderPrice"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_PRICE"/>
+  <ViewAttribute
+    Name="ProcessDate"
+    PrecisionRule="true"
+    EntityAttrName="ProcessDate"
+    EntityUsage="BdaOrders"
+    AliasName="PROCESS_DATE"/>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="BdaOrders"
+    AliasName="STATUS"
+    LOVName="LOV_Status">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeCode"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="TradeCode"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_CODE"/>
+  <ViewAttribute
+    Name="TradePrice"
+    PrecisionRule="true"
+    EntityAttrName="TradePrice"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_PRICE"/>
+  <ViewAttribute
+    Name="TradeQuantity"
+    PrecisionRule="true"
+    EntityAttrName="TradeQuantity"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_QUANTITY"/>
+  <ViewAttribute
+    Name="AppDate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP') !=null ? adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP'): adf.currentDate]]></TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="AppDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="leads.capita.trade.model.view.BdaOrdersFilterVO.AppDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="isEqualDate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Boolean"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="BIT">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if (AppDate==OrderDate)
+   return true;
+else
+   return false;]]></TransientExpression>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

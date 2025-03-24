@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="CashLimitShareLimitPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FileTypeLOV" RangeSize="25" DataControl="TradeFileServiceDataControl" id="FileTypeLOVIterator"/>
+    <iterator Binds="CashLimitLimitVO" DataControl="TradeFileServiceDataControl"
+              id="CashLimitLimitVOIterator" RangeSize="-1"/>
+    <iterator Binds="BrokersVO" RangeSize="25" DataControl="CommonModelServiceDataControl" id="BrokersVOIterator"/>
+    <iterator id="InvTradingCodeVOIterator" Binds="InvTradingCodeVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="-1"/>
+    <iterator id="CSBrokerLOVIterator" Binds="CSBrokerLOV" DataControl="TradeFileServiceDataControl" RangeSize="-1"/>
+    <iterator id="SpecialFunctionPermissionVOIterator" Binds="SpecialFunctionPermissionVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="FileTypeLOVIterator" ListOperMode="navigation" ListIter="FileTypeLOVIterator" id="FileTypeLOV"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </list>
+    <tree IterBinding="CashLimitLimitVOIterator" id="CashLimitLimitVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.CashLimitLimitVO" Name="CashLimitLimitVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Name"/>
+          <Item Value="Boid"/>
+          <Item Value="PurchasePower"/>
+          <Item Value="CashLimit"/>
+          <Item Value="BuyLimit"/>
+          <Item Value="ProductType"/>
+          <Item Value="TradingCode"/>
+          <Item Value="Calculated"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="BrokersVOIterator" ListOperMode="navigation" ListIter="BrokersVOIterator" id="BrokersVO"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="BrokerName"/>
+      </AttrNames>
+    </list>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!----> 
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiFtpConfigurationVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <ViewAccessor
+    Name="CustomLoookupLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['FTP _PROTOCOL']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_FtpProtocol"
+    ListVOName="CustomLoookupLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="FtpProtocol"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery><![CDATA[SELECT FtiFtpConfiguration.ROW_SEQ_ID, 
+       FtiFtpConfiguration.HOST, 
+       FtiFtpConfiguration.FILE_PATH, 
+       FtiFtpConfiguration.FTP_PROTOCOL, 
+       FtiFtpConfiguration.USER_NAME, 
+       FtiFtpConfiguration.USER_PASSWORD, 
+       FtiFtpConfiguration.CONFIRM_PASSWORD,
+       FtiFtpConfiguration.Port,
+       FtiFtpConfiguration.IS_ACTIVE
+FROM FTI_FTP_CONFIGURATION FtiFtpConfiguration]]></SQLQuery>
+  <EntityUsage
+    Name="FtiFtpConfiguration"
+    Entity="leads.capita.trade.model.entity.FtiFtpConfiguration"/>
+  <ViewAttribute
+    Name="RowSeqId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RowSeqId"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="ROW_SEQ_ID"
+    IsUpdateable="while_insert"/>
+  <ViewAttribute
+    Name="Host"
+    PrecisionRule="true"
+    EntityAttrName="Host"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="HOST">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FilePath"
+    PrecisionRule="true"
+    EntityAttrName="FilePath"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="FILE_PATH">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="60"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FtpProtocol"
+    PrecisionRule="true"
+    EntityAttrName="FtpProtocol"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="FTP_PROTOCOL"
+    LOVName="LOV_FtpProtocol"
+    DefaultValue="N">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="radio"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UserName"
+    PrecisionRule="true"
+    EntityAttrName="UserName"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="USER_NAME">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UserPassword"
+    PrecisionRule="true"
+    EntityAttrName="UserPassword"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="USER_PASSWORD">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ConfirmPassword"
+    PrecisionRule="true"
+    EntityAttrName="ConfirmPassword"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="CONFIRM_PASSWORD">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Port"
+    PrecisionRule="true"
+    EntityAttrName="Port"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="PORT">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IsActive"
+    PrecisionRule="true"
+    EntityAttrName="IsActive"
+    EntityUsage="FtiFtpConfiguration"
+    AliasName="IS_ACTIVE"/>
+</ViewObject>

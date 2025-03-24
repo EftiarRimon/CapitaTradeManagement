@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+   
+   <af:popup childCreation="deferred" autoCancel="disabled" id="popBrokerDelete">
+        <af:dialog id="d2" dialogListener="#{BtFileBean.showPopupRecDeletion}"
+                   title="Are you sure you want to delete?">
+            <f:facet name="buttonBar"/>
+        </af:dialog>
+    </af:popup>
+    
+  <af:panelGroupLayout id="pgl1" layout="vertical">
+    <af:decorativeBox id="db1" inlineStyle="height:480px; width:1000px;">
+      <f:facet name="center">
+        <af:panelBox text="BT File [#{bindings.FileName.inputValue}]" id="pb1" background="light"
+                     inlineStyle="height:inherit; width:inherit;" partialTriggers="qryId1">
+          <f:facet name="toolbar">
+            <af:panelGroupLayout id="pgl2" halign="end" layout="horizontal">
+              <af:activeOutputText value="#{BtFileBean.onloadText}" id="aot1"/>
+              <af:commandButton text="Process" id="cbProcess" icon="/images/action.png" action="#{BtFileBean.process}"
+                                disabled="#{bindings.ErrorRec.inputValue gt 0 or BtFileBean.bdaCount gt 0 or BtFileBean.overPurchaseCount  gt 0 or BtFileBean.shortSellCount  gt 0 or BtFileBean.unapprovedInstrumentCount  gt 0 
+ or bindings.ProcessedRec.inputValue gt 0 or BtFileBean.insNonMgrCount gt 0 or BtFileBean.invNonMgrCount gt 0 }"
+                                immediate="false"/>
+                                
+              <af:commandButton text="Verify" id="cbValidate" icon="/images/verify.png"
+                                action="#{BtFileBean.validate}" disabled="#{bindings.ProcessedRec.inputValue gt 0}"/>
+              <af:commandButton text="Back to Main" id="cbBack" icon="/images/go-list.png" action="backFromBt"
+                                actionListener="#{BtFileBean.customRollBack}"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <af:panelGroupLayout layout="vertical" id="pgl3" inlineStyle="height:inherit; width:inherit;">
+            <af:panelSplitter id="ps1" inlineStyle="height:150px; width:700px;" splitterPosition="352">
+              <f:facet name="first">
+                <af:query id="qryId1" headerText="Search" disclosed="true"
+                          value="#{bindings.TradeFileBtVOCriteriaQuery.queryDescriptor}"
+                          model="#{bindings.TradeFileBtVOCriteriaQuery.queryModel}"
+                          queryListener="#{bindings.TradeFileBtVOCriteriaQuery.processQuery}"
+                          queryOperationListener="#{bindings.TradeFileBtVOCriteriaQuery.processQueryOperation}"
+                          modeChangeVisible="false" saveQueryMode="hidden"/>
+              </f:facet>
+              <f:facet name="second">
+                <af:decorativeBox id="db2">
+                  <f:facet name="center">
+                    <af:panelGroupLayout layout="default" id="pgl5">
+                      <af:panelFormLayout id="pfl1" rows="4" maxColumns="2" labelAlignment="start">
+                        <af:inputText label="Valid Records:" id="it21" readOnly="true"
+                                      value="#{bindings.ValidateRec.inputValue}"/>
+                        <af:inputText label="Ivalid Records:" id="it22" readOnly="true"
+                                      value="#{bindings.ErrorRec.inputValue}"/>
+                        <af:inputText label="Total Records:" id="it23" readOnly="true"
+                                      value="#{bindings.TotalRec.inputValue}"/>
+                        <af:inputText label="Processed Records:" id="it26" readOnly="true"
+                                      value="#{bindings.ProcessedRec.inputValue}"/>
+                        <af:inputText label="Short Sell:" id="it24" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.shortSellCount}"/>
+                        <af:inputText label="Over Purchase:" id="it25" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.overPurchaseCount}"/>
+                        <af:inputText label="Unapproved Instrument:" id="it30" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.unapprovedInstrumentCount}"/>
+                        <af:inputText label="Non Marginable Instruments:" id="it29" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.insNonMgrCount}"/>
+                        <af:inputText label="Non Marginable Investors:" id="it28" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.invNonMgrCount}"/>
+                        <af:inputText label="BDA Allocation Panding:" id="it39" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.bdaCount}"/>
+                        <f:facet name="footer"/>
+                        <af:inputText label="Trade in Spot Market:" id="it27" readOnly="true" autoSubmit="true"
+                                      value="#{BtFileBean.spotCount}"/>
+                      </af:panelFormLayout>
+                    </af:panelGroupLayout>
+                  </f:facet>
+                </af:decorativeBox>
+              </f:facet>
+            </af:panelSplitter>
+            <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;" partialTriggers="::qryId1">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                  <af:commandButton id="cb2" icon="/images/add.png" shortDesc="Add Record"
+                                    actionListener="#{BtFileBean.createRecord}"/>
+                  <af:commandButton id="cb1" icon="/images/refresh.png" actionListener="#{BtFileBean.customRollBack}"/>
+                  <af:commandButton id="cb3" icon="/images/Save.png" shortDesc="Save"
+                                    actionListener="#{BtFileBean.saveRecord}"
+                                    disabled="#{bindings.ProcessedRec.inputValue gt 0 or bindings.TradeFileBtVOIterator.estimatedRowCount lt 1}"/>
+                  <af:selectOneChoice id="socOPSSUI" value="al" valueChangeListener="#{BtFileBean.filterOnValidation}"
+                                      partialTriggers="t1" autoSubmit="true" binding="#{BtFileBean.opssuiStatus}">
+                    <af:selectItem label="All" value="al" id="si7"/>
+                    <af:selectItem label="Short Sell" value="ss" id="si8"/>
+                    <af:selectItem label="Over Purchased" value="op" id="si9"/>
+                    <af:selectItem label="Unapproved Instruments" value="ui" id="si10"/>
+                    <af:selectItem label="BDA" value="bda" id="si11"/>
+                    <af:selectItem label="Non-Marginable Investor" value="invmg" id="si20"/>
+                    <af:selectItem label="Non-Marginable Instrument" value="insmg" id="si21"/>
+                    <af:selectItem label="Invalid" value="n" id="si12"/>
+                  </af:selectOneChoice>
+                  <af:commandButton id="cbpopup" icon="/images/go-pencil.png"
+                                    disabled="#{BtFileBean.opssuiStatus.value eq 'al'}" partialTriggers="socOPSSUI">
+                    <af:showPopupBehavior triggerType="click" popupId="::popSSOP"/>
+                  </af:commandButton>
+                  <af:commandButton id="cb6" icon="/images/edit-ena.png" shortDesc="Trade Commission Change"
+                                    disabled="#{bindings.ProcessedRec.inputValue gt 0 or bindings.TradeFileBtVOIterator.estimatedRowCount lt 1}"
+                                    partialTriggers="::qryId1">
+                    <af:showPopupBehavior popupId="::p1" triggerType="action"/>
+                  </af:commandButton>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.TradeFileBtVO.collectionModel}" var="row"
+                        rows="#{bindings.TradeFileBtVO.rangeSize}"
+                        emptyText="#{bindings.TradeFileBtVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.TradeFileBtVO.rangeSize}" rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.TradeFileBtVO.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.TradeFileBtVO.collectionModel.makeCurrent}" rowSelection="single"
+                        id="t1" autoHeightRows="12" editingMode="clickToEdit"
+                        inlineStyle="height:inherit; width:inherit;">
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TracerNo.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.TracerNo.label}" id="c1" width="45">
+                  <af:inputText value="#{row.bindings.TracerNo.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.TracerNo.label}"
+                                required="#{bindings.TradeFileBtVO.hints.TracerNo.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.TracerNo.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.TracerNo.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.TracerNo.tooltip}" id="it1" readOnly="true">
+                    <f:validator binding="#{row.bindings.TracerNo.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileBtVO.hints.TracerNo.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Scrip.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Scrip.label}" id="c3" width="50" rendered="false">
+                  <af:inputText value="#{row.bindings.Scrip.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.Scrip.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Scrip.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Scrip.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Scrip.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Scrip.tooltip}" id="it3">
+                    <f:validator binding="#{row.bindings.Scrip.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Customer.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Customer.label}" id="c8" width="75">
+                  <af:inputText value="#{row.bindings.Customer.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.Customer.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Customer.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Customer.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Customer.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Customer.tooltip}" id="it7"
+                                readOnly="#{bindings.ProcessedRec.inputValue gt 0}">
+                    <f:validator binding="#{row.bindings.Customer.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.InstrumentCode.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.InstrumentCode.label}" id="c4" width="85">
+                  <af:inputText value="#{row.bindings.InstrumentCode.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.InstrumentCode.label}"
+                                required="#{bindings.TradeFileBtVO.hints.InstrumentCode.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.InstrumentCode.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.InstrumentCode.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.InstrumentCode.tooltip}" id="it4">
+                    <f:validator binding="#{row.bindings.InstrumentCode.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.BuySell.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.BuySell.label}" id="c5" width="35">
+                  <af:selectOneChoice value="#{row.bindings.BuySell.inputValue}" label="#{row.bindings.BuySell.label}"
+                                      required="#{bindings.TradeFileBtVO.hints.BuySell.mandatory}"
+                                      shortDesc="#{bindings.TradeFileBtVO.hints.BuySell.tooltip}" id="soc1">
+                    <f:selectItems value="#{row.bindings.BuySell.items}" id="si1"/>
+                  </af:selectOneChoice>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TradeQuantity.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.TradeQuantity.label}" id="c6" width="65">
+                  <af:inputText value="#{row.bindings.TradeQuantity.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.TradeQuantity.label}"
+                                required="#{bindings.TradeFileBtVO.hints.TradeQuantity.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.TradeQuantity.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.TradeQuantity.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.TradeQuantity.tooltip}" id="it5">
+                    <f:validator binding="#{row.bindings.TradeQuantity.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.TradeFileBtVO.hints.TradeQuantity.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Price.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Price.label}" id="c7" width="75">
+                  <af:inputText value="#{row.bindings.Price.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.Price.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Price.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Price.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Price.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Price.tooltip}" id="it6">
+                    <f:validator binding="#{row.bindings.Price.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Opbrker.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Opbrker.label}" id="c9" rendered="false">
+                  <af:inputText value="#{row.bindings.Opbrker.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.Opbrker.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Opbrker.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Opbrker.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Opbrker.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Opbrker.tooltip}" id="it8">
+                    <f:validator binding="#{row.bindings.Opbrker.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Optrder.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Optrder.label}" id="c10" rendered="false">
+                  <af:inputText value="#{row.bindings.Optrder.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.Optrder.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Optrder.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Optrder.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Optrder.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Optrder.tooltip}" id="it9">
+                    <f:validator binding="#{row.bindings.Optrder.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.MarketType.name}" sortable="false"
+                           headerText="Market" id="c16" width="55">
+                  <af:selectOneChoice value="#{row.bindings.MarketType.inputValue}"
+                                      label="#{row.bindings.MarketType.label}"
+                                      required="#{bindings.TradeFileBtVO.hints.MarketType.mandatory}"
+                                      shortDesc="#{bindings.TradeFileBtVO.hints.MarketType.tooltip}" id="soc2">
+                    <f:selectItems value="#{row.bindings.MarketType.items}" id="si2"/>
+                  </af:selectOneChoice>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TraderId.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.TraderId.label}" id="c2" width="65">
+                  <af:inputText value="#{row.bindings.TraderId.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.TraderId.label}"
+                                required="#{bindings.TradeFileBtVO.hints.TraderId.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.TraderId.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.TraderId.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.TraderId.tooltip}" id="it2">
+                    <f:validator binding="#{row.bindings.TraderId.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Tid.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.Tid.label}" id="c11" rendered="false">
+                  <af:inputText value="#{row.bindings.Tid.inputValue}" label="#{bindings.TradeFileBtVO.hints.Tid.label}"
+                                required="#{bindings.TradeFileBtVO.hints.Tid.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.Tid.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.Tid.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.Tid.tooltip}" id="it10">
+                    <f:validator binding="#{row.bindings.Tid.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TradeDate.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.TradeDate.label}" id="c12" width="65">
+                  <af:inputDate value="#{row.bindings.TradeDate.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.TradeDate.label}"
+                                required="#{bindings.TradeFileBtVO.hints.TradeDate.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.TradeDate.displayWidth}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.TradeDate.tooltip}" id="id1" readOnly="true">
+                    <f:validator binding="#{row.bindings.TradeDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.TradeFileBtVO.hints.TradeDate.format}"/>
+                  </af:inputDate>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TradeTime.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.TradeTime.label}" id="c13" width="55">
+                  <af:inputText value="#{row.bindings.TradeTime.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.TradeTime.label}"
+                                required="#{bindings.TradeFileBtVO.hints.TradeTime.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.TradeTime.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.TradeTime.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.TradeTime.tooltip}" id="it11" readOnly="true">
+                    <f:validator binding="#{row.bindings.TradeTime.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.OrderDate.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.OrderDate.label}" id="c14" rendered="false">
+                  <af:inputText value="#{row.bindings.OrderDate.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.OrderDate.label}"
+                                required="#{bindings.TradeFileBtVO.hints.OrderDate.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.OrderDate.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.OrderDate.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.OrderDate.tooltip}" id="it12">
+                    <f:validator binding="#{row.bindings.OrderDate.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.OrderTime.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.OrderTime.label}" id="c15" rendered="false">
+                  <af:inputText value="#{row.bindings.OrderTime.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.OrderTime.label}"
+                                required="#{bindings.TradeFileBtVO.hints.OrderTime.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.OrderTime.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.OrderTime.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.OrderTime.tooltip}" id="it13">
+                    <f:validator binding="#{row.bindings.OrderTime.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ProcDate.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ProcDate.label}" id="c17" rendered="false">
+                  <af:inputDate value="#{row.bindings.ProcDate.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ProcDate.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ProcDate.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ProcDate.displayWidth}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ProcDate.tooltip}" id="id2">
+                    <f:validator binding="#{row.bindings.ProcDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.TradeFileBtVO.hints.ProcDate.format}"/>
+                  </af:inputDate>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ProcStatus.name}" sortable="true"
+                           headerText="#{bindings.TradeFileBtVO.hints.ProcStatus.label}" id="c18" width="35"
+                           filterable="false">
+                  <af:inputText value="#{row.bindings.ProcStatus.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ProcStatus.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ProcStatus.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ProcStatus.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ProcStatus.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ProcStatus.tooltip}" id="it14"
+                                readOnly="true">
+                    <f:validator binding="#{row.bindings.ProcStatus.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ValidStatus.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ValidStatus.label}" id="c19" rendered="false">
+                  <af:inputText value="#{row.bindings.ValidStatus.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ValidStatus.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ValidStatus.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ValidStatus.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ValidStatus.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ValidStatus.tooltip}" id="it15">
+                    <f:validator binding="#{row.bindings.ValidStatus.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ValidInvestor.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ValidInvestor.label}" id="c20" rendered="false">
+                  <af:inputText value="#{row.bindings.ValidInvestor.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ValidInvestor.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ValidInvestor.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ValidInvestor.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ValidInvestor.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ValidInvestor.tooltip}" id="it16">
+                    <f:validator binding="#{row.bindings.ValidInvestor.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.TradeFileBtVO.hints.ValidInvestor.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ValidInstrument.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ValidInstrument.label}" id="c21" rendered="false">
+                  <af:inputText value="#{row.bindings.ValidInstrument.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ValidInstrument.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ValidInstrument.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ValidInstrument.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ValidInstrument.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ValidInstrument.tooltip}" id="it17">
+                    <f:validator binding="#{row.bindings.ValidInstrument.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.TradeFileBtVO.hints.ValidInstrument.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ValidTws.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ValidTws.label}" id="c22" rendered="false">
+                  <af:inputText value="#{row.bindings.ValidTws.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ValidTws.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ValidTws.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ValidTws.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ValidTws.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ValidTws.tooltip}" id="it18">
+                    <f:validator binding="#{row.bindings.ValidTws.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileBtVO.hints.ValidTws.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.ImportId.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.ImportId.label}" id="c23" rendered="false">
+                  <af:inputText value="#{row.bindings.ImportId.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.ImportId.label}"
+                                required="#{bindings.TradeFileBtVO.hints.ImportId.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.ImportId.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.ImportId.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.ImportId.tooltip}" id="it19">
+                    <f:validator binding="#{row.bindings.ImportId.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileBtVO.hints.ImportId.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.TradeFileBtVO.hints.RowID.name}" sortable="false"
+                           headerText="#{bindings.TradeFileBtVO.hints.RowID.label}" id="c24" rendered="false">
+                  <af:inputText value="#{row.bindings.RowID.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.RowID.label}"
+                                required="#{bindings.TradeFileBtVO.hints.RowID.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.RowID.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.RowID.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.RowID.tooltip}" id="it20">
+                    <f:validator binding="#{row.bindings.RowID.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.TradeFileBtVO.hints.CommRate.label}" id="c25" width="40"
+                           visible="false">
+                  <af:inputText value="#{row.bindings.CommRate.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.CommRate.label}"
+                                required="#{bindings.TradeFileBtVO.hints.CommRate.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.CommRate.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.CommRate.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.CommRate.tooltip}" id="it31" readOnly="true">
+                    <f:validator binding="#{row.bindings.CommRate.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileBtVO.hints.CommRate.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.TradeFileBtVO.hints.NewCommRate.label}" id="c26" width="40">
+                  <af:inputText value="#{row.bindings.NewCommRate.inputValue}"
+                                label="#{bindings.TradeFileBtVO.hints.NewCommRate.label}"
+                                required="#{bindings.TradeFileBtVO.hints.NewCommRate.mandatory}"
+                                columns="#{bindings.TradeFileBtVO.hints.NewCommRate.displayWidth}"
+                                maximumLength="#{bindings.TradeFileBtVO.hints.NewCommRate.precision}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.NewCommRate.tooltip}" id="it32"
+                                readOnly="true">
+                    <f:validator binding="#{row.bindings.NewCommRate.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.TradeFileBtVO.hints.NewCommRate.format}"/>
+                  </af:inputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelGroupLayout>
+        </af:panelBox>
+      </f:facet>
+    </af:decorativeBox>
+    
+    <af:popup childCreation="deferred" autoCancel="disabled" id="popSSOP">
+      <af:dialog id="d1" title="Allow Over purchase/Short Sell/ Unapprove Instrument">
+        <f:facet name="buttonBar"/>
+              <af:panelCollection id="pc2" inlineStyle="width:600px;" featuresOff="viewMenu">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t4">
+            <af:commandButton text="Allow all" id="cb5" action="#{BtFileBean.allowAllOPSSUI}"/>
+              <af:commandButton text="Reset All" id="cb7" action="#{BtFileBean.resetAllOPSSUI}"/>
+            </af:toolbar>
+        </f:facet>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.TradeFileBtVO.collectionModel}" var="row"
+                  rows="#{bindings.TradeFileBtVO.rangeSize}"
+                  emptyText="#{bindings.TradeFileBtVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  fetchSize="#{bindings.TradeFileBtVO.rangeSize}" rowBandingInterval="0"
+                  selectedRowKeys="#{bindings.TradeFileBtVO.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.TradeFileBtVO.collectionModel.makeCurrent}" rowSelection="single"
+                  id="t3">
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TracerNo.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.TracerNo.label}" id="c28" width="30">
+            <af:outputText value="#{row.TracerNo}" id="ot1">
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.TradeFileBtVO.hints.TracerNo.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Customer.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.Customer.label}" id="c29" width="70">
+            <af:outputText value="#{row.Customer}" id="ot2"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.InstrumentCode.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.InstrumentCode.label}" id="c30">
+            <af:outputText value="#{row.InstrumentCode}" id="ot3"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.BuySell.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.BuySell.label}" id="c31" width="40">
+            <af:selectOneChoice value="#{row.bindings.BuySell.inputValue}" label="#{row.bindings.BuySell.label}"
+                                required="#{bindings.TradeFileBtVO.hints.BuySell.mandatory}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.BuySell.tooltip}" readOnly="true"
+                                id="soc8">
+              <f:selectItems value="#{row.bindings.BuySell.items}" id="si15"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.Price.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.Price.label}" id="c32" width="40">
+            <af:outputText value="#{row.Price}" id="ot4"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.TradeQuantity.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.TradeQuantity.label}" id="c33" width="60">
+            <af:outputText value="#{row.TradeQuantity}" id="ot5">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.TradeFileBtVO.hints.TradeQuantity.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.TradeFileBtVO.hints.MarketType.name}" sortable="false"
+                     headerText="#{bindings.TradeFileBtVO.hints.MarketType.label}" id="c35" width="70">
+            <af:selectOneChoice value="#{row.bindings.MarketType.inputValue}" label="#{row.bindings.MarketType.label}"
+                                required="#{bindings.TradeFileBtVO.hints.MarketType.mandatory}"
+                                shortDesc="#{bindings.TradeFileBtVO.hints.MarketType.tooltip}" readOnly="true"
+                                id="soc10">
+              <f:selectItems value="#{row.bindings.MarketType.items}" id="si13"/>
+            </af:selectOneChoice>
+          </af:column>
+          <af:column id="c36" headerText=".." width="30">
+            <af:commandButton id="cb4" icon="/images/report.png" action="#{BtFileBean.allowSingleOPSSUI}"/>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+      </af:dialog>
+    </af:popup>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+      <af:dialog id="d3" dialogListener="#{BtFileBean.btFileBeanProcess}">
+        <f:facet name="buttonBar"/>
+        <af:panelFormLayout id="pfl2">
+          <af:selectOneChoice value="#{bindings.ProductId.inputValue}" label="Product"
+                              shortDesc="#{bindings.ProductId.hints.tooltip}" id="soc4" showRequired="true">
+            <f:selectItems value="#{bindings.ProductId.items}" id="si4"/>
+          </af:selectOneChoice>
+          <af:inputText value="#{bindings.InvestorCode.inputValue}" label="Investor Code"
+                        required="#{bindings.InvestorCode.hints.mandatory}"
+                        columns="#{bindings.InvestorCode.hints.displayWidth}"
+                        maximumLength="#{bindings.InvestorCode.hints.precision}"
+                        shortDesc="#{bindings.InvestorCode.hints.tooltip}" id="it33">
+            <f:validator binding="#{bindings.InvestorCode.validator}"/>
+          </af:inputText>
+          <af:selectOneChoice value="#{bindings.InstrumentId.inputValue}" label="Instrument"
+                              required="#{bindings.InstrumentId.hints.mandatory}"
+                              shortDesc="#{bindings.InstrumentId.hints.tooltip}" id="soc3">
+            <f:selectItems value="#{bindings.InstrumentId.items}" id="si3"/>
+          </af:selectOneChoice>
+          <af:selectOneChoice value="#{bindings.Buy_Sell.inputValue}" label="#{bindings.Buy_Sell.label}"
+                              required="#{bindings.Buy_Sell.hints.mandatory}"
+                              shortDesc="#{bindings.Buy_Sell.hints.tooltip}" id="soc5">
+            <f:selectItems value="#{bindings.Buy_Sell.items}" id="si5"/>
+          </af:selectOneChoice>
+          <af:inputText value="#{bindings.NewRate.inputValue}" label="New Rate" columns="#{bindings.NewRate.hints.displayWidth}"
+                        maximumLength="#{bindings.NewRate.hints.precision}"
+                        shortDesc="#{bindings.NewRate.hints.tooltip}" id="it34">
+            <f:validator binding="#{bindings.NewRate.validator}"/>
+          </af:inputText>
+        </af:panelFormLayout>
+      </af:dialog>
+    </af:popup>
+  </af:panelGroupLayout>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:BtFileBean-->
+</ui:composition>
+

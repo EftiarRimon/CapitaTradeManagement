@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:750px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout id="pgl1" layout="vertical">
+                        <af:panelBox text="PanelBox1" id="pb1" showHeader="never" visible="false">
+                            <f:facet name="toolbar"/>
+                            <af:query id="qryId1" headerText="Search Trade File" disclosed="true"
+                                      value="#{bindings.TradeReverseFileListVOCriteriaQuery.queryDescriptor}"
+                                      model="#{bindings.TradeReverseFileListVOCriteriaQuery.queryModel}"
+                                      queryListener="#{bindings.TradeReverseFileListVOCriteriaQuery.processQuery}"
+                                      queryOperationListener="#{bindings.TradeReverseFileListVOCriteriaQuery.processQueryOperation}"
+                                      modeChangeVisible="false" modeButtonPosition="footer" saveQueryMode="hidden"/>
+                        </af:panelBox>
+                        <af:panelBox text="Trade File List" id="pb2" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t3" flex="1">
+                                    <af:commandButton text="Trade Reverse" id="cb1" icon="/images/reload.png"
+                              shortDesc="Process Trade Reverse" action="#{TradeReverse.tradeReverse_action}"
+                                                      disabled="#{bindings.TradeReverseFileListVOIterator.estimatedRowCount lt 1 or bindings.TotalRec.inputValue ne bindings.ProcessedRec.inputValue}"
+                                                      partialTriggers="qryId1 pc1:t1"/>
+                                    <af:commandButton id="cb2" shortDesc="Refresh"
+                                                      icon="/images/refresh.png" action="#{TradeReverse.refresh}"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:panelCollection id="pc1" featuresOff="viewMenu"
+                                                inlineStyle="height:inherit; width:inherit;" partialTriggers="::qryId1">
+                                <f:facet name="menus">
+                                    <af:menu text="Trade File List" id="m1" icon="/images/list.png"
+                                             inlineStyle="font-weight:bolder;"/>
+                                </f:facet>
+                                <f:facet name="toolbar"/>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t2">
+                                        <af:activeOutputText value="Total Record: #{bindings.TradeReverseFileListVOIterator.estimatedRowCount}" id="aot1"
+                                                             partialTriggers="::qryId1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.TradeReverseFileListVO.collectionModel}" var="row"
+                                          rows="#{bindings.TradeReverseFileListVO.rangeSize}"
+                                          emptyText="#{bindings.TradeReverseFileListVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.TradeReverseFileListVO.rangeSize}"
+                                          rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.TradeReverseFileListVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.TradeReverseFileListVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.FileId.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.FileId.label}"
+                                               id="c2">
+                                        <af:inputText value="#{row.bindings.FileId.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.FileId.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.FileId.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.FileId.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.FileId.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.FileId.tooltip}"
+                                                      id="it1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.FileId.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.FileName.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.FileName.label}"
+                                               id="c3">
+                                        <af:inputText value="#{row.bindings.FileName.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.FileName.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.FileName.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.FileName.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.FileName.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.FileName.tooltip}"
+                                                      id="it2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.FileName.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.FileDate.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.FileDate.label}"
+                                               id="c4">
+                                        <af:inputDate value="#{row.bindings.FileDate.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.FileDate.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.FileDate.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.FileDate.displayWidth}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.FileDate.tooltip}"
+                                                      id="id1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.FileDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.TradeReverseFileListVO.hints.FileDate.format}"/>
+                                        </af:inputDate>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.TotalRec.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.TotalRec.label}"
+                                               id="c5" width="80">
+                                        <af:inputText value="#{row.bindings.TotalRec.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.TotalRec.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.TotalRec.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.TotalRec.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.TotalRec.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.TotalRec.tooltip}"
+                                                      id="it3" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TotalRec.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.TradeReverseFileListVO.hints.TotalRec.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.ValidateRec.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.ValidateRec.label}"
+                                               id="c6" width="80">
+                                        <af:inputText value="#{row.bindings.ValidateRec.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.ValidateRec.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.ValidateRec.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.ValidateRec.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.ValidateRec.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.ValidateRec.tooltip}"
+                                                      id="it4" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ValidateRec.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.TradeReverseFileListVO.hints.ValidateRec.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.ErrorRec.name}"
+                                               sortable="false"
+                                               headerText="Error Record"
+                                               id="c7" width="80">
+                                        <af:inputText value="#{row.bindings.ErrorRec.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.ErrorRec.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.ErrorRec.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.ErrorRec.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.ErrorRec.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.ErrorRec.tooltip}"
+                                                      id="it5" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ErrorRec.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.TradeReverseFileListVO.hints.ErrorRec.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.label}"
+                                               id="c8" width="90">
+                                        <af:inputText value="#{row.bindings.ProcessedRec.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.tooltip}"
+                                                      id="it6" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ProcessedRec.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.TradeReverseFileListVO.hints.ProcessedRec.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.ImportId.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.ImportId.label}"
+                                               id="c15" visible="false">
+                                        <af:selectOneChoice value="#{row.bindings.ImportId.inputValue}"
+                                                            label="#{row.bindings.ImportId.label}"
+                                                            required="#{bindings.TradeReverseFileListVO.hints.ImportId.mandatory}"
+                                                            shortDesc="#{bindings.TradeReverseFileListVO.hints.ImportId.tooltip}"
+                                                            id="soc1" readOnly="true">
+                                            <f:selectItems value="#{row.bindings.ImportId.items}" id="si1"/>
+                                        </af:selectOneChoice>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.TradeReverseFileListVO.hints.BusinessType.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.TradeReverseFileListVO.hints.BusinessType.label}"
+                                               id="c16" visible="false">
+                                        <af:inputText value="#{row.bindings.BusinessType.inputValue}"
+                                                      label="#{bindings.TradeReverseFileListVO.hints.BusinessType.label}"
+                                                      required="#{bindings.TradeReverseFileListVO.hints.BusinessType.mandatory}"
+                                                      columns="#{bindings.TradeReverseFileListVO.hints.BusinessType.displayWidth}"
+                                                      maximumLength="#{bindings.TradeReverseFileListVO.hints.BusinessType.precision}"
+                                                      shortDesc="#{bindings.TradeReverseFileListVO.hints.BusinessType.tooltip}"
+                                                      id="it12" readOnly="true">
+                                            <f:validator binding="#{row.bindings.BusinessType.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="popConUser"
+                                  binding="#{TradeReverse.popConUser}">
+      <af:dialog id="d1" title="Conntected Users">
+        <f:facet name="buttonBar"/>
+        <af:panelCollection id="pc2" inlineStyle="width:500px;" featuresOff="viewMenu">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t4" flex="1">
+              <af:commandButton text="Logout All" id="cb5"
+                                icon="/images/arrow-refresh.png" action="#{TradeReverse.logoutall_action}"/>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+                                    <af:table value="#{bindings.ConnectedUsersVO.collectionModel}" var="row"
+                                              rows="#{bindings.ConnectedUsersVO.rangeSize}"
+                                              emptyText="#{bindings.ConnectedUsersVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                              fetchSize="#{bindings.ConnectedUsersVO.rangeSize}" rowBandingInterval="0"
+                                              selectedRowKeys="#{bindings.ConnectedUsersVO.collectionModel.selectedRow}"
+                                              selectionListener="#{bindings.ConnectedUsersVO.collectionModel.makeCurrent}"
+                                              rowSelection="single" id="t5">
+                                        <af:column sortProperty="#{bindings.ConnectedUsersVO.hints.UserName.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.ConnectedUsersVO.hints.UserName.label}"
+                                                   id="c1" width="150">
+                                            <af:outputText value="#{row.UserName}" id="ot1"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.ConnectedUsersVO.hints.LoginTime.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.ConnectedUsersVO.hints.LoginTime.label}"
+                                                   id="c9" width="170">
+                                            <af:outputText value="#{row.LoginTime}" id="ot2">
+                                                <af:convertDateTime pattern="#{bindings.ConnectedUsersVO.hints.LoginTime.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.ConnectedUsersVO.hints.BranchName.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.ConnectedUsersVO.hints.BranchName.label}"
+                                                   id="c10" width="150">
+                                            <af:outputText value="#{row.BranchName}" id="ot3"/>
+                                        </af:column>
+                                    </af:table>
+                                </af:panelCollection>
+      </af:dialog>
+    </af:popup>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:TradeReverse-->
+</ui:composition>

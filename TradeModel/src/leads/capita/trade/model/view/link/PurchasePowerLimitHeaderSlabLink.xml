@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PurchasePowerLimitHeaderSlabLink"
+  Version="11.1.2.60.81">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.link.PurchasePowerLimitHeaderSlabLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="PurchasePowerLimitHeaderVO"
+    Cardinality="1"
+    Source="true"
+    Owner="leads.capita.trade.model.view.PurchasePowerLimitHeaderVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PurchasePowerLimitHeaderVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.PurchasePowerLimitHeaderVO.UkId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="PurchasePowerLimitSlabVO"
+    Cardinality="-1"
+    Owner="leads.capita.trade.model.view.PurchasePowerLimitSlabVO">
+    <DesignTime>
+      <Attr Name="_finderName" Value="PurchasePowerLimitSlabVO"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.view.PurchasePowerLimitSlabVO.UkId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

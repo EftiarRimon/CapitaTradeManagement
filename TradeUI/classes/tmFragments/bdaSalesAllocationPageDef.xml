@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="bdaSalesAllocationPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="InvestorListForBDASalesAllocation" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="InvestorListForBDASalesAllocationIterator"/>
+        <iterator Binds="BdaSalesOrderEntitySearchVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BdaSalesOrderEntitySearchVOIterator"/>
+        <searchRegion Criteria="InvestorListForBDASalesAllocationCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="InvestorListForBDASalesAllocationIterator"
+                      id="InvestorListForBDASalesAllocationCriteriaQuery"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="InvestorListForBDASalesAllocationIterator" id="InvestorListForBDASalesAllocation">
+            <nodeDefinition DefName="leads.capita.trade.model.view.InvestorListForBDASalesAllocation"
+                            Name="InvestorListForBDASalesAllocation0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="SalesOrderId"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="Status"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="ProductId"/>
+                    <Item Value="Name"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="AppliedQty"/>
+                    <Item Value="TradeQty"/>
+                    <Item Value="Tradeprice"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="BdaSalesOrderEntitySearchVOIterator" id="BdaSalesOrderEntitySearchVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaSalesOrderEntitySearchVO"
+                            Name="BdaSalesOrderEntitySearchVO0">
+                <AttrNames>
+                    <Item Value="AllocationDate"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="AllocationQty"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="SalesOrderId"/>
+                    <Item Value="Status"/>
+                    <Item Value="TradeCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    </bindings>
+</pageDefinition>

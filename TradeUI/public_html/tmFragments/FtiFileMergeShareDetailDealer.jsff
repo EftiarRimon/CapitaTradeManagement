@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:group id="g2">
+                <af:decorativeBox id="db1" inlineStyle="height:500px; width:760px;">
+                    <f:facet name="center">
+                        <af:panelGroupLayout layout="scroll" id="pgl1">
+                            <af:panelBox text="Add Position Limit" id="pb1" inlineStyle="width:inherit; height:160px;"
+                                         showDisclosure="false">
+                                <f:facet name="toolbar">
+                                    <af:group id="g1">
+                                        <af:commandButton text="Save" id="cb2" icon="/images/Save.png"
+                                                          action="#{FileMergeCashShareDealer.positionLimitSaveAction}"/>
+                                        <af:commandButton text="Back" id="cb1" icon="/images/back.png" action="goBack"
+                                                          actionListener="#{bindings.Rollback.execute}"
+                                                          immediate="true"/>
+                                    </af:group>
+                                </f:facet>
+                                <af:separator id="s1"/>
+                                <af:panelFormLayout id="pfl1" rows="4" maxColumns="2">
+                                    <af:inputDate value="#{bindings.MDate.inputValue}" label="Date"
+                                                  required="#{bindings.MDate.hints.mandatory}"
+                                                  columns="#{bindings.MDate.hints.displayWidth}"
+                                                  shortDesc="#{bindings.MDate.hints.tooltip}" id="id1" disabled="true">
+                                        <f:validator binding="#{bindings.MDate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.MDate.format}"/>
+                                    </af:inputDate>
+                                    <af:inputText value="#{bindings.FileType.inputValue}" label="File Type"
+                                                  required="#{bindings.FileType.hints.mandatory}"
+                                                  columns="#{bindings.FileType.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileType.hints.precision}"
+                                                  shortDesc="#{bindings.FileType.hints.tooltip}" id="it3"
+                                                  disabled="true">
+                                        <f:validator binding="#{bindings.FileType.validator}"/>
+                                    </af:inputText>
+                                    <af:inputText value="#{bindings.FileVersion.inputValue}"
+                                                  label="#{bindings.FileVersion.hints.label}"
+                                                  required="#{bindings.FileVersion.hints.mandatory}"
+                                                  columns="#{bindings.FileVersion.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileVersion.hints.precision}"
+                                                  shortDesc="#{bindings.FileVersion.hints.tooltip}" id="it2"
+                                                  disabled="true">
+                                        <f:validator binding="#{bindings.FileVersion.validator}"/>
+                                    </af:inputText>
+                                    <af:inputText value="#{bindings.FileDescription.inputValue}"
+                                                  label="Merge Description"
+                                                  columns="#{bindings.FileDescription.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileDescription.hints.precision}"
+                                                  shortDesc="#{bindings.FileDescription.hints.tooltip}" id="it1"
+                                                  required="true">
+                                        <f:validator binding="#{bindings.FileDescription.validator}"/>
+                                    </af:inputText>
+                                    <af:selectOneRadio value="#{bindings.FileFormat.inputValue}" label="File Format"
+                                                       shortDesc="#{bindings.FileFormat.hints.tooltip}" id="sor1"
+                                                       required="true"
+                                                       binding="#{FileMergeCashShareDealer.fileFormatPositionCB}"
+                                                       disabled="#{bindings.FtiFileMrgShareDetDealerVOIterator.estimatedRowCount gt 0}"
+                                                       partialTriggers="pc1:t1 pb2">
+                                        <f:selectItems value="#{bindings.FileFormat.items}" id="si1"/>
+                                    </af:selectOneRadio>
+                                    <af:selectOneRadio value="#{bindings.FileOption.inputValue}" label="File Option"
+                                                       shortDesc="#{bindings.FileOption.hints.tooltip}" id="sor2"
+                                                       required="true"
+                                                       binding="#{FileMergeCashShareDealer.fileOptionPositionUI}"
+                                                       disabled="#{bindings.FtiFileMrgShareDetDealerVOIterator.estimatedRowCount gt 0}"
+                                                       partialTriggers="pb2 pc1:t1">
+                                        <f:selectItems value="#{bindings.FileOption.items}" id="si2"/>
+                                    </af:selectOneRadio>
+                                    <af:selectBooleanCheckbox value="#{bindings.IsExec.inputValue}" label="Is Executed"
+                                                              shortDesc="#{bindings.IsExec.hints.tooltip}" id="sbc1"
+                                                              disabled="true"/>
+                                </af:panelFormLayout>
+                            </af:panelBox>
+                            <af:panelBox text="PanelBox1" id="pb2" showHeader="never" inlineStyle="width:inherit;"
+                                         type="flow" partialTriggers="pc1:t1 ::p1 ::d1">
+                                <f:facet name="toolbar"/>
+                                <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;"
+                                                    featuresOff="viewMenu">
+                                    <f:facet name="menus">
+                                        <af:menu text="Position Limit Details" id="m1"
+                                                 inlineStyle="font-weight:bolder;"/>
+                                    </f:facet>
+                                    <f:facet name="toolbar">
+                                        <af:toolbar id="t3">
+                                            <af:panelGroupLayout id="pgl2">
+                                                <af:commandButton text="Upload File" id="cbUpload"
+                                                                  icon="/images/file_upload.png"
+                                                                  shortDesc="Upload Position Limit File"
+                                                                  disabled="#{FileMergeCashShareDealer.newPosition}">
+                                                    <af:showPopupBehavior popupId=":::p1" triggerType="action"/>
+                                                </af:commandButton>
+                                                <af:commandButton text="Process File" id="cbProcess"
+                                                                  icon="/images/action.png"
+                                                                  shortDesc="Process Position Limit File"
+                                                                  action="#{FileMergeCashShareDealer.ProcessShareFile}"/>
+                                            </af:panelGroupLayout>
+                                            <af:spacer width="50" height="10" id="s3"/>
+                                            <af:commandButton text="View Data" id="cb3"
+                                                              icon="/images/previewsmall.png"
+                                                              shortDesc="View Processed Data" action="goProcessedData"/>
+                                        </af:toolbar>
+                                    </f:facet>
+                                    <f:facet name="statusbar">
+                                        <af:toolbar id="t2">
+                                            <af:outputText value="Total records : #{bindings.FtiFileMrgShareDetDealerVOIterator.estimatedRowCount}"
+                                                           id="ot9" partialTriggers="::pb1 ::pc1 t1"/>
+                                        </af:toolbar>
+                                    </f:facet>
+                                    <af:table value="#{bindings.FtiFileMrgShareDetDealerVO.collectionModel}" var="row"
+                                              rows="#{bindings.FtiFileMrgShareDetDealerVO.rangeSize}"
+                                              emptyText="#{bindings.FtiFileMrgShareDetDealerVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                              fetchSize="#{bindings.FtiFileMrgShareDetDealerVO.rangeSize}"
+                                              rowBandingInterval="1"
+                                              selectedRowKeys="#{bindings.FtiFileMrgShareDetDealerVO.collectionModel.selectedRow}"
+                                              selectionListener="#{bindings.FtiFileMrgShareDetDealerVO.collectionModel.makeCurrent}"
+                                              rowSelection="single" id="t1" autoHeightRows="10"
+                                              contentDelivery="immediate" inlineStyle="height:inherit; width:inherit;">
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.InvestorCode.name}"
+                                                   sortable="true" headerText="Investor Code" id="c6" width="60">
+                                            <af:outputText value="#{row.InvestorCode}" id="ot6"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.InvestorName.name}"
+                                                   sortable="true" headerText="Company Name" id="c3" width="80">
+                                            <af:outputText value="#{row.InvestorName}" id="ot3"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.Isin.name}"
+                                                   sortable="true"
+                                                   headerText="#{bindings.FtiFileMrgShareDetDealerVO.hints.Isin.label}"
+                                                   id="c1" width="80">
+                                            <af:outputText value="#{row.Isin}" id="ot1"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.name}"
+                                                   sortable="false" headerText="Security Code" id="c9" width="60">
+                                            <af:inputText value="#{row.bindings.InstShortName.inputValue}"
+                                                          label="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.label}"
+                                                          required="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.mandatory}"
+                                                          columns="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.displayWidth}"
+                                                          maximumLength="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.precision}"
+                                                          shortDesc="#{bindings.FtiFileMrgShareDetDealerVO.hints.InstShortName.tooltip}"
+                                                          id="it4" readOnly="true">
+                                                <f:validator binding="#{row.bindings.InstShortName.validator}"/>
+                                            </af:inputText>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.Boid.name}"
+                                                   sortable="true"
+                                                   headerText="#{bindings.FtiFileMrgShareDetDealerVO.hints.Boid.label}"
+                                                   id="c2" width="80">
+                                            <af:outputText value="#{row.Boid}" id="ot2"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.TotalQuantity.name}"
+                                                   sortable="true" headerText="Total Quantity" id="c4" width="60">
+                                            <af:outputText value="#{row.TotalQuantity}" id="ot4">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.FtiFileMrgShareDetDealerVO.hints.TotalQuantity.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.SalableQuantity.name}"
+                                                   sortable="true" headerText="Salable Quantity" id="c5" width="60">
+                                            <af:outputText value="#{row.SalableQuantity}" id="ot5">
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.FtiFileMrgShareDetDealerVO.hints.SalableQuantity.format}"/>
+                                            </af:outputText>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.Status.name}"
+                                                   sortable="true"
+                                                   headerText="#{bindings.FtiFileMrgShareDetDealerVO.hints.Status.label}"
+                                                   id="c7" width="50">
+                                            <af:outputText value="#{row.Status}" id="ot7"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.FtiFileMrgShareDetDealerVO.hints.ErrMsg.name}"
+                                                   sortable="true" headerText="Error Message" id="c8">
+                                            <af:outputText value="#{row.ErrMsg}" id="ot8"/>
+                                        </af:column>
+                                    </af:table>
+                                </af:panelCollection>
+                            </af:panelBox>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+            </af:group>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+        <af:dialog id="d1" dialogListener="#{FileMergeCashShareDealer.positionLimitUploadfileAction}">
+            <f:facet name="buttonBar"/>
+            <af:panelBox text="Upload Position File" id="pb3" showDisclosure="false" inlineStyle="width:300px;">
+                <af:separator id="s2"/>
+                <af:inputFile label="File Name" id="if1"
+                              valueChangeListener="#{FileMergeCashShareDealer.fileSelectShareValChngListener}"/>
+            </af:panelBox>
+        </af:dialog>
+    </af:popup>
+</ui:composition>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiErrFilesVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="loadDate"
+    Kind="where"
+    Type="java.sql.Timestamp">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP')]]></TransientExpression>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT FtiErrFiles.ROW_SEQ_ID, 
+       FtiErrFiles.FILE_NAME, 
+       FtiErrFiles.FILE_TYPE, 
+       FtiErrFiles.LOAD_DATE, 
+       FtiErrFiles.STATUS
+FROM FTI_ERR_FILES FtiErrFiles
+WHERE FtiErrFiles.Load_Date = :loadDate]]></SQLQuery>
+  <EntityUsage
+    Name="FtiErrFiles"
+    Entity="leads.capita.trade.model.entity.FtiErrFiles"/>
+  <ViewAttribute
+    Name="RowSeqId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RowSeqId"
+    EntityUsage="FtiErrFiles"
+    AliasName="ROW_SEQ_ID"
+    IsUpdateable="while_insert"/>
+  <ViewAttribute
+    Name="FileName"
+    PrecisionRule="true"
+    EntityAttrName="FileName"
+    EntityUsage="FtiErrFiles"
+    AliasName="FILE_NAME"/>
+  <ViewAttribute
+    Name="FileType"
+    PrecisionRule="true"
+    EntityAttrName="FileType"
+    EntityUsage="FtiErrFiles"
+    AliasName="FILE_TYPE"/>
+  <ViewAttribute
+    Name="LoadDate"
+    PrecisionRule="true"
+    EntityAttrName="LoadDate"
+    EntityUsage="FtiErrFiles"
+    AliasName="LOAD_DATE">
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP')]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="FtiErrFiles"
+    AliasName="STATUS"/>
+</ViewObject>

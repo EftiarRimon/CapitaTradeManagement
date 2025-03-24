@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:600px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.FtiFileMergeShareDealerVOCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.FtiFileMergeShareDealerVOCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.FtiFileMergeShareDealerVOCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.FtiFileMergeShareDealerVOCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc1:resId1" saveQueryMode="hidden" modeButtonPosition="footer"/>
+                        <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;"
+                                            featuresOff="viewMenu">
+                            <f:facet name="menus">
+                                <af:menu text="Position Limit List" id="m1" inlineStyle="font-weight:bolder;"/>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t2">
+                                    <af:commandButton text="ADD" id="cb2" icon="/images/add.png"
+                                                      shortDesc="Add Position Limit" action="goDetail"
+                                                      actionListener="#{FileMergeCashShareDealer.createPositionLimit}"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t1">
+                                    <af:outputText value="Total Records : #{bindings.FtiFileMergeShareDealerVOIterator.estimatedRowCount}" id="ot9"
+                                                   partialTriggers="::pc1 resId1 ::qryId1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiFileMergeShareDealerVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiFileMergeShareDealerVO.rangeSize}"
+                                      emptyText="#{bindings.FtiFileMergeShareDealerVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiFileMergeShareDealerVO.rangeSize}" rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.FtiFileMergeShareDealerVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiFileMergeShareDealerVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="resId1" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;">
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileId.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.FileId.label}"
+                                           id="resId1c1" visible="false">
+                                    <af:outputText value="#{row.FileId}" id="ot1">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiFileMergeShareDealerVO.hints.FileId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.MDate.name}"
+                                           sortable="true"
+                                           headerText="Date"
+                                           id="resId1c2" width="90">
+                                    <af:outputText value="#{row.MDate}" id="ot2">
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeShareDealerVO.hints.MDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.MTime.name}"
+                                           sortable="true"
+                                           headerText="Time"
+                                           id="resId1c3">
+                                    <af:outputText value="#{row.MTime}" id="ot3">
+                                        <af:convertDateTime pattern="#{bindings.FtiFileMergeShareDealerVO.hints.MTime.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileDescription.name}"
+                                           sortable="true"
+                                           headerText="File Description"
+                                           id="resId1c4" width="170">
+                                    <af:outputText value="#{row.FileDescription}" id="ot4"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileVersion.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.FileVersion.label}"
+                                           id="resId1c5">
+                                    <af:outputText value="#{row.FileVersion}" id="ot5"/>
+                                </af:column>
+                                <af:column id="c1" width="60" align="center">
+                                    <af:commandButton text="View" id="cb1" icon="/images/previewsmall.png"
+                                                      shortDesc="View Details" action="goDetail"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileType.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.FileType.label}"
+                                           id="resId1c6" visible="false">
+                                    <af:outputText value="#{row.FileType}" id="ot6"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.ProcessingMode.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.ProcessingMode.label}"
+                                           id="resId1c7" visible="false">
+                                    <af:outputText value="#{row.ProcessingMode}" id="ot7"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileFormat.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.FileFormat.label}"
+                                           id="resId1c8" visible="false">
+                                    <af:selectOneChoice value="#{row.bindings.FileFormat.inputValue}"
+                                                        label="#{row.bindings.FileFormat.label}"
+                                                        required="#{bindings.FtiFileMergeShareDealerVO.hints.FileFormat.mandatory}"
+                                                        shortDesc="#{bindings.FtiFileMergeShareDealerVO.hints.FileFormat.tooltip}"
+                                                        readOnly="true" id="soc1">
+                                        <f:selectItems value="#{row.bindings.FileFormat.items}" id="si1"/>
+                                    </af:selectOneChoice>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.IsExec.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.IsExec.label}"
+                                           id="resId1c9" visible="false">
+                                    <af:outputText value="#{row.IsExec}" id="ot8"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiFileMergeShareDealerVO.hints.FileOption.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiFileMergeShareDealerVO.hints.FileOption.label}"
+                                           id="resId1c10" visible="false">
+                                    <af:selectOneChoice value="#{row.bindings.FileOption.inputValue}"
+                                                        label="#{row.bindings.FileOption.label}"
+                                                        required="#{bindings.FtiFileMergeShareDealerVO.hints.FileOption.mandatory}"
+                                                        shortDesc="#{bindings.FtiFileMergeShareDealerVO.hints.FileOption.tooltip}"
+                                                        readOnly="true" id="soc2">
+                                        <f:selectItems value="#{row.bindings.FileOption.items}" id="si2"/>
+                                    </af:selectOneChoice>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

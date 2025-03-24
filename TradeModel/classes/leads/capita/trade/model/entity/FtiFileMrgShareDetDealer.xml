@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiFileMrgShareDetDealer"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="FTI_FILE_MRG_SHARE_DET_DEALER"
+  AliasName="FtiFileMrgShareDetDealer"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="RowSeqId"
+    ColumnName="ROW_SEQ_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER"
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true"/>
+  <Attribute
+    Name="FileId"
+    IsUnique="true"
+    ColumnName="FILE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER"/>
+  <Attribute
+    Name="Isin"
+    Precision="20"
+    ColumnName="ISIN"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InstShortName"
+    IsUnique="true"
+    Precision="20"
+    ColumnName="INST_SHORT_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Boid"
+    Precision="20"
+    ColumnName="BOID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvestorName"
+    Precision="50"
+    ColumnName="INVESTOR_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TotalQuantity"
+    ColumnName="TOTAL_QUANTITY"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER"/>
+  <Attribute
+    Name="SalableQuantity"
+    ColumnName="SALABLE_QUANTITY"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER"/>
+  <Attribute
+    Name="InvestorCode"
+    IsUnique="true"
+    Precision="20"
+    ColumnName="INVESTOR_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AppDate"
+    ColumnName="APP_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER"/>
+  <Attribute
+    Name="Status"
+    Precision="10"
+    ColumnName="STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ErrMsg"
+    Precision="300"
+    ColumnName="ERR_MSG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="300"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileName"
+    Precision="150"
+    ColumnName="FILE_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MRG_SHARE_DET_DEALER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="FtiFileMergeShareDealer"
+    Association="leads.capita.trade.model.entity.FkFileidMrgshareDetDealerAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkFileidMrgshareDetDealerAssoc.FtiFileMergeShareDealer"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkFileidMrgshareDetDealerAssoc.FtiFileMrgShareDetDealer"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PkSeqidMrgSharedetDealer"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_SEQID_MRG_SHAREDET_DEALER"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.RowSeqId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkFileIdInvcdShareDealer">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_FILE_ID_INVCD_SHARE_DEALER"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.FileId"/>
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.InvestorCode"/>
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.InstShortName"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="FkFileidMrgshareDetDealer">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PK_FILEID_FILEMRG_SHARE_DEALER"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_FILEID_MRGSHARE_DET_DEALER"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMrgShareDetDealer.FileId"/>
+    </AttrArray>
+  </Key>
+</Entity>

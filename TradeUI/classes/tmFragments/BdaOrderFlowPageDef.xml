@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="BdaOrderFlowPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BdaOrdersVO" RangeSize="25" DataControl="BdaServiceDataControl" id="BdaOrdersVOIterator"/>
+        <searchRegion Criteria="BdaOrdersVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="BdaOrdersVOIterator" id="BdaOrdersVOCriteriaQuery"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="BdaOrdersVOIterator" id="BdaOrdersVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaOrdersVO" Name="BdaOrdersVO0">
+                <AttrNames>
+                    <Item Value="ExchangeId"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="AllocDate"/>
+                    <Item Value="BuySell"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="OrderId"/>
+                    <Item Value="OrderPrice"/>
+                    <Item Value="ProcessDate"/>
+                    <Item Value="Status"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="TradePrice"/>
+                    <Item Value="TradeQuantity"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action IterBinding="BdaOrdersVOIterator" id="CreateInsert" InstanceName="BdaServiceDataControl.BdaOrdersVO"
+                DataControl="BdaServiceDataControl" RequiresUpdateModel="true" Action="createInsertRow"/>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    </bindings>
+</pageDefinition>

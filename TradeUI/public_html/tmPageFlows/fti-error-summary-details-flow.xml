@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="fti-error-summary-details-flow">
+    <default-activity>FtiErrorSummary</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name>FlexErrorFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.FlexErrorFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="FtiErrorSummary">
+      <page>/tmFragments/FtiErrorSummary.jsff</page>
+    </view>
+    <view id="FtiErrorSummaryDetails">
+      <page>/tmFragments/FtiErrorSummaryDetails.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>FtiErrorSummary</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goDetails</from-outcome>
+        <to-activity-id>FtiErrorSummaryDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>FtiErrorSummaryDetails</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>goBack</from-outcome>
+        <to-activity-id>FtiErrorSummary</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

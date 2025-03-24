@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="DayStartPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DayStartVO" RangeSize="25" DataControl="DayStartEndServiceDataControl" id="DayStartVOIterator"/>
+    <iterator id="SpecialFunctionPermissionVOIterator" Binds="SpecialFunctionPermissionVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DayStartVOIterator" id="DayStartVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.DayStartVO" Name="DayStartVO0">
+        <AttrNames>
+          <Item Value="Serial"/>
+          <Item Value="ChildId"/>
+          <Item Value="Name"/>
+          <Item Value="ExecDate"/>
+          <Item Value="Status"/>
+          <Item Value="StoredProc"/>
+          <Item Value="ErrorText"/>
+          <Item Value="BranchId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

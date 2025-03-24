@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+<af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+                        <af:group id="g1">
+                                <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;"
+                                                  dimensionsFrom="children">
+                                        <f:facet name="center">
+                                                <af:panelGroupLayout layout="vertical" id="pgl1">
+                                                        <af:panelBox text="PanelBox1" id="pb1" showHeader="never"
+                                                                     visible="false">
+                                                                <f:facet name="toolbar"/>
+                                                                <af:query id="qryId1" headerText="Search"
+                                                                          disclosed="true"
+                                                                          value="#{bindings.TradeFileMbankWiseVOCriteriaQuery.queryDescriptor}"
+                                                                          model="#{bindings.TradeFileMbankWiseVOCriteriaQuery.queryModel}"
+                                                                          queryListener="#{bindings.TradeFileMbankWiseVOCriteriaQuery.processQuery}"
+                                                                          queryOperationListener="#{bindings.TradeFileMbankWiseVOCriteriaQuery.processQueryOperation}"
+                                                                          saveQueryMode="hidden" maxColumns="2" rows="1"
+                                                                          modeButtonPosition="footer"
+                                                                          modeChangeVisible="false"/>
+                                                        </af:panelBox>
+                                                        <af:panelBox text="Generate Merchant Bank Wise Trade File "
+                                                                     id="pb2" visible="false">
+                                                                <f:facet name="toolbar"/>
+                                                                <af:panelCollection id="pc1"
+                                                                                    inlineStyle="height:inherit; width:inherit;"
+                                                                                    featuresOff="viewMenu"
+                                                                                    partialTriggers="::qryId1">
+                                                                        <f:facet name="menus"/>
+                                                                        <f:facet name="toolbar"/>
+                                                                        <f:facet name="statusbar"/>
+                                                                </af:panelCollection>
+                                                        </af:panelBox>
+                                                        <af:panelBox text="Merchant bank wise trade file generation"
+                                                                     id="pb3">
+                                                                <f:facet name="toolbar"/>
+                                                                <af:panelGroupLayout id="pgl2" layout="horizontal">
+                                                                        <af:selectOneChoice value="#{bindings.MerchantBankLOV.inputValue}"
+                                                                                            label="Merchant Bank "
+                                                                                            required="#{bindings.MerchantBankLOV.hints.mandatory}"
+                                                                                            shortDesc="#{bindings.MerchantBankLOV.hints.tooltip}"
+                                                                                            id="soc2"
+                                                                                            binding="#{TradeFileMbankWise.mbankIdUI}">
+                                                                                <f:selectItems value="#{bindings.MerchantBankLOV.items}"
+                                                                                               id="si2"/>
+                                                                        </af:selectOneChoice>
+                                                                        <af:inputDate label="Trading Date" id="id3"
+                                                                                      binding="#{TradeFileMbankWise.tradingDateUI}"
+                                                                                      required="true"/>
+                                                                </af:panelGroupLayout>
+                                                                <af:spacer width="10" height="50" id="s1"/>
+                                                                <af:panelGroupLayout id="pgl3">
+                                                                        <af:commandButton text="Process File" id="cb1"
+                                                                                          action="#{TradeFileMbankWise.createTradeFile_new}"
+                                                                                          icon="/images/settings-1.png"/>
+                                                                        <af:commandButton text="Download File"
+                                                                                          id="cb2"
+                                                                                          icon="/images/import.png"
+                                                                                          binding="#{TradeFileMbankWise.downloadFileBtnUI}"
+                                                                                          disabled="true">
+                                                                                <af:fileDownloadActionListener method="#{TradeFileMbankWise.generateFileListener}"
+                                                                                                               filename="tradefile"/>
+                                                                        </af:commandButton>
+                                                                </af:panelGroupLayout>
+                                                        </af:panelBox>
+                                                </af:panelGroupLayout>
+                                        </f:facet>
+                                </af:decorativeBox>
+                        </af:group>
+                </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+        <!--oracle-jdev-comment:preferred-managed-bean-name:TradeFileMbankWise-->
+</ui:composition>

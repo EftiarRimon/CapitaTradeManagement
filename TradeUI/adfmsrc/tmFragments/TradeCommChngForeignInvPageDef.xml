@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="TradeCommChngForeignInvPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradesVO" RangeSize="25" DataControl="TradeFileServiceDataControl" id="TradesVOIterator"/>
+    <searchRegion Criteria="TradesVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="TradesVOIterator" id="TradesVOCriteriaQuery"/>
+    <iterator Binds="TradeCommissionChargeVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeCommissionChargeVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TradesVOIterator" id="TradesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradesVO" Name="TradesVO0">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="BrokerId"/>
+          <Item Value="BuySell"/>
+          <Item Value="ClientComRate"/>
+          <Item Value="Commission"/>
+          <Item Value="ExchangeId"/>
+          <Item Value="ImportFileId"/>
+          <Item Value="InstrumentGroup"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="MarketType"/>
+          <Item Value="Price"/>
+          <Item Value="TradingDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="TradeCommissionChargeVOIterator" id="InvestorCode">
+      <AttrNames>
+        <Item Value="InvestorCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="TradeCommissionChargeVOIterator" id="NewRate">
+      <AttrNames>
+        <Item Value="NewRate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_Product" id="ProductId"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="TradeCommissionChargeVOIterator" StaticList="false" Uses="LOV_Buy_Sell" id="Buy_Sell"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="TradeCommissionChargeVOIterator" id="TradingDate">
+      <AttrNames>
+        <Item Value="TradingDate"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

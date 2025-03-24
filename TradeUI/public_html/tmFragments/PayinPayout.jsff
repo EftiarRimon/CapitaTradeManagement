@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="width:450px;"
+                              dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelGroupLayout id="pgl1" inlineStyle="height:inherit;">
+                     <af:popup childCreation="deferred" autoCancel="disabled" id="spinnerPopUp" contentDelivery="immediate"
+                                  clientComponent="true">
+                            <af:dialog id="d1" title=" " closeIconVisible="false" type="none"
+                                       inlineStyle="width:200px; height:50px;">
+                                <af:panelGroupLayout id="pgl4" layout="vertical"
+                                                     inlineStyle="width:200px; height:50px;">
+                                    <af:panelGroupLayout id="pgl3" layout="horizontal">
+                                        <af:spacer width="80" height="10" id="s1"/>
+                                        <af:image shortDesc="Wait" id="i1"
+                                                  inlineStyle="text-align:center;" source="/images/loading.gif"/>
+                                    </af:panelGroupLayout>
+                                    <af:outputText value="Wait  to complete  ..." id="ot12"
+                                                   inlineStyle="color:Purple; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10pt;"/>
+                                </af:panelGroupLayout>
+                            </af:dialog>
+                            <af:clientListener method="onPopupOpened" type="popupOpened"/>
+                            <af:serverListener type="popupOpenListner" method="#{payInPayOut.ProcessAction}"/>
+                        </af:popup>
+                        <af:panelBox text="Pay IN/OUT" id="pb1" disclosed="true" showDisclosure="false">
+                            <f:facet name="toolbar"/>
+                            <af:separator id="s2"/>
+                            <af:panelFormLayout id="pfl1">
+                                <af:selectOneChoice value="#{bindings.BusinessType.inputValue}" label="Business Type"
+                                                    required="#{bindings.BusinessType.hints.mandatory}"
+                                                    shortDesc="#{bindings.BusinessType.hints.tooltip}" id="soc1"
+                                                    visible="true" rendered="false">
+                                    <f:selectItems value="#{bindings.BusinessType.items}" id="si1"/>
+                                </af:selectOneChoice>
+                                <af:selectOneChoice value="#{bindings.Exchange.inputValue}"
+                                                    label="#{bindings.Exchange.label}"
+                                                    shortDesc="#{bindings.Exchange.hints.tooltip}" id="soc3"
+                                                    autoSubmit="true" required="true">
+                                    <f:selectItems value="#{bindings.Exchange.items}" id="si3"/>
+                                </af:selectOneChoice>
+                                <af:selectOneChoice value="#{bindings.Broker.inputValue}"
+                                                    label="#{bindings.Broker.label}"
+                                                    shortDesc="#{bindings.Broker.hints.tooltip}" id="soc4"
+                                                    autoSubmit="true" visible="false">
+                                    <f:selectItems value="#{bindings.Broker.items}" id="si4"/>
+                                </af:selectOneChoice>
+                                <af:selectOneChoice value="#{bindings.Type.inputValue}" label="#{bindings.Type.label}"
+                                                    shortDesc="#{bindings.Type.hints.tooltip}" id="soc2"
+                                                    autoSubmit="true" required="true">
+                                    <f:selectItems value="#{bindings.Type.items}" id="si2"/>
+                                </af:selectOneChoice>
+                                <af:selectBooleanCheckbox value="#{bindings.ProductType.inputValue}"
+                                                          label="NITA"
+                                                          shortDesc="#{bindings.ProductType.hints.tooltip}" id="sbc2"
+                                                          autoSubmit="true" selected="false"/>
+                                <af:selectBooleanCheckbox label="With Own" id="sbc1" autoSubmit="true"
+                                                          binding="#{payInPayOut.withOwnCB}" visible="true" selected="false"/>
+                                <af:inputFile label="Upload File:" id="if1" visible="false"/>
+                                <af:inputText value="#{bindings.generatedFileName.inputValue eq null ? payInPayOut.lastGeneratedFile : bindings.generatedFileName.inputValue}"
+                                              label="Generated File"
+                                              required="#{bindings.generatedFileName.hints.mandatory}"
+                                              columns="#{bindings.generatedFileName.hints.displayWidth}"
+                                              maximumLength="#{bindings.generatedFileName.hints.precision}"
+                                              shortDesc="#{bindings.generatedFileName.hints.tooltip}" id="it1"
+                                              binding="#{payInPayOut.generatedFileNameUI}" partialTriggers="cbProcess"
+                                              readOnly="true" autoSubmit="true">
+                                    <f:validator binding="#{bindings.generatedFileName.validator}"/>
+                                </af:inputText>
+                                <af:inputDate value="#{bindings.Sysdate.inputValue}"
+                                              label="Date"
+                                              columns="#{bindings.Sysdate.hints.displayWidth}"
+                                              shortDesc="#{bindings.Sysdate.hints.tooltip}" id="id1" required="true">
+                                    <f:validator binding="#{bindings.Sysdate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.Sysdate.format}"/>
+                                </af:inputDate>
+                            </af:panelFormLayout>
+                        </af:panelBox>
+                        <af:toolbar id="t1">
+                            <af:commandButton text="Process File:" id="cbProcess" icon="/images/generate-save.png" shortDesc="Process File" clientComponent="true"
+                                              actionListener="#{payInPayOut.processAction}"/>
+                            <af:commandButton text="Download File:" id="cb2"
+                                              rendered="#{bindings.generatedFileName.inputValue ne null  or payInPayOut.generatedFileNameUI.value ne null }"
+                                              icon="/images/Load.png" shortDesc="Download File:">
+                                <af:fileDownloadActionListener filename="#{payInPayOut.generatedFileNameUI.value}"
+                                                               method="#{payInPayOut.dwdFile}"/>
+                            </af:commandButton>
+                        </af:toolbar>
+                        <af:resource type="javascript">
+                              function onPopupOpened(event){
+                              AdfCustomEvent.queue(event.getSource(), "popupOpenListner",{ }, false);
+                            } 
+                       </af:resource>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:payInPayOut-->
+</ui:composition>

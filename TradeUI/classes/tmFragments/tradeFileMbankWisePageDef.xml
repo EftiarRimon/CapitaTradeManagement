@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="tradeFileMbankWisePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MerchantBankLOV" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="MerchantBankLOVIterator"/>
+    <iterator id="TradeFileMbankWiseVOIterator" Binds="TradeFileMbankWiseVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="MerchantBankLOVIterator" ListOperMode="navigation" ListIter="MerchantBankLOVIterator"
+          id="MerchantBankLOV" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="MbankName"/>
+      </AttrNames>
+    </list>
+  </bindings>
+</pageDefinition>

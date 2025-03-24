@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="width:85%;" dimensionsFrom="children" topHeight="2px">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="vertical" id="pgl1">
+                        <af:decorativeBox id="db2" topHeight="2px" inlineStyle="width:inherit; height:inherit;"
+                                          dimensionsFrom="children">
+                            <f:facet name="center">
+                                <af:panelGroupLayout layout="vertical" id="pgl2"
+                                                     inlineStyle="width:inherit; height:inherit;">
+                                    <af:panelBox id="pb2" showHeader="never" showDisclosure="false"
+                                                 inlineStyle="width:inherit;">
+                                        <f:facet name="toolbar"/>
+                                        <af:query id="qryId1" headerText="Investor List (BDA Sales):" disclosed="true"
+                                                  value="#{bindings.InvestorListForBDASalesVOCriteriaQuery.queryDescriptor}"
+                                                  model="#{bindings.InvestorListForBDASalesVOCriteriaQuery.queryModel}"
+                                                  queryListener="#{bindings.InvestorListForBDASalesVOCriteriaQuery.processQuery}"
+                                                  queryOperationListener="#{bindings.InvestorListForBDASalesVOCriteriaQuery.processQueryOperation}"
+                                                  saveQueryMode="hidden" modeChangeVisible="false"
+                                                  inlineStyle="width:inherit; height:inherit;" rows="1" maxColumns="2"
+                                                  modeButtonPosition="footer" conjunctionReadOnly="true"/>
+                                    </af:panelBox>
+                                    <af:panelBox id="pb1" showDisclosure="false" showHeader="never"
+                                                 inlineStyle="width:inherit;">
+                                        <f:facet name="toolbar"/>
+                                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;"
+                                                            featuresOff="viewMenu" partialTriggers="::qryId1">
+                                            <f:facet name="menus">
+                                                <af:menu text="Investor List:" id="m1" icon="/images/table.png"
+                                                         inlineStyle="font-weight:bold;"/>
+                                            </f:facet>
+                                            <f:facet name="toolbar">
+                                                <af:toolbar id="t2" flex="1">
+                                                    <af:commandButton text="Save" id="cb1" icon="/images/Save.png"
+                                                                      action="#{bdaBean._bdaProcessSalesOrder}"
+                                                                      shortDesc="Save"
+                                                                      disabled="#{bindings.InvestorListForBDASalesVOIterator.estimatedRowCount &lt;1 or !pageFlowScope.editable}"
+                                                                      partialTriggers="t1 ::qryId1"/>
+                                                    <af:spacer width="50" height="10" id="s1"/>
+                                                    <af:commandButton text="Back List" id="cb2"
+                                                                      icon="/images/go-list.png" action="back"
+                                                                      immediate="true"
+                                                                      actionListener="#{bdaBean.customRollBack}"
+                                                                      shortDesc="Back List"/>
+                                                </af:toolbar>
+                                            </f:facet>
+                                            <f:facet name="statusbar"/>
+                                            <af:table value="#{bindings.InvestorListForBDASalesVO.collectionModel}"
+                                                      var="row" rows="#{bindings.InvestorListForBDASalesVO.rangeSize}"
+                                                      emptyText="#{bindings.InvestorListForBDASalesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                                      fetchSize="#{bindings.InvestorListForBDASalesVO.rangeSize}"
+                                                      rowBandingInterval="1" id="t1" autoHeightRows="10"
+                                                      contentDelivery="immediate"
+                                                      inlineStyle="width:inherit; height:inherit;"
+                                                      partialTriggers="sbcSelectAll :::qryId1" filterVisible="true">
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.SelectedRow.name}"
+                                                           id="c1" width="30" align="center" frozen="true">
+                                                    <af:selectBooleanCheckbox value="#{row.bindings.SelectedRow.inputValue}"
+                                                                              label="#{row.bindings.SelectedRow.label}"
+                                                                              shortDesc="#{bindings.InvestorListForBDASalesVO.hints.SelectedRow.tooltip}"
+                                                                              id="sbcchkBox" autoSubmit="true"
+                                                                              disabled="#{!pageFlowScope.editable}"/>
+                                                    <f:facet name="header">
+                                                        <af:selectBooleanCheckbox id="sbcSelectAll"
+                                                                                  valueChangeListener="#{bdaBean.selectAllValueChange}"
+                                                                                  autoSubmit="true" value="false"
+                                                                                  disabled="#{!pageFlowScope.editable}"/>
+                                                    </f:facet>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.name}"
+                                                           sortable="false" headerText="Investor Code " id="c2"
+                                                           width="90" filterable="true">
+                                                    <af:inputText value="#{row.bindings.InvestorCode.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.InvestorCode.tooltip}"
+                                                                  id="it1">
+                                                        <f:validator binding="#{row.bindings.InvestorCode.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.Name.name}"
+                                                           sortable="false"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.Name.label}"
+                                                           id="c3" width="103">
+                                                    <af:inputText value="#{row.bindings.Name.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.Name.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.Name.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.Name.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.Name.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.Name.tooltip}"
+                                                                  id="it2">
+                                                        <f:validator binding="#{row.bindings.Name.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.InstrumentId.name}"
+                                                           sortable="false" headerText="Instrument" id="c13"
+                                                           visible="true" width="75">
+                                                    <af:selectOneChoice value="#{row.bindings.InstrumentId.inputValue}"
+                                                                        label="#{row.bindings.InstrumentId.label}"
+                                                                        required="#{bindings.InvestorListForBDASalesVO.hints.InstrumentId.mandatory}"
+                                                                        shortDesc="#{bindings.InvestorListForBDASalesVO.hints.InstrumentId.tooltip}"
+                                                                        id="soc3">
+                                                        <f:selectItems value="#{row.bindings.InstrumentId.items}"
+                                                                       id="si3"/>
+                                                    </af:selectOneChoice>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.ProductId.name}"
+                                                           headerText="Product" id="c4" width="90">
+                                                    <af:selectOneChoice value="#{row.bindings.ProductId.inputValue}"
+                                                                        label="#{row.bindings.ProductId.label}"
+                                                                        required="#{bindings.InvestorListForBDASalesVO.hints.ProductId.mandatory}"
+                                                                        shortDesc="#{bindings.InvestorListForBDASalesVO.hints.ProductId.tooltip}"
+                                                                        id="soc1">
+                                                        <f:selectItems value="#{row.bindings.ProductId.items}"
+                                                                       id="si1"/>
+                                                    </af:selectOneChoice>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.Quantity.name}"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.Quantity.label}"
+                                                           id="c5" width="70"
+                                                           inlineStyle='#{(row.SelectedRow)?"background-color: #ffafaf":""};'>
+                                                    <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.Quantity.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.Quantity.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.Quantity.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.Quantity.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.Quantity.tooltip}"
+                                                                  id="itxtQuantity"
+                                                                  readOnly="#{(row.SelectedRow eq false) or (row.SelectedRow eq null) }"
+                                                                  partialTriggers="sbcchkBox">
+                                                        <f:validator binding="#{row.bindings.Quantity.validator}"/>
+                                                        <af:convertNumber groupingUsed="false"
+                                                                          pattern="#{bindings.InvestorListForBDASalesVO.hints.Quantity.format}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.name}"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.label}"
+                                                           id="c6" width="70">
+                                                    <af:inputText value="#{row.bindings.TotalQty.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.TotalQty.tooltip}"
+                                                                  id="it4">
+                                                        <f:validator binding="#{row.bindings.TotalQty.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.Salable.name}"
+                                                           sortable="false"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.Salable.label}(bda)"
+                                                           id="c7" width="70">
+                                                    <af:inputText value="#{row.bindings.Salable.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.Salable.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.Salable.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.Salable.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.Salable.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.Salable.tooltip}"
+                                                                  id="it5">
+                                                        <f:validator binding="#{row.bindings.Salable.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.name}"
+                                                           sortable="false"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.label}"
+                                                           id="c8" width="70" visible="false">
+                                                    <af:inputText value="#{row.bindings.SalableQty.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.SalableQty.tooltip}"
+                                                                  id="it6">
+                                                        <f:validator binding="#{row.bindings.SalableQty.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.name}"
+                                                           sortable="false" headerText="Current Balance" id="c9"
+                                                           width="105">
+                                                    <af:inputText value="#{row.bindings.CurrentBalance.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.CurrentBalance.tooltip}"
+                                                                  id="it7">
+                                                        <f:validator binding="#{row.bindings.CurrentBalance.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column headerText="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.label}"
+                                                           id="c10">
+                                                    <af:inputText value="#{row.bindings.TradeCode.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.TradeCode.tooltip}"
+                                                                  id="it3">
+                                                        <f:validator binding="#{row.bindings.TradeCode.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.ProductType.name}"
+                                                           sortable="false" headerText="Product Type " id="c11"
+                                                           width="70" visible="false">
+                                                    <af:inputText value="#{row.bindings.ProductType.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.ProductType.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.ProductType.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.ProductType.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.ProductType.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.ProductType.tooltip}"
+                                                                  id="it9">
+                                                        <f:validator binding="#{row.bindings.ProductType.validator}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                                <af:column sortProperty="#{bindings.InvestorListForBDASalesVO.hints.AccountId.name}"
+                                                           sortable="false"
+                                                           headerText="#{bindings.InvestorListForBDASalesVO.hints.AccountId.label}"
+                                                           id="c14" visible="false">
+                                                    <af:inputText value="#{row.bindings.AccountId.inputValue}"
+                                                                  label="#{bindings.InvestorListForBDASalesVO.hints.AccountId.label}"
+                                                                  required="#{bindings.InvestorListForBDASalesVO.hints.AccountId.mandatory}"
+                                                                  columns="#{bindings.InvestorListForBDASalesVO.hints.AccountId.displayWidth}"
+                                                                  maximumLength="#{bindings.InvestorListForBDASalesVO.hints.AccountId.precision}"
+                                                                  shortDesc="#{bindings.InvestorListForBDASalesVO.hints.AccountId.tooltip}"
+                                                                  id="it10">
+                                                        <f:validator binding="#{row.bindings.AccountId.validator}"/>
+                                                        <af:convertNumber groupingUsed="false"
+                                                                          pattern="#{bindings.InvestorListForBDASalesVO.hints.AccountId.format}"/>
+                                                    </af:inputText>
+                                                </af:column>
+                                            </af:table>
+                                            <f:facet name="secondaryToolbar">
+                                                <af:toolbar id="t3">
+                                                    <af:outputFormatted value="Total Records Found :(#{bindings.InvestorListForBDASalesVOIterator.estimatedRowCount})"
+                                                                        id="of1" partialTriggers="::qryId1 t1"/>
+                                                </af:toolbar>
+                                            </f:facet>
+                                        </af:panelCollection>
+                                    </af:panelBox>
+                                    <af:panelFormLayout id="pfl1" rows="1">
+                                        <af:inputDate value="#{bindings.GetCurrentSystemDate.inputValue}"
+                                                      label="Order Date"
+                                                      required="#{bindings.GetCurrentSystemDate.hints.mandatory}"
+                                                      columns="20"
+                                                      shortDesc="#{bindings.GetCurrentSystemDate.hints.tooltip}"
+                                                      id="id1" disabled="true">
+                                            <f:validator binding="#{bindings.GetCurrentSystemDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.GetCurrentSystemDate.format}"/>
+                                        </af:inputDate>
+                                        <af:inputText value="#{bdaBean.selectedRowsTotalSalesInstruments}"
+                                                      label="Total Instruments:"
+                                                      required="#{bindings.Total.hints.mandatory}"
+                                                      maximumLength="#{bindings.Total.hints.precision}"
+                                                      shortDesc="#{bindings.Total.hints.tooltip}" id="it8"
+                                                      disabled="true"
+                                                      partialTriggers="pc1:t1:itxtQuantity pc1:t1:sbcchkBox pc1:t1:sbcSelectAll"
+                                                      labelStyle="width:90px;" columns="30">
+                                            <f:validator binding="#{bindings.Total.validator}"/>
+                                        </af:inputText>
+                                    </af:panelFormLayout>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                            <f:facet name="top"/>
+                        </af:decorativeBox>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:bdaBean-->
+</ui:composition>

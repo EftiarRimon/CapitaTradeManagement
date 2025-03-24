@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="EODPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="EODVO" RangeSize="25" DataControl="TradeFileServiceDataControl" id="EODVOIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="EODVOIterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="EODVOIterator" StaticList="false" Uses="LOV_Branch" id="Branch" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

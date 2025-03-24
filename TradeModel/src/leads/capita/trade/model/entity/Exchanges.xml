@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="Exchanges"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="EXCHANGES"
+  AliasName="Exchanges"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="ExchangeId"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="EXCHANGE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="EXCHANGES"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ExchangeCode"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="EXCHANGE_CODE"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="EXCHANGES"/>
+  <Attribute
+    Name="ExchangeName"
+    IsUnique="true"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="EXCHANGE_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ShortName"
+    Precision="30"
+    ColumnName="SHORT_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreatdBy"
+    Precision="50"
+    ColumnName="CREATD_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreationDt"
+    ColumnName="CREATION_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="EXCHANGES"/>
+  <Attribute
+    Name="ApprovedBy"
+    Precision="50"
+    ColumnName="APPROVED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ApproveDt"
+    ColumnName="APPROVE_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="EXCHANGES"/>
+  <Attribute
+    Name="LastUpdatedBy"
+    Precision="50"
+    ColumnName="LAST_UPDATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDt"
+    ColumnName="LAST_UPDATE_DT"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="EXCHANGES"/>
+  <Attribute
+    Name="ApprovalStatus"
+    Precision="30"
+    ColumnName="APPROVAL_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EXCHANGES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ObjectVersionId"
+    Precision="15"
+    Scale="0"
+    ColumnName="OBJECT_VERSION_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    TableName="EXCHANGES"/>
+  <AccessorAttribute
+    Name="TradeFileConf"
+    Association="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc.TradeFileConf"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkTradeFileExchangeAssoc.Exchanges"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="InstrumentPrice"
+    Association="leads.capita.trade.model.entity.FkInstrumentPriceExchangeAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInstrumentPriceExchangeAssoc.InstrumentPrice"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInstrumentPriceExchangeAssoc.Exchanges"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="TradeInvestorNetting"
+    Association="leads.capita.trade.model.entity.FkInvestorNettingExchangeAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInvestorNettingExchangeAssoc.TradeInvestorNetting"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInvestorNettingExchangeAssoc.Exchanges"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="TradeInstrumentSettlements"
+    Association="leads.capita.trade.model.entity.FkInstruSettleExchangeAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkInstruSettleExchangeAssoc.TradeInstrumentSettlements"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkInstruSettleExchangeAssoc.Exchanges"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="BdaOrders"
+    Association="leads.capita.trade.model.entity.assoc.FkBdaOrdersExchangeIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersExchangeIdAssoc.BdaOrders"
+    AssociationOtherEnd="leads.capita.trade.model.entity.assoc.FkBdaOrdersExchangeIdAssoc.Exchanges"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkExchanges"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_EXCHANGES"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Exchanges.ExchangeId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkExExchangeCode">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_EX_EXCHANGE_CODE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Exchanges.ExchangeCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="UkExExchangeName">
+    <DesignTime>
+      <Attr Name="_isUnique" Value="true"/>
+      <Attr Name="_DBObjectName" Value="UK_EX_EXCHANGE_NAME"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.Exchanges.ExchangeName"/>
+    </AttrArray>
+  </Key>
+</Entity>

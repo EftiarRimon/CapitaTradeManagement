@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="PriceFilePageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <searchRegion Criteria="InstrumentPriceVOCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="InstrumentPriceVOIterator"
+                      id="InstrumentPriceVOCriteriaQuery"/>
+        <iterator id="InstrumentPriceVOIterator" Binds="InstrumentPriceVO" DataControl="TradeFileServiceDataControl"
+                  RangeSize="25"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="InstrumentPriceVOIterator" id="InstrumentPriceVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.InstrumentPriceVO" Name="InstrumentPriceVO0">
+                <AttrNames>
+                    <Item Value="ExchangeId"/>
+                    <Item Value="PriceDate"/>
+                    <Item Value="InstrCode"/>
+                    <Item Value="InstrIsin"/>
+                    <Item Value="InstrGroup"/>
+                    <Item Value="OpenPrice"/>
+                    <Item Value="HighPrice"/>
+                    <Item Value="LowPrice"/>
+                    <Item Value="ClosePrice"/>
+                    <Item Value="Status"/>
+                    <Item Value="ImportId"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action IterBinding="InstrumentPriceVOIterator" id="DeletePrice"
+                InstanceName="TradeFileServiceDataControl.InstrumentPriceVO" DataControl="TradeFileServiceDataControl"
+                RequiresUpdateModel="false" Action="removeCurrentRow"/>
+        <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action IterBinding="InstrumentPriceVOIterator" id="CreateInsert"
+                InstanceName="TradeFileServiceDataControl.InstrumentPriceVO" DataControl="TradeFileServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+    </bindings>
+</pageDefinition>

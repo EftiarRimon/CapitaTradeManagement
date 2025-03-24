@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="PayInOutBeforeTradePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <iterator Binds="PayInOutBeforeTrade1" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="PayInOutBeforeTrade1Iterator"/>
+    <iterator id="PayinSettlementListVOIterator" Binds="PayinSettlementListVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="PayoutSettlementListVOIterator" Binds="PayoutSettlementListVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="InstrPayinOutVOIterator" Binds="InstrPayinOutVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="InstrPayOutVOIterator" Binds="InstrPayOutVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <list IterBinding="PayInOutBeforeTrade1Iterator" StaticList="false" Uses="LOV_BusinessType" id="BusinessType"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayInOutBeforeTrade1Iterator" StaticList="false" Uses="LOV_Exchange" id="Exchange"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayInOutBeforeTrade1Iterator" StaticList="false" Uses="LOV_Broker" id="Broker"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <list IterBinding="PayInOutBeforeTrade1Iterator" StaticList="false" Uses="LOV_Type" id="Type" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="PayInOutBeforeTrade1Iterator" id="ProductType">
+      <AttrNames>
+        <Item Value="ProductType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PayInOutBeforeTrade1Iterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PayInOutBeforeTrade1Iterator" id="generatedFileName">
+      <AttrNames>
+        <Item Value="generatedFileName"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="PayinSettlementListVOIterator" id="PayinSettlementListVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PayinSettlementListVO" Name="PayinSettlementListVO0">
+        <AttrNames>
+          <Item Value="Boid"/>
+          <Item Value="BranchId"/>
+          <Item Value="BrokerCode"/>
+          <Item Value="BusinessType"/>
+          <Item Value="Buy"/>
+          <Item Value="ExchangeCode"/>
+          <Item Value="InsSettleId"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="Isin"/>
+          <Item Value="Name"/>
+          <Item Value="ProductName"/>
+          <Item Value="Sell"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PayoutSettlementListVOIterator" id="PayoutSettlementListVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.PayoutSettlementListVO" Name="PayoutSettlementListVO0">
+        <AttrNames>
+          <Item Value="Boid"/>
+          <Item Value="BranchId"/>
+          <Item Value="BrokerCode"/>
+          <Item Value="BusinessType"/>
+          <Item Value="Buy"/>
+          <Item Value="ExchangeCode"/>
+          <Item Value="InsSettleId"/>
+          <Item Value="InstrumentId"/>
+          <Item Value="InstrumentName"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="Isin"/>
+          <Item Value="Name"/>
+          <Item Value="ProductName"/>
+          <Item Value="Sell"/>
+          <Item Value="SettlementDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

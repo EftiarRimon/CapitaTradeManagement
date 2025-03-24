@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="bulkSalesOrderPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BdaOrderDetailVO" RangeSize="10" DataControl="BdaServiceDataControl"
+                  id="BdaOrderDetailVOIterator"/>
+        <iterator Binds="BdaOrdersFilterVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaOrdersFilterVOIterator"/>
+        <iterator Binds="BdaSalesOrderInvListVO" RangeSize="25" DataControl="BdaServiceDataControl"
+                  id="BdaSalesOrderInvListVOIterator"/>
+        <searchRegion Binds="BdaSalesOrderInvListVOIterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BdaSalesOrderInvListVOQuery"/>
+    </executables>
+    <bindings>
+        <action IterBinding="BdaOrderDetailVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BdaOrderDetailVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <list IterBinding="BdaOrdersFilterVOIterator" StaticList="false" Uses="LOV_InstrumentId" id="InstrumentId"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderDate">
+            <AttrNames>
+                <Item Value="OrderDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderId">
+            <AttrNames>
+                <Item Value="OrderId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BdaOrdersFilterVOIterator" id="OrderPrice">
+            <AttrNames>
+                <Item Value="OrderPrice"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="BdaSalesOrderInvListVOIterator" id="BdaSalesOrderInvListVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaSalesOrderInvListVO"
+                            Name="BdaSalesOrderInvListVO0">
+                <AttrNames>
+                    <Item Value="SelectedRow"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="InstrumentName"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="OrderFor"/>
+                    <Item Value="SalableQty"/>
+                    <Item Value="TotalQty"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="ProductId"/>
+                    <Item Value="AvgCost"/>
+                    <Item Value="CurrentBalance"/>
+                    <Item Value="PurchasePower"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

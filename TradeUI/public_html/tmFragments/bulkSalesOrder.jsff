@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" topHeight="5px" inlineStyle="width:900px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="scroll" id="pgl2" inlineStyle="width:inherit; height:inherit;">
+                        <af:panelBox text="Sales Order" id="pb2">
+                            <f:facet name="toolbar"/>
+                            <af:panelFormLayout id="pfl1" rows="1" maxColumns="4">
+                                <af:selectOneChoice value="#{bindings.InstrumentId.inputValue}"
+                                                    label="#{bindings.InstrumentId.label}"
+                                                    required="#{bindings.InstrumentId.hints.mandatory}"
+                                                    shortDesc="#{bindings.InstrumentId.hints.tooltip}" id="soc1"
+                                                    readOnly="true">
+                                    <f:selectItems value="#{bindings.InstrumentId.items}" id="si1"/>
+                                </af:selectOneChoice>
+                                <af:inputDate value="#{bindings.OrderDate.inputValue}"
+                                              label="#{bindings.OrderDate.hints.label}"
+                                              required="#{bindings.OrderDate.hints.mandatory}" columns="25"
+                                              shortDesc="#{bindings.OrderDate.hints.tooltip}" id="id1" readOnly="true">
+                                    <f:validator binding="#{bindings.OrderDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.OrderDate.format}"/>
+                                </af:inputDate>
+                                <af:inputText value="#{bindings.OrderPrice.inputValue}"
+                                              label="#{bindings.OrderPrice.hints.label}"
+                                              required="#{bindings.OrderPrice.hints.mandatory}" columns="15"
+                                              maximumLength="#{bindings.OrderPrice.hints.precision}"
+                                              shortDesc="#{bindings.OrderPrice.hints.tooltip}" id="it8" readOnly="true">
+                                    <f:validator binding="#{bindings.OrderPrice.validator}"/>
+                                </af:inputText>
+                                <af:inputText value="#{bindings.OrderId.inputValue}"
+                                              label="#{bindings.OrderId.hints.label}"
+                                              required="#{bindings.OrderId.hints.mandatory}"
+                                              columns="#{bindings.OrderId.hints.displayWidth}"
+                                              maximumLength="#{bindings.OrderId.hints.precision}"
+                                              shortDesc="#{bindings.OrderId.hints.tooltip}" id="it6" visible="false">
+                                    <f:validator binding="#{bindings.OrderId.validator}"/>
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.OrderId.format}"/>
+                                </af:inputText>
+                            </af:panelFormLayout>
+                        </af:panelBox>
+                        <af:panelBox text="BDA Sales Order Process" id="pb1" inlineStyle="width:inherit;"
+                                     showDisclosure="false" type="stretch">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;"
+                                                featuresOff="viewMenu">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t2" flex="1">
+                                        <af:commandButton text="Save" id="cb1" icon="/images/Save.png"
+                                                          action="#{bdaOrderAllocManageBean.bulkSalesOrder}"
+                                                          shortDesc="Save"/>
+                                        <af:commandButton text="Search" id="cb2" icon="/images/view-light.png"
+                                                          shortDesc="Investors Search ( , seperated)">
+                                            <af:showPopupBehavior popupId="::investorSearchPopop" triggerType="action"/>
+                                        </af:commandButton>
+                                        <af:commandButton text="Back List" id="cb5" icon="/images/go-table.png"
+                                                          action="backList" immediate="true" shortDesc="Back List"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t4">
+                                        <af:outputFormatted id="of2"
+                                                            value="Total record: #{bindings.BdaSalesOrderInvListVOIterator.estimatedRowCount}"
+                                                            partialTriggers="::investorSearchPopop t1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.BdaSalesOrderInvListVO.collectionModel}" var="row"
+                                          rows="#{bindings.BdaSalesOrderInvListVO.rangeSize}"
+                                          emptyText="#{bindings.BdaSalesOrderInvListVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.BdaSalesOrderInvListVO.rangeSize}"
+                                          rowBandingInterval="1"
+                                          filterModel="#{bindings.BdaSalesOrderInvListVOQuery.queryDescriptor}"
+                                          queryListener="#{bindings.BdaSalesOrderInvListVOQuery.processQuery}"
+                                          filterVisible="true" varStatus="vs"
+                                          selectedRowKeys="#{bindings.BdaSalesOrderInvListVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.BdaSalesOrderInvListVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.SelectedRow.name}"
+                                               sortable="true"
+                                               id="c1" width="25" align="center">
+                                        <af:selectBooleanCheckbox value="#{row.bindings.SelectedRow.inputValue}"
+                                                                  label="#{row.bindings.SelectedRow.label}"
+                                                                  shortDesc="#{bindings.BdaSalesOrderInvListVO.hints.SelectedRow.tooltip}"
+                                                                  id="sbc1" autoSubmit="true"/>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.label}"
+                                               id="c6">
+                                        <af:inputText value="#{row.bindings.OrderFor.inputValue}"
+                                                      label="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.label}"
+                                                      required="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.mandatory}"
+                                                      columns="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.displayWidth}"
+                                                      maximumLength="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.precision}"
+                                                      shortDesc="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.tooltip}"
+                                                      id="it1" autoSubmit="true">
+                                            <f:validator binding="#{row.bindings.OrderFor.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.BdaSalesOrderInvListVO.hints.OrderFor.format}"/>
+                                        </af:inputText>
+                                        <f:facet name="footer">
+                                            <af:toolbar id="t3">
+                                                <af:outputFormatted value="Total Order: #{bdaOrderAllocManageBean.selectedRowsTotalSalesOrder}"
+                                                                    id="of1" partialTriggers="sbc1 it1"/>
+                                            </af:toolbar>
+                                        </f:facet>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.InvestorCode.name}"
+                                               filterable="true"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.InvestorCode.label}"
+                                               id="c2" width="120" filterFeatures="caseInsensitive">
+                                        <af:outputText value="#{row.InvestorCode}" id="ot1"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.Name.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.Name.label}" id="c3">
+                                        <af:outputText value="#{row.Name}" id="ot2"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.InstrumentName.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.InstrumentName.label}"
+                                               id="c4">
+                                        <af:outputText value="#{row.InstrumentName}" id="ot3"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.TradeCode.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.TradeCode.label}"
+                                               id="c5" width="90">
+                                        <af:outputText value="#{row.TradeCode}" id="ot4"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.name}"
+                                               sortable="false"
+                                               headerText="Current Balance"
+                                               id="c12" width="80">
+                                        <af:inputText value="#{row.bindings.CurrentBalance.inputValue}"
+                                                      label="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.label}"
+                                                      required="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.mandatory}"
+                                                      columns="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.displayWidth}"
+                                                      maximumLength="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.precision}"
+                                                      shortDesc="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.tooltip}"
+                                                      id="it3" readOnly="true">
+                                            <f:validator binding="#{row.bindings.CurrentBalance.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.BdaSalesOrderInvListVO.hints.CurrentBalance.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.name}"
+                                               sortable="false"
+                                               headerText="Purchase Power"
+                                               id="c13" width="80">
+                                        <af:inputText value="#{row.bindings.PurchasePower.inputValue}"
+                                                      label="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.label}"
+                                                      required="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.mandatory}"
+                                                      columns="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.displayWidth}"
+                                                      maximumLength="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.precision}"
+                                                      shortDesc="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.tooltip}"
+                                                      id="it4" readOnly="true">
+                                            <f:validator binding="#{row.bindings.PurchasePower.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.BdaSalesOrderInvListVO.hints.PurchasePower.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.SalableQty.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.SalableQty.label}"
+                                               id="c7" width="75">
+                                        <af:outputText value="#{row.SalableQty}" id="ot6"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.TotalQty.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.TotalQty.label}"
+                                               id="c8" width="75" sortable="false">
+                                        <af:outputText value="#{row.TotalQty}" id="ot7"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.label}"
+                                               id="c11">
+                                        <af:inputText value="#{row.bindings.AvgCost.inputValue}"
+                                                      label="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.label}"
+                                                      required="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.mandatory}"
+                                                      columns="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.displayWidth}"
+                                                      maximumLength="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.precision}"
+                                                      shortDesc="#{bindings.BdaSalesOrderInvListVO.hints.AvgCost.tooltip}"
+                                                      id="it2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.AvgCost.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.AccountId.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.AccountId.label}"
+                                               id="c9" visible="false">
+                                        <af:outputText value="#{row.AccountId}" id="ot8">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.BdaSalesOrderInvListVO.hints.AccountId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.BdaSalesOrderInvListVO.hints.ProductId.name}"
+                                               headerText="#{bindings.BdaSalesOrderInvListVO.hints.ProductId.label}"
+                                               id="c10" visible="false">
+                                        <af:outputText value="#{row.ProductId}" id="ot9">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.BdaSalesOrderInvListVO.hints.ProductId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="investorSearchPopop"
+                                  contentDelivery="lazyUncached" resetEditableValues="whenCanceled"
+                                  binding="#{bdaOrderAllocManageBean.salesSearchPopupUI}">
+                            <af:dialog id="d1" type="cancel" title="Sales Order">
+                                <f:facet name="buttonBar">
+                                    <af:commandButton text="Search" id="cb3"
+                                                      action="#{bdaOrderAllocManageBean.salesInvSearchAction}"/>
+                                </f:facet>
+                                <af:panelBox text="Search Investors" id="pb3">
+                                    <f:facet name="toolbar">
+                                        <af:commandButton id="cb4" icon="/images/refresh.png"
+                                                          shortDesc="Refresh Investor Codes"
+                                                          action="#{bdaOrderAllocManageBean.refreshInvestorCodes}"/>
+                                    </f:facet>
+                                    <af:inputText label="Investor Codes" id="it5" rows="3" autoSubmit="true"
+                                                  binding="#{bdaOrderAllocManageBean.salesInvestorCodesUI}"/>
+                                </af:panelBox>
+                            </af:dialog>
+                        </af:popup>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <f:facet name="top"/>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:bdaOrderAllocManageBean-->
+</ui:composition>

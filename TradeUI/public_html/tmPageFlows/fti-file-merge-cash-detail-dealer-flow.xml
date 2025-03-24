@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="fti-file-merge-cash-detail-dealer-flow">
+    <default-activity>FtiFileMergeCashDealer</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name>FileMergeCashShareDealer</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.FileMergeCashShareDealer</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="FtiFileMergeCashDealer">
+      <page>/tmFragments/FtiFileMergeCashDealer.jsff</page>
+    </view>
+    <view id="FtiFileMergeCashDetailDealer">
+      <page>/tmFragments/FtiFileMergeCashDetailDealer.jsff</page>
+    </view>
+    <view id="FtiFileMergeDealerCashProcessedData">
+      <page>/tmFragments/FtiFileMergeDealerCashProcessedData.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>FtiFileMergeCashDealer</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goCashDetail</from-outcome>
+        <to-activity-id>FtiFileMergeCashDetailDealer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>FtiFileMergeCashDetailDealer</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>goBack</from-outcome>
+        <to-activity-id>FtiFileMergeCashDealer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>goProcessedData</from-outcome>
+        <to-activity-id>FtiFileMergeDealerCashProcessedData</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>FtiFileMergeDealerCashProcessedData</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>FtiFileMergeCashDetailDealer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

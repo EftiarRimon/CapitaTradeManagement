@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FlexFileTypeVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  RangeSize="-1">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.FlexFileTypeVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="CustomLoookupLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['FLEX_FILE_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="FlexTradeLimitLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.FlexTradeLimitLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FtiPositionLimitLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.FtiPositionLimitLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CustomLoookupLOV1"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['EMPTY_LOV']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_FileType"
+    ListVOName="CustomLoookupLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="FileType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_FileVersion"
+    ListVOName="FlexTradeLimitLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="FileVersion"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="VersionNo"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="VersionName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_FileVersion1"
+    ListVOName="FtiPositionLimitLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="FileVersion"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="VersionNo"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="VersionName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_FileVersion12"
+    ListVOName="CustomLoookupLOV1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="FileVersion"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery><![CDATA[select sysdate from dual]]></SQLQuery>
+  <ViewAttribute
+    Name="Sysdate"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName='"SYSDATE"'
+    Expression='"SYSDATE"'
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="FileType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_FileType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.FlexFileTypeVO.FileType_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FileVersion"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER"
+    LOVName="LOV_FileVersion12"
+    LOVFinder="FileVersionLOVSwitcher">
+    <Dependencies>
+      <Item
+        Value="FileVersionLOVSwitcher"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.FlexFileTypeVO.FileVersion_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FileVersionLOVSwitcher"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if(FileType=='Client')
+  return 'LOV_FileVersion'
+else if(FileType=='Position')
+  return 'LOV_FileVersion1'
+else if(FileType=='Trade')
+  return 'LOV_FileVersion12'
+else if(FileType=='Ticker')
+  return 'LOV_FileVersion12']]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="FileType"/>
+    </Dependencies>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Sysdate"/>
+    <Item Value="FileVersion"/>
+  </AttrArray>
+</ViewObject>

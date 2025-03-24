@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:group id="g2">
+                <af:decorativeBox id="db1" inlineStyle="height:auto; width:650px;" dimensionsFrom="children">
+                    <f:facet name="center">
+                        <af:panelGroupLayout layout="default" id="pgl1">
+                            <af:panelBox text="Purchase Power Limit" id="pb1" inlineStyle="width:inherit; height:230px;"
+                                         type="flow">
+                                <f:facet name="toolbar">
+                                    <af:group id="g1">
+                                        <af:commandButton text="Save" id="cb1" icon="/images/Save.png"
+                                                          action="#{PurchasePowerLimit.purchasePowerLimitSaveAction}"/>
+                                        <af:commandButton text="Back" id="cb2" icon="/images/back.png" action="goBack"
+                                                          immediate="true"
+                                                          actionListener="#{bindings.Rollback.execute}"/>
+                                    </af:group>
+                                </f:facet>
+                                <af:panelFormLayout id="pfl1" rows="5">
+                                    <af:selectOneChoice value="#{bindings.ProductType.inputValue}"
+                                                        label="#{bindings.ProductType.label}"
+                                                        required="#{bindings.ProductType.hints.mandatory}"
+                                                        shortDesc="#{bindings.ProductType.hints.tooltip}" id="soc1">
+                                        <f:selectItems value="#{bindings.ProductType.items}" id="si1"/>
+                                    </af:selectOneChoice>
+                                    <af:selectOneChoice value="#{bindings.ProductId.inputValue}"
+                                                        label="#{bindings.ProductId.label}"
+                                                        required="#{bindings.ProductId.hints.mandatory}"
+                                                        shortDesc="#{bindings.ProductId.hints.tooltip}" id="soc2">
+                                        <f:selectItems value="#{bindings.ProductId.items}" id="si2"/>
+                                    </af:selectOneChoice>
+                                    <af:selectOneChoice value="#{bindings.Operand.inputValue}"
+                                                        label="#{bindings.Operand.label}"
+                                                        required="#{bindings.Operand.hints.mandatory}"
+                                                        shortDesc="#{bindings.Operand.hints.tooltip}" id="soc3">
+                                        <f:selectItems value="#{bindings.Operand.items}" id="si3"/>
+                                    </af:selectOneChoice>
+                                    <af:selectBooleanCheckbox value="#{bindings.AtActual.inputValue}"
+                                                              label="#{bindings.AtActual.label}"
+                                                              shortDesc="#{bindings.AtActual.hints.tooltip}" id="sbc1"/>
+                                    <af:inputText value="#{bindings.Pct.inputValue}" label="#{bindings.Pct.hints.label}"
+                                                  required="#{bindings.Pct.hints.mandatory}"
+                                                  columns="#{bindings.Pct.hints.displayWidth}"
+                                                  maximumLength="#{bindings.Pct.hints.precision}"
+                                                  shortDesc="#{bindings.Pct.hints.tooltip}" id="it2">
+                                        <f:validator binding="#{bindings.Pct.validator}"/>
+                                    </af:inputText>
+                                    <af:inputDate value="#{bindings.ActiveDate.inputValue}"
+                                                  label="#{bindings.ActiveDate.hints.label}"
+                                                  required="#{bindings.ActiveDate.hints.mandatory}"
+                                                  columns="#{bindings.ActiveDate.hints.displayWidth}"
+                                                  shortDesc="#{bindings.ActiveDate.hints.tooltip}" id="id1">
+                                        <f:validator binding="#{bindings.ActiveDate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.ActiveDate.format}"/>
+                                    </af:inputDate>
+                                    <af:selectOneChoice value="#{bindings.Status.inputValue}"
+                                                        label="#{bindings.Status.label}"
+                                                        required="#{bindings.Status.hints.mandatory}"
+                                                        shortDesc="#{bindings.Status.hints.tooltip}" id="soc5">
+                                        <f:selectItems value="#{bindings.Status.items}" id="si5"/>
+                                    </af:selectOneChoice>
+                                </af:panelFormLayout>
+                            </af:panelBox>
+                            <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;"
+                                                featuresOff="viewMenu" partialTriggers="::addNewSlabPopUp">
+                                <f:facet name="menus">
+                                    <af:menu text="Purchase Power Limit Slab" id="m1"
+                                             inlineStyle="font-weight:bolder;"/>
+                                </f:facet>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t3">
+                                        <af:commandButton text="Add" id="cb3" icon="/images/add.png"
+                                                          shortDesc="Add New Slab"
+                                                          disabled="#{PurchasePowerLimit.newHeader}">
+                                            <af:showPopupBehavior popupId="::addNewSlabPopUp" triggerType="action"/>
+                                        </af:commandButton>
+                                        <af:commandButton text="Refresh" id="cb4" icon="/images/refresh.png"
+                                                          action="#{PurchasePowerLimit.refreshSlab}"
+                                                          shortDesc="Refresh"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t2">
+                                        <af:outputText value="Total Record(s) : #{bindings.PurchasePowerLimitSlabVOIterator.estimatedRowCount}"
+                                                       id="ot1" partialTriggers="t1 ::pc1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.PurchasePowerLimitSlabVO.collectionModel}" var="row"
+                                          rows="#{bindings.PurchasePowerLimitSlabVO.rangeSize}"
+                                          emptyText="#{bindings.PurchasePowerLimitSlabVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.PurchasePowerLimitSlabVO.rangeSize}"
+                                          rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.PurchasePowerLimitSlabVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.PurchasePowerLimitSlabVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="8" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column sortProperty="#{bindings.PurchasePowerLimitSlabVO.hints.AccountId.name}"
+                                               sortable="true"
+                                               headerText="Investor Code"
+                                               id="c1" width="150" align="center">
+                                        <af:selectOneChoice value="#{row.bindings.AccountId.inputValue}"
+                                                            label="#{row.bindings.AccountId.label}"
+                                                            required="#{bindings.PurchasePowerLimitSlabVO.hints.AccountId.mandatory}"
+                                                            shortDesc="#{bindings.PurchasePowerLimitSlabVO.hints.AccountId.tooltip}"
+                                                            readOnly="true" id="soc4">
+                                            <f:selectItems value="#{row.bindings.AccountId.items}" id="si4"/>
+                                        </af:selectOneChoice>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.PurchasePowerLimitSlabVO.hints.Pct.name}"
+                                               sortable="true"
+                                               headerText="#{bindings.PurchasePowerLimitSlabVO.hints.Pct.label}"
+                                               id="c2" align="center" width="120">
+                                        <af:outputText value="#{row.Pct}" id="ot2"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+                <af:popup childCreation="deferred" autoCancel="disabled" id="addNewSlabPopUp"
+                          contentDelivery="lazyUncached"
+                          popupFetchListener="#{PurchasePowerLimit.newSlabPopupFetchListener}" rendered="true">
+                    <af:dialog id="d1" dialogListener="#{PurchasePowerLimit.newSlabSaveDialogListener}">
+                        <f:facet name="buttonBar"/>
+                        <af:decorativeBox id="db2" dimensionsFrom="children" inlineStyle="width:350px;">
+                            <f:facet name="center">
+                                <af:panelGroupLayout layout="vertical" id="pgl2">
+                                    <af:query id="qryId1" headerText="Search" disclosed="true"
+                                              value="#{bindings.InvestorAccLOVCriteriaQuery.queryDescriptor}"
+                                              model="#{bindings.InvestorAccLOVCriteriaQuery.queryModel}"
+                                              queryListener="#{bindings.InvestorAccLOVCriteriaQuery.processQuery}"
+                                              queryOperationListener="#{bindings.InvestorAccLOVCriteriaQuery.processQueryOperation}"
+                                              resultComponentId="::resId1" saveQueryMode="hidden"
+                                              modeButtonPosition="footer"/>
+                                    <af:table value="#{bindings.InvestorAccLOV.collectionModel}" var="row"
+                                              rows="#{bindings.InvestorAccLOV.rangeSize}"
+                                              emptyText="#{bindings.InvestorAccLOV.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                              fetchSize="#{bindings.InvestorAccLOV.rangeSize}" rowBandingInterval="1"
+                                              selectionListener="#{bindings.InvestorAccLOV.collectionModel.makeCurrent}"
+                                              rowSelection="multiple" id="resId1" autoHeightRows="5"
+                                              contentDelivery="immediate" inlineStyle="height:inherit; width:inherit;">
+                                        <af:column id="c3" align="center" width="25">
+                                            <af:selectBooleanCheckbox value="#{row.bindings.SelectedRow.inputValue}"
+                                                                      label="#{row.bindings.SelectedRow.label}"
+                                                                      shortDesc="#{bindings.InvestorAccLOV.hints.SelectedRow.tooltip}"
+                                                                      id="sbc2"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.InvestorAccLOV.hints.InvestorCode.name}"
+                                                   sortable="true"
+                                                   headerText="#{bindings.InvestorAccLOV.hints.InvestorCode.label}"
+                                                   id="resId1c2" width="60">
+                                            <af:outputText value="#{row.InvestorCode}" id="ot4"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.InvestorAccLOV.hints.Name.name}"
+                                                   sortable="true"
+                                                   headerText="#{bindings.InvestorAccLOV.hints.Name.label}"
+                                                   id="resId1c3">
+                                            <af:outputText value="#{row.Name}" id="ot5"/>
+                                        </af:column>
+                                        <af:column sortProperty="#{bindings.InvestorAccLOV.hints.Pct.name}"
+                                                   sortable="false"
+                                                   headerText="#{bindings.InvestorAccLOV.hints.Pct.label}" id="c4"
+                                                   width="80">
+                                            <af:inputText value="#{row.bindings.Pct.inputValue}"
+                                                          label="#{bindings.InvestorAccLOV.hints.Pct.label}"
+                                                          required="#{bindings.InvestorAccLOV.hints.Pct.mandatory}"
+                                                          columns="#{bindings.InvestorAccLOV.hints.Pct.displayWidth}"
+                                                          maximumLength="#{bindings.InvestorAccLOV.hints.Pct.precision}"
+                                                          shortDesc="#{bindings.InvestorAccLOV.hints.Pct.tooltip}"
+                                                          id="it1">
+                                                <f:validator binding="#{row.bindings.Pct.validator}"/>
+                                                <af:convertNumber groupingUsed="false"
+                                                                  pattern="#{bindings.InvestorAccLOV.hints.Pct.format}"/>
+                                            </af:inputText>
+                                        </af:column>
+                                    </af:table>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                        </af:decorativeBox>
+                    </af:dialog>
+                </af:popup>
+            </af:group>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:PurchasePowerLimit-->
+</ui:composition>

@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:700px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelBox text="Log Details" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                 partialTriggers="pc1 pc1:t1" type="flow" showDisclosure="false">
+                        <f:facet name="toolbar">
+                            <af:commandButton text="Back" id="cb1" icon="/images/back.png" action="goBack"
+                                              immediate="true"/>
+                        </f:facet>
+                        <af:separator id="s1" inlineStyle="height:10px; width:inherit;"/>
+                        <af:panelFormLayout id="pfl2" rows="4">
+                            <af:panelLabelAndMessage label="Sequence Id." id="plam1">
+                                <af:outputText value="#{bindings.RowSeqId.inputValue}" id="ot5">
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.RowSeqId.format}"/>
+                                </af:outputText>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="File Type" id="plam2">
+                                <af:outputText value="#{bindings.FileType.inputValue}" id="ot6"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Date Processed" id="plam3">
+                                <af:outputText value="#{bindings.DateProcessed.inputValue}" id="ot7"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Total Duration" id="plam4" rendered="false">
+                                <af:outputText value="#{bindings.TotalDuration.inputValue}" id="ot8"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="File Status" id="plam5">
+                                <af:outputText value="#{bindings.FileStatus.inputValue}" id="ot9"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="No. of Record" id="plam6">
+                                <af:outputText value="#{bindings.NoOfRecord.inputValue}" id="ot10">
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.NoOfRecord.format}"/>
+                                </af:outputText>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Successful Record" id="plam7">
+                                <af:outputText value="#{bindings.SuccessfulRecord.inputValue}" id="ot11">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.SuccessfulRecord.format}"/>
+                                </af:outputText>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="#{bindings.Wrong.hints.label}" id="plam8">
+                                <af:outputText value="#{bindings.Wrong.inputValue}" id="ot12">
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.Wrong.format}"/>
+                                </af:outputText>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="File Name" id="plam9" rendered="false">
+                                <af:outputText value="#{bindings.FileName.inputValue}" id="ot13"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Import Time (Local)" id="plam10">
+                                <af:outputText value="#{bindings.FileGenTime.inputValue}" id="ot14"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="File Version" id="plam11">
+                                <af:outputText value="#{bindings.FileVersion.inputValue}" id="ot15"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Import Date" id="plam12">
+                                <af:outputText value="#{bindings.ImportDate.inputValue}" id="ot16">
+                                    <af:convertDateTime pattern="#{bindings.ImportDate.format}"/>
+                                </af:outputText>
+                            </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar"/>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t2">
+                                    <af:outputText value="Total Error(s):#{bindings.FtiErrSummaryDetailsVOIterator.estimatedRowCount}" id="ot17"
+                                                   partialTriggers="t1 ::pc1"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiErrSummaryDetailsVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiErrSummaryDetailsVO.rangeSize}"
+                                      emptyText="#{bindings.FtiErrSummaryDetailsVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiErrSummaryDetailsVO.rangeSize}" rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.FtiErrSummaryDetailsVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiErrSummaryDetailsVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;">
+                                <af:column sortProperty="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.name}"
+                                           sortable="false"
+                                           headerText="Seq. Id" id="c5" align="center" width="80">
+                                    <af:inputText value="#{row.bindings.RowSeqId.inputValue}"
+                                                  label="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.label}"
+                                                  required="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.mandatory}"
+                                                  columns="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.displayWidth}"
+                                                  maximumLength="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.precision}"
+                                                  shortDesc="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.tooltip}"
+                                                  id="it1" readOnly="true">
+                                        <f:validator binding="#{row.bindings.RowSeqId.validator}"/>
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiErrSummaryDetailsVO.hints.RowSeqId.format}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiErrSummaryDetailsVO.hints.ErrText.name}"
+                                           sortable="true" headerText="Error Text" id="c1" width="200">
+                                    <af:outputText value="#{row.ErrText}" id="ot1"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiErrSummaryDetailsVO.hints.ColNum.name}"
+                                           sortable="true" headerText="Column No." id="c2" width="110" align="center">
+                                    <af:outputText value="#{row.ColNum}" id="ot2">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiErrSummaryDetailsVO.hints.ColNum.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiErrSummaryDetailsVO.hints.LineNum.name}"
+                                           sortable="true" headerText="Line No." id="c3" width="110" align="center">
+                                    <af:outputText value="#{row.LineNum}" id="ot3">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiErrSummaryDetailsVO.hints.LineNum.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiErrSummaryDetailsVO.hints.ErrCode.name}"
+                                           sortable="true" headerText="Error Code" id="c4" width="110" align="center">
+                                    <af:outputText value="#{row.ErrCode}" id="ot4">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiErrSummaryDetailsVO.hints.ErrCode.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

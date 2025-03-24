@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="width:750px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelGroupLayout id="pgl2">
+                       <af:popup childCreation="deferred" autoCancel="disabled" id="spinnerPopUp" contentDelivery="immediate"
+                                  clientComponent="true">
+                            <af:dialog id="d1" title=" " closeIconVisible="false" type="none"
+                                       inlineStyle="width:200px; height:50px;">
+                                <af:panelGroupLayout id="pgl1" layout="vertical"
+                                                     inlineStyle="width:200px; height:50px;">
+                                    <af:panelGroupLayout id="pgl3" layout="horizontal">
+                                        <af:spacer width="80" height="10" id="s1"/>
+                                        <af:image source="#{resource['images:loading.gif']}" shortDesc="Wait" id="i1"
+                                                  inlineStyle="text-align:center;"/>
+                                    </af:panelGroupLayout>
+                                    <af:outputText value="Wait  to complete  ..." id="ot1"
+                                                   inlineStyle="color:Purple; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10pt;"/>
+                                </af:panelGroupLayout>
+                            </af:dialog>
+                           <!--  <af:clientListener method="onPopupOpened" type="popupOpened"/>
+                            <af:serverListener type="popupOpenListner" method="#{purchasePowerBean.ProcessAction}"/>-->
+                        </af:popup>
+                        
+                        <af:panelBox text="Purchase Power Update:" id="pb2" showDisclosure="false" showHeader="never">
+                            <f:facet name="toolbar"/>
+                            <af:query id="qryId1" headerText="Investor Search(Purchase Power Update)" disclosed="true"
+                                      value="#{bindings.InvestorAccountListVOCriteriaQuery.queryDescriptor}"
+                                      model="#{bindings.InvestorAccountListVOCriteriaQuery.queryModel}"
+                                      queryListener="#{bindings.InvestorAccountListVOCriteriaQuery.processQuery}"
+                                      queryOperationListener="#{bindings.InvestorAccountListVOCriteriaQuery.processQueryOperation}"
+                                      saveQueryMode="hidden" modeButtonPosition="footer" modeChangeVisible="true"
+                                      inlineStyle="width:inherit;"/>
+                        </af:panelBox>
+                        <af:panelBox text="Purchase Power Update:" id="pb1" showDisclosure="false" showHeader="never"
+                                     type="flow">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" featuresOff="formatMenu viewMenu"
+                                                inlineStyle="height:inherit; width:inherit;" partialTriggers="::qryId1">
+                                <f:facet name="menus">
+                                    <af:menu text="Investor List:" id="m1" icon="/images/table.png"
+                                             inlineStyle="font-weight:bold;"/>
+                                </f:facet>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t2" flex="1">
+                                        <af:commandButton text="Process" id="cb2" icon="/images/execute.png"
+                                                          shortDesc="Process"
+                                                          actionListener="#{purchasePowerBean.processAction}"
+                                                          disabled="#{bindings.InvestorAccountListVOIterator.estimatedRowCount lt 1 or !pageFlowScope.editable}"
+                                                          partialTriggers="::qryId1" partialSubmit="true">
+                                        </af:commandButton>
+                                        <af:commandButton text="Refresh" id="cb1" icon="/images/refresh.png"
+                                                          action="#{purchasePowerBean.refresh}"
+                                                          shortDesc="Refresh"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t3">
+                                        <af:outputFormatted value="Total Records Found:(#{bindings.InvestorAccountListVOIterator.estimatedRowCount})" id="of1"
+                                                            partialTriggers="::qryId1"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.InvestorAccountListVO.collectionModel}" var="row"
+                                          rows="#{bindings.InvestorAccountListVO.rangeSize}"
+                                          emptyText="#{bindings.InvestorAccountListVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.InvestorAccountListVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.InvestorAccountListVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.InvestorAccountListVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" inlineStyle="width:inherit; height:inherit;"
+                                          autoHeightRows="10"
+                                          partialTriggers="SelectAll sbc1" contentDelivery="immediate">
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.SelectedRow.name}" id="c1" align="center" width="35"
+                                               frozen="true">
+                                        <af:selectBooleanCheckbox value="#{row.bindings.SelectedRow.inputValue}"
+                                                                  label="#{row.bindings.SelectedRow.label}"
+                                                                  shortDesc="#{bindings.InvestorAccountListVO.hints.SelectedRow.tooltip}"
+                                                                  id="sbc1" autoSubmit="true"
+                                                                  disabled="#{!pageFlowScope.editable}"/>
+                                        <f:facet name="header">
+                                            <af:selectBooleanCheckbox
+                                                                      id="SelectAll" autoSubmit="true"
+                                                                      valueChangeListener="#{purchasePowerBean.selectAllValueChange}"
+                                                                      visible="true"
+                                                                      shortDesc="Select #{bindings.InvestorAccountListVOIterator.rangeSize gt 0 ?  bindings.InvestorAccountListVOIterator.rangeSize  :   bindings.InvestorAccountListVOIterator.estimatedRowCount} Rows."
+                                                                      disabled="#{!pageFlowScope.editable}"/>
+                                        </f:facet>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.AccountId.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.InvestorAccountListVO.hints.AccountId.label}"
+                                               id="c2" visible="false">
+                                        <af:inputText value="#{row.bindings.AccountId.inputValue}"
+                                                      label="#{bindings.InvestorAccountListVO.hints.AccountId.label}"
+                                                      required="#{bindings.InvestorAccountListVO.hints.AccountId.mandatory}"
+                                                      columns="#{bindings.InvestorAccountListVO.hints.AccountId.displayWidth}"
+                                                      maximumLength="#{bindings.InvestorAccountListVO.hints.AccountId.precision}"
+                                                      shortDesc="#{bindings.InvestorAccountListVO.hints.AccountId.tooltip}"
+                                                      id="it1">
+                                            <f:validator binding="#{row.bindings.AccountId.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.InvestorAccountListVO.hints.AccountId.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.InvestorCode.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.InvestorAccountListVO.hints.InvestorCode.label}"
+                                               id="c3" width="108">
+                                        <af:inputText value="#{row.bindings.InvestorCode.inputValue}"
+                                                      label="#{bindings.InvestorAccountListVO.hints.InvestorCode.label}"
+                                                      required="#{bindings.InvestorAccountListVO.hints.InvestorCode.mandatory}"
+                                                      columns="#{bindings.InvestorAccountListVO.hints.InvestorCode.displayWidth}"
+                                                      maximumLength="#{bindings.InvestorAccountListVO.hints.InvestorCode.precision}"
+                                                      shortDesc="#{bindings.InvestorAccountListVO.hints.InvestorCode.tooltip}"
+                                                      id="it2" readOnly="true">
+                                            <f:validator binding="#{row.bindings.InvestorCode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.Name.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.InvestorAccountListVO.hints.Name.label}" id="c4"
+                                               width="110">
+                                        <af:inputText value="#{row.bindings.Name.inputValue}"
+                                                      label="#{bindings.InvestorAccountListVO.hints.Name.label}"
+                                                      required="#{bindings.InvestorAccountListVO.hints.Name.mandatory}"
+                                                      columns="#{bindings.InvestorAccountListVO.hints.Name.displayWidth}"
+                                                      maximumLength="#{bindings.InvestorAccountListVO.hints.Name.precision}"
+                                                      shortDesc="#{bindings.InvestorAccountListVO.hints.Name.tooltip}"
+                                                      id="it3" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Name.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.ProductId.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.InvestorAccountListVO.hints.ProductId.label}"
+                                               id="c5" width="112">
+                                        <af:selectOneChoice value="#{row.bindings.ProductId.inputValue}"
+                                                            label="#{row.bindings.ProductId.label}"
+                                                            required="#{bindings.InvestorAccountListVO.hints.ProductId.mandatory}"
+                                                            shortDesc="#{bindings.InvestorAccountListVO.hints.ProductId.tooltip}"
+                                                            id="soc1" readOnly="true">
+                                            <f:selectItems value="#{row.bindings.ProductId.items}" id="si1"/>
+                                        </af:selectOneChoice>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.InvestorAccountListVO.hints.OpenDate.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.InvestorAccountListVO.hints.OpenDate.label}"
+                                               id="c6" width="110">
+                                        <af:inputDate value="#{row.bindings.OpenDate.inputValue}"
+                                                      label="#{bindings.InvestorAccountListVO.hints.OpenDate.label}"
+                                                      required="#{bindings.InvestorAccountListVO.hints.OpenDate.mandatory}"
+                                                      columns="#{bindings.InvestorAccountListVO.hints.OpenDate.displayWidth}"
+                                                      shortDesc="#{bindings.InvestorAccountListVO.hints.OpenDate.tooltip}"
+                                                      id="id1" readOnly="true">
+                                            <f:validator binding="#{row.bindings.OpenDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.InvestorAccountListVO.hints.OpenDate.format}"/>
+                                        </af:inputDate>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.InvestorAccountListVO.hints.Purchasepower.label}"
+                                               id="c7">
+                                        <af:inputText value="#{row.bindings.Purchasepower.inputValue}"
+                                                      label="#{bindings.InvestorAccountListVO.hints.Purchasepower.label}"
+                                                      required="#{bindings.InvestorAccountListVO.hints.Purchasepower.mandatory}"
+                                                      columns="#{bindings.InvestorAccountListVO.hints.Purchasepower.displayWidth}"
+                                                      maximumLength="#{bindings.InvestorAccountListVO.hints.Purchasepower.precision}"
+                                                      shortDesc="#{bindings.InvestorAccountListVO.hints.Purchasepower.tooltip}"
+                                                      id="it4" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Purchasepower.validator}"/>
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.InvestorAccountListVO.hints.Purchasepower.format}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                        <!-- This javascript is used to show busy state pop up  -->
+                          <af:resource type="javascript">
+                              function onPopupOpened(event){
+                              AdfCustomEvent.queue(event.getSource(), "popupOpenListner",{ }, false);
+                            }      
+                         </af:resource>
+                    </af:panelGroupLayout>
+                </f:facet>
+                
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:purchasePowerBean-->
+</ui:composition>

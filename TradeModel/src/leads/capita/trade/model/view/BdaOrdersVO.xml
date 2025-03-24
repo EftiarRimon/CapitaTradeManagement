@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BdaOrdersVO"
+  Version="11.1.2.60.81"
+  SelectList="BdaOrders.EXCHANGE_ID, 
+       BdaOrders.ORDER_DATE, 
+       BdaOrders.ALLOC_DATE, 
+       BdaOrders.BUY_SELL, 
+       BdaOrders.INSTRUMENT_ID, 
+       BdaOrders.ORDER_ID, 
+       BdaOrders.ORDER_PRICE, 
+       BdaOrders.PROCESS_DATE, 
+       BdaOrders.STATUS, 
+       BdaOrders.TRADE_CODE, 
+       BdaOrders.TRADE_PRICE, 
+       BdaOrders.TRADE_QUANTITY"
+  FromList="BDA_ORDERS BdaOrders"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="BdaOrders.BUY_SELL='S' order by BdaOrders.ORDER_DATE desc">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.BdaOrdersVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewAccessor
+    Name="BdaStatusLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['BDA_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ExchangeLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.ExchangeLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="InstrumentLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.InstrumentLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="BuySellLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.BuySellLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ProductLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.ProductLOV"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_ExchangeId"
+    ListVOName="ExchangeLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ExchangeId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="ExchangeId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="ExchangeName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InstrumentId"
+    ListVOName="InstrumentLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="InstrumentId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="InstrumentName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="BdaStatusLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_BuySell"
+    ListVOName="BuySellLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="BuySell"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="key"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="val"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_TradeCode"
+    ListVOName="ProductLOV"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="TradeCode"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="TradeCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="TradeCode"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <EntityUsage
+    Name="BdaOrders"
+    Entity="leads.capita.trade.model.entity.BdaOrders"/>
+  <ViewAttribute
+    Name="ExchangeId"
+    PrecisionRule="true"
+    EntityAttrName="ExchangeId"
+    EntityUsage="BdaOrders"
+    AliasName="EXCHANGE_ID"
+    LOVName="LOV_ExchangeId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+        <LABEL
+          ResId="ExchangeId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OrderDate"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_DATE">
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP') !=null ? adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP'): adf.currentDate]]></TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="OrderDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="OrderDate_FMT_FORMAT"/>
+        <LABEL
+          ResId="OrderDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AllocDate"
+    PrecisionRule="true"
+    EntityAttrName="AllocDate"
+    EntityUsage="BdaOrders"
+    AliasName="ALLOC_DATE">
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP') !=null ? adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP'): adf.currentDate]]></TransientExpression>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="AllocDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="AllocDate_FMT_FORMAT"/>
+        <LABEL
+          ResId="AllocDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BuySell"
+    PrecisionRule="true"
+    EntityAttrName="BuySell"
+    EntityUsage="BdaOrders"
+    AliasName="BUY_SELL"
+    LOVName="LOV_BuySell"
+    DefaultValue="S">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BuySell_LABEL"/>
+        <CONTROLTYPE
+          Value="radio"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InstrumentId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="InstrumentId"
+    EntityUsage="BdaOrders"
+    AliasName="INSTRUMENT_ID"
+    LOVName="LOV_InstrumentId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+        <LABEL
+          ResId="InstrumentId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OrderId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OrderId"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_ID"
+    IsQueriable="false"
+    IsUpdateable="while_insert"/>
+  <ViewAttribute
+    Name="OrderPrice"
+    PrecisionRule="true"
+    EntityAttrName="OrderPrice"
+    EntityUsage="BdaOrders"
+    AliasName="ORDER_PRICE"
+    IsQueriable="false"
+    DefaultValue="0">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="OrderPrice_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProcessDate"
+    PrecisionRule="true"
+    EntityAttrName="ProcessDate"
+    EntityUsage="BdaOrders"
+    AliasName="PROCESS_DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="ProcessDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="ProcessDate_FMT_FORMAT"/>
+        <LABEL
+          ResId="ProcessDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="BdaOrders"
+    AliasName="STATUS"
+    LOVName="LOV_Status"
+    DefaultValue="ORDER">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeCode"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="TradeCode"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_CODE"
+    LOVName="LOV_TradeCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TradeCode_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradePrice"
+    PrecisionRule="true"
+    EntityAttrName="TradePrice"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_PRICE"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TradePrice_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradeQuantity"
+    PrecisionRule="true"
+    EntityAttrName="TradeQuantity"
+    EntityUsage="BdaOrders"
+    AliasName="TRADE_QUANTITY"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="TradeQuantity_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppDate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP') !=null ? adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP'): adf.currentDate]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="isDateOver"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Boolean"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="BIT">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if (AllocDate !=null &&  AllocDate<AppDate)
+   return true;
+else
+   return false;]]></TransientExpression>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BdaOrdersVOCriteria"
+    ViewObjectName="leads.capita.trade.model.view.BdaOrdersVO"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="BdaOrdersVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="OrderDate"
+        ViewAttribute="OrderDate"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"
+        GenerateIsNullClauseForBindVars="false"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewLinkAccessor
+    Name="BdaOrderDetailVO"
+    ViewLink="leads.capita.trade.model.view.link.BdaOrderDetailFkBdaOrderLink"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

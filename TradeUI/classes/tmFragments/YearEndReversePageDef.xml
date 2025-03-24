@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="YearEndReversePageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="YearEndRevoke" RangeSize="25" DataControl="DayStartEndServiceDataControl"
+                  id="YearEndRevokeIterator"/>
+        <searchRegion Binds="YearEndRevokeIterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="YearEndRevokeQuery"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="YearEndRevokeIterator" id="TranDate">
+            <AttrNames>
+                <Item Value="TranDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="YearEndRevokeIterator" id="BranchId">
+            <AttrNames>
+                <Item Value="BranchId"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="YearEndRevokeIterator" id="YearEndRevoke">
+            <nodeDefinition DefName="leads.capita.trade.model.view.YearEndRevoke" Name="YearEndRevoke0">
+                <AttrNames>
+                    <Item Value="TranDate"/>
+                    <Item Value="BranchId"/>
+                    <Item Value="BatchNo"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

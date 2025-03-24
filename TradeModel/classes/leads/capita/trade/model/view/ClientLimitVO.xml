@@ -1,0 +1,1189 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ClientLimitVO"
+  Version="11.1.2.60.81"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  FetchMode="FETCH_ALL"
+  RangeSize="-1">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.ClientLimitVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="sys_date"
+    Kind="where"
+    Type="java.sql.Timestamp">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression><![CDATA[adf.context.current.sessionScope.get('SYSTEM_DATE_TIMESTAMP')]]></TransientExpression>
+  </Variable>
+  <ViewAccessor
+    Name="BrokerLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.BrokerLOV"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CustomLoookupLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['PRODUCT_CAT']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="AccountStatusLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.CustomLoookupLOV">
+    <ViewCriteriaUsage
+      Name="CustomLoookupLOVCriteria"
+      FullName="leads.capita.trade.model.view.lov.CustomLoookupLOV.CustomLoookupLOVCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="LookupParam">
+        <TransientExpression><![CDATA['ACCOUNT_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ClientMerchantBankLOV"
+    ViewObjectName="leads.capita.trade.model.view.MerchantBankVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FlexTradeLimitLOV"
+    ViewObjectName="leads.capita.trade.model.view.lov.FlexTradeLimitLOV"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_BrokerId"
+    ListVOName="BrokerLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="BrokerId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BrokerId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="BrokerName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_AccountStatus"
+    ListVOName="AccountStatusLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="AccountStatus"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_MbankId"
+    ListVOName="ClientMerchantBankLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="MbankId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="MbankId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="MbankName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_VersionNo"
+    ListVOName="FlexTradeLimitLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="VersionNo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="VersionNo"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="VersionName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Productcategory"
+    ListVOName="CustomLoookupLOV"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="Productcategory"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LookupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LookupName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery><![CDATA[select t.*,
+       (select distinct pa.address
+          from profile_addresses pa
+         where pa.profile_id = t.profile_id
+           and pa.address_type = case
+                 when pa.address_type in (1, 1) then
+                  1
+                 when pa.address_type in (null, 1) then
+                  1
+                 when pa.address_type in (null, null) then
+                  null
+                 else
+                  null
+               end) address,
+       (select distinct pa.mobile
+          from profile_addresses pa
+         where pa.profile_id = t.profile_id
+           and pa.address_type = case
+                 when pa.address_type in (1, 1) then
+                  1
+                 when pa.address_type in (null, 1) then
+                  1
+                 when pa.address_type in (null, null) then
+                  null
+                 else
+                  null
+               end) mobile,
+       (select distinct pa.phone
+          from profile_addresses pa
+         where pa.profile_id = t.profile_id
+            or pa.address_type = case
+                 when pa.address_type in (1, 1) then
+                  1
+                 when pa.address_type in (null, 1) then
+                  1
+                 when pa.address_type in (null, null) then
+                  null
+                 else
+                  null
+               end
+           and pa.address_type is null) phone,
+       (select ratio_or_rate
+          from margin_interest_setup
+         where mi_setup_id = t.margin_id) ratio_rate,
+       (select national_id from profiles where profile_id = t.profile_id) national_id
+  from (SELECT INVESTOR_ACCOUNTS.INVESTOR_CODE INVESTOR_CODE,
+               PRODUCT_BOID.BOID BOID,
+               pkg_investor.is_marginable(INVESTOR_ACCOUNTS.Account_Id) isMarginable,
+               products.product_type product_type,
+               INVESTOR_ACCOUNTS.BUSINESS_TYPE BUSINESS_TYPE,
+               INVESTOR_ACCOUNTS.NAME NAME,
+               INVESTOR_ACCOUNTS.OPERATION_TYPE,
+               INVESTOR_ACCOUNTS.Acc_Category CATEGORY,
+               Flex_Trade_Limit_Details.Change_Purchase_Power PURCHASE_POWER,
+               Flex_Trade_Limit.Version_No,
+               Flex_Trade_Limit.App_Date,
+               Flex_Trade_Limit.Morn_Intraday,
+               Flex_Trade_Limit_Details.Limit_Id,
+               Flex_Trade_Limit_Details.Is_New,
+               INVESTOR_ACCOUNTS.IS_FOREIGN,
+               INVESTOR_ACCOUNTS.Profile_Id,
+               INVESTOR_ACCOUNTS.Margin_Id,
+               INVESTOR_ACCOUNTS.PANIC_WITHDRAW,
+               Flex_Trade_Limit_Details.Previous_Status,
+               Flex_Trade_Limit_Details.Current_Status Account_Status,
+               INVESTOR_ACCOUNTS.Mbank_Id,
+               broker_mapping.broker_id as broker_id,
+               broker_mapping.trading_code,
+               case
+                 when pkg_capita_sys.get_business_type = 'MBANK' THEN
+                  broker_mapping.trader_code
+                 else
+                  investor_trader_mapping.trader_id
+               end as trader_id,
+               case
+                 when Flex_Trade_Limit_Details.Is_New = 'Y' then
+                  1
+                  when Flex_Trade_Limit_Details.Is_New = 'R' then
+                    2
+                 when Flex_Trade_Limit_Details.Is_New = 'S' then
+                  3
+                  when Flex_Trade_Limit_Details.Is_New = 'E' then
+                  4
+                 else
+                  5
+               end as account_order,
+               case when Products.Product_Type='OWN' then 'OWN'
+         else 'OTHER'end ProductCategory ,
+           brokers.short_name 
+          FROM INVESTOR_ACCOUNTS,
+               PRODUCT_BOID,
+               products,
+               broker_mapping,
+               Flex_Trade_Limit_Details,
+               Flex_Trade_Limit,
+               investor_trader_mapping,
+               brokers
+         WHERE INVESTOR_ACCOUNTS.ACCOUNT_ID =
+               Flex_Trade_Limit_Details.Account_Id
+           AND Flex_Trade_Limit.Limit_Id = Flex_Trade_Limit_Details.Limit_Id
+           AND INVESTOR_ACCOUNTS.Account_Id =
+               investor_trader_mapping.account_id(+)
+           AND investor_accounts.account_id = broker_mapping.account_id(+)
+           AND INVESTOR_ACCOUNTS.PRODUCTBO_ID = PRODUCT_BOID.ID
+           AND INVESTOR_ACCOUNTS.BOID IS NULL
+           AND PRODUCTS.PRODUCT_TYPE <> 'BDA'
+           and products.product_id = INVESTOR_ACCOUNTS.product_id
+           AND INVESTOR_ACCOUNTS.BUSINESS_TYPE = 'MBANK'
+           AND broker_mapping.broker_id = brokers.broker_id
+        UNION
+        SELECT INVESTOR_ACCOUNTS.INVESTOR_CODE INVESTOR_CODE,
+               INVESTOR_ACCOUNTS.BOID BOID,
+               pkg_investor.is_marginable(INVESTOR_ACCOUNTS.Account_Id) isMarginable,
+               products.product_type product_type,
+               INVESTOR_ACCOUNTS.BUSINESS_TYPE BUSINESS_TYPE,
+               INVESTOR_ACCOUNTS.NAME NAME,
+               INVESTOR_ACCOUNTS.OPERATION_TYPE,
+               INVESTOR_ACCOUNTS.Acc_Category CATEGORY,
+               Flex_Trade_Limit_Details.Change_Purchase_Power PURCHASE_POWER,
+               Flex_Trade_Limit.Version_No,
+               Flex_Trade_Limit.App_Date,
+               Flex_Trade_Limit.Morn_Intraday,
+               Flex_Trade_Limit_Details.Limit_Id,
+               Flex_Trade_Limit_Details.Is_New,
+               INVESTOR_ACCOUNTS.IS_FOREIGN,
+               INVESTOR_ACCOUNTS.Profile_Id,
+               INVESTOR_ACCOUNTS.Margin_Id,
+               INVESTOR_ACCOUNTS.PANIC_WITHDRAW,
+               Flex_Trade_Limit_Details.Previous_Status,
+               Flex_Trade_Limit_Details.Current_Status Account_Status,
+               INVESTOR_ACCOUNTS.Mbank_Id,
+               broker_mapping.broker_id as broker_id,
+               broker_mapping.trading_code,
+               case
+                 when pkg_capita_sys.get_business_type = 'MBANK' THEN
+                  broker_mapping.trader_code
+                 else
+                  investor_trader_mapping.trader_id
+               end as trader_id,
+               case
+                 when Flex_Trade_Limit_Details.Is_New = 'Y' then
+                  1
+                  when Flex_Trade_Limit_Details.Is_New = 'R' then
+                    2
+                 when Flex_Trade_Limit_Details.Is_New = 'S' then
+                  3
+                  when Flex_Trade_Limit_Details.Is_New = 'E' then
+                  4
+                 else
+                  5
+               end as account_order,
+               case when Products.Product_Type='OWN' then 'OWN'
+         else 'OTHER'end ProductCategory,
+            brokers.short_name
+          FROM INVESTOR_ACCOUNTS,
+               products,
+               broker_mapping,
+               Flex_Trade_Limit_Details,
+               Flex_Trade_Limit,
+               investor_trader_mapping,
+               brokers
+         WHERE INVESTOR_ACCOUNTS.ACCOUNT_ID =
+               Flex_Trade_Limit_Details.Account_Id
+           AND Flex_Trade_Limit.Limit_Id = Flex_Trade_Limit_Details.Limit_Id
+           AND INVESTOR_ACCOUNTS.Account_Id =
+               investor_trader_mapping.account_id(+)
+           AND investor_accounts.account_id = broker_mapping.account_id(+)
+           AND INVESTOR_ACCOUNTS.BOID IS NOT NULL
+           AND PRODUCTS.PRODUCT_TYPE <> 'BDA'
+           and products.PRODUCT_ID = INVESTOR_ACCOUNTS.PRODUCT_ID
+           AND INVESTOR_ACCOUNTS.BUSINESS_TYPE = 'MBANK'
+           AND broker_mapping.broker_id = brokers.broker_id
+        union
+        SELECT INVESTOR_ACCOUNTS.INVESTOR_CODE INVESTOR_CODE,
+               INVESTOR_ACCOUNTS.BOID BOID,
+               pkg_investor.is_marginable(INVESTOR_ACCOUNTS.Account_Id) isMarginable,
+               products.product_type product_type,
+               INVESTOR_ACCOUNTS.BUSINESS_TYPE BUSINESS_TYPE,
+               INVESTOR_ACCOUNTS.NAME NAME,
+               INVESTOR_ACCOUNTS.OPERATION_TYPE,
+               INVESTOR_ACCOUNTS.Acc_Category CATEGORY,
+               Flex_Trade_Limit_Details.Change_Purchase_Power PURCHASE_POWER,
+               Flex_Trade_Limit.Version_No,
+               Flex_Trade_Limit.App_Date,
+               Flex_Trade_Limit.Morn_Intraday,
+               Flex_Trade_Limit_Details.Limit_Id,
+               Flex_Trade_Limit_Details.Is_New,
+               INVESTOR_ACCOUNTS.IS_FOREIGN,
+               INVESTOR_ACCOUNTS.Profile_Id,
+               INVESTOR_ACCOUNTS.Margin_Id,
+               INVESTOR_ACCOUNTS.PANIC_WITHDRAW,
+               Flex_Trade_Limit_Details.Previous_Status,
+               Flex_Trade_Limit_Details.Current_Status Account_Status,
+               INVESTOR_ACCOUNTS.Mbank_Id,
+               null as broker_id,
+               null as trading_code,
+               investor_trader_mapping.trader_id,
+               case
+                 when Flex_Trade_Limit_Details.Is_New = 'Y' then
+                  1
+                  when Flex_Trade_Limit_Details.Is_New = 'R' then
+                    2
+                 when Flex_Trade_Limit_Details.Is_New = 'S' then
+                  3
+                  when Flex_Trade_Limit_Details.Is_New = 'E' then
+                  4
+                 else
+                  5
+               end as account_order,
+               case when Products.Product_Type='OWN' then 'OWN'
+         else 'OTHER'end ProductCategory,
+              null as short_name
+          FROM INVESTOR_ACCOUNTS,
+               products,
+               Flex_Trade_Limit_Details,
+               Flex_Trade_Limit,
+               investor_trader_mapping
+         WHERE INVESTOR_ACCOUNTS.ACCOUNT_ID =
+               Flex_Trade_Limit_Details.Account_Id
+           AND Flex_Trade_Limit.Limit_Id = Flex_Trade_Limit_Details.Limit_Id
+           AND INVESTOR_ACCOUNTS.Account_Id =
+               investor_trader_mapping.account_id(+)
+           AND INVESTOR_ACCOUNTS.BUSINESS_TYPE = 'BROKER'
+           and INVESTOR_ACCOUNTS.PRODUCT_ID = products.PRODUCT_ID
+        
+        union all
+        
+        select ins.investor_code /*ins.trade_code*/ as INVESTOR_CODE,
+               ins.boid as BOID,
+               ins.isMarginable,
+               'BDA' as product_type,
+               ins.business_type,
+               ins.product_name as NAME,
+               ins.OPERATION_TYPE,
+               ins.category as ACC_CATEGORY,
+               sum(ins.purchase_power) as PURCHASE_POWER,
+               ins.version_no,
+               ins.App_Date,
+               ins.Morn_Intraday,
+               ins.limit_id,
+               ins.Is_New,
+               ins.is_foreign as IS_FOREIGN,
+               ins.Profile_Id,
+               ins.margin_id,
+               ins.panic_withdraw as PANIC_WITHDRAW,
+               ins.Previous_Status,
+               ins.Account_Status,
+               ins.mbank_id,
+               null as broker_id,
+               null trading_code,
+               ins.trader_id,
+               case
+                 when ins.Is_New = 'Y' then
+                  1
+                  when ins.Is_New = 'R' then
+                    2
+                 when ins.Is_New = 'S' then
+                  3
+                  when ins.Is_New = 'E' then
+                  4
+                 else
+                  5
+               end as account_order,
+               'OTHER'  ProductCategory,
+                 null as short_name
+          from (SELECT INVESTOR_ACCOUNTS.INVESTOR_CODE INVESTOR_CODE,
+                       products.product_name,
+                       products.trade_code trade_code,
+                       product_boid.boid boid,
+                       pkg_investor.is_marginable(INVESTOR_ACCOUNTS.Account_Id) isMarginable,
+                       INVESTOR_ACCOUNTS.BUSINESS_TYPE BUSINESS_TYPE,
+                       INVESTOR_ACCOUNTS.NAME NAME,
+                       INVESTOR_ACCOUNTS.OPERATION_TYPE,
+                       INVESTOR_ACCOUNTS.Acc_Category CATEGORY,
+                       Flex_Trade_Limit_Details.Change_Purchase_Power PURCHASE_POWER,
+                       Flex_Trade_Limit.Version_No,
+                       Flex_Trade_Limit.App_Date,
+                       Flex_Trade_Limit.Morn_Intraday,
+                       Flex_Trade_Limit_Details.Limit_Id,
+                       Flex_Trade_Limit_Details.Is_New,
+                       INVESTOR_ACCOUNTS.IS_FOREIGN,
+                       INVESTOR_ACCOUNTS.Profile_Id,
+                       INVESTOR_ACCOUNTS.Margin_Id,
+                       INVESTOR_ACCOUNTS.PANIC_WITHDRAW,
+                       Flex_Trade_Limit_Details.Previous_Status,
+                       Flex_Trade_Limit_Details.Current_Status Account_Status,
+                       INVESTOR_ACCOUNTS.Mbank_Id,
+                       investor_trader_mapping.trader_id,
+                       null as short_name
+                  FROM INVESTOR_ACCOUNTS,
+                       products,
+                       product_boid,
+                       Flex_Trade_Limit_Details,
+                       Flex_Trade_Limit,
+                       investor_trader_mapping
+                 WHERE INVESTOR_ACCOUNTS.ACCOUNT_ID =
+                       Flex_Trade_Limit_Details.Account_Id
+                   AND Flex_Trade_Limit.Limit_Id =
+                       Flex_Trade_Limit_Details.Limit_Id
+                   AND INVESTOR_ACCOUNTS.Account_Id =
+                       investor_trader_mapping.account_id(+)
+                   AND PRODUCTS.PRODUCT_TYPE = 'BDA'
+                   and products.PRODUCT_ID = INVESTOR_ACCOUNTS.PRODUCT_ID
+                   and products.product_id = product_boid.product_id
+                   AND INVESTOR_ACCOUNTS.BUSINESS_TYPE = 'MBANK') ins
+         group by /*ins.trade_code*/ ins.investor_code,
+                  ins.boid,
+                  ins.product_name,
+                  ins.OPERATION_TYPE,
+                  ins.business_type,
+                  ins.is_foreign,
+                  ins.Profile_Id,
+                  ins.margin_id,
+                  ins.panic_withdraw,
+                  ins.Previous_Status,
+                  ins.Account_Status,
+                  ins.mbank_id,
+                  ins.category,
+                  ins.version_no,
+                  ins.limit_id,
+                  ins.Is_New,
+                  ins.trader_id,
+                  ins.Morn_Intraday,
+                  ins.isMarginable,
+                  ins.App_Date
+                  
+                  union 
+                  
+        SELECT dealer_mapping.INVESTOR_CODE INVESTOR_CODE,
+               dealer_mapping.BOID BOID,
+               0 isMarginable,
+               'OTHER' product_type,
+               'BROKER' BUSINESS_TYPE,
+               dealer_mapping.NAME NAME,
+               'CORPORATE' OPERATION_TYPE,
+               'D' CATEGORY,
+               Flex_Trade_Limit_Details.Change_Purchase_Power PURCHASE_POWER,
+               Flex_Trade_Limit.Version_No,
+               Flex_Trade_Limit.App_Date,
+               Flex_Trade_Limit.Morn_Intraday,
+               Flex_Trade_Limit_Details.Limit_Id,
+               Flex_Trade_Limit_Details.Is_New,
+               'N' IS_FOREIGN,
+               null Profile_Id,
+                null Margin_Id,
+               'N' PANIC_WITHDRAW,
+               Flex_Trade_Limit_Details.Previous_Status,
+               Flex_Trade_Limit_Details.Current_Status Account_Status,
+               null Mbank_Id,
+               1 as broker_id,
+               null trading_code,
+               dealer_mapping.trader_id,
+               case
+                 when Flex_Trade_Limit_Details.Is_New = 'Y' then
+                  1
+                  when Flex_Trade_Limit_Details.Is_New = 'R' then
+                    2
+                 when Flex_Trade_Limit_Details.Is_New = 'S' then
+                  3
+                  when Flex_Trade_Limit_Details.Is_New = 'E' then
+                  4
+                 else
+                  5
+               end as account_order,
+                'OTHER' ProductCategory,
+                null as short_name
+          FROM dealer_mapping,
+               Flex_Trade_Limit_Details,
+               Flex_Trade_Limit
+         WHERE dealer_mapping.investor_code =
+               Flex_Trade_Limit_Details.investor_code
+           AND Flex_Trade_Limit.Limit_Id = Flex_Trade_Limit_Details.Limit_Id) t
+ where t.App_Date = :sys_date
+ order by t.account_order]]></SQLQuery>
+  <ViewAttribute
+    Name="InvestorCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVESTOR_CODE"
+    Expression="INVESTOR_CODE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="InvestorCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Boid"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BOID"
+    Expression="BOID"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.Boid_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ismarginable"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="ISMARGINABLE"
+    Expression="ISMARGINABLE"
+    SQLType="INTEGER"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="ProductType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_TYPE"
+    Expression="PRODUCT_TYPE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.ProductType_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BusinessType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BUSINESS_TYPE"
+    Expression="BUSINESS_TYPE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Name"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="NAME"
+    Expression="NAME"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.Name_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OperationType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="OPERATION_TYPE"
+    Expression="OPERATION_TYPE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Category"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CATEGORY"
+    Expression="CATEGORY"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.Category_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PurchasePower"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="PURCHASE_POWER"
+    Expression="PURCHASE_POWER"
+    SQLType="NUMERIC"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="VersionNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="VERSION_NO"
+    Expression="VERSION_NO"
+    SQLType="INTEGER"
+    LOVName="LOV_VersionNo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AppDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="APP_DATE"
+    Expression="APP_DATE"
+    SQLType="DATE"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="MornIntraday"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MORN_INTRADAY"
+    Expression="MORN_INTRADAY"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LimitId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="LIMIT_ID"
+    Expression="LIMIT_ID"
+    SQLType="INTEGER"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="IsNew"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_NEW"
+    Expression="IS_NEW"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IsForeign"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_FOREIGN"
+    Expression="IS_FOREIGN"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProfileId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Scale="0"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    AliasName="PROFILE_ID"
+    Expression="PROFILE_ID"
+    SQLType="NUMERIC"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="MarginId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="MARGIN_ID"
+    Expression="MARGIN_ID"
+    SQLType="INTEGER"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="PanicWithdraw"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PANIC_WITHDRAW"
+    Expression="PANIC_WITHDRAW"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreviousStatus"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PREVIOUS_STATUS"
+    Expression="PREVIOUS_STATUS"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountStatus"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_STATUS"
+    SQLType="VARCHAR"
+    LOVName="LOV_AccountStatus"
+    Expression="ACCOUNT_STATUS"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.AccountStatus_LABEL"/>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MbankId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="MBANK_ID"
+    Expression="MBANK_ID"
+    SQLType="INTEGER"
+    LOVName="LOV_MbankId"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.MbankId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrokerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="BROKER_ID"
+    Expression="BROKER_ID"
+    SQLType="INTEGER"
+    LOVName="LOV_BrokerId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.BrokerId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TradingCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRADING_CODE"
+    Expression="TRADING_CODE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.TradingCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TraderId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRADER_ID"
+    Expression="TRADER_ID"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountOrder"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="ACCOUNT_ORDER"
+    Expression="ACCOUNT_ORDER"
+    SQLType="INTEGER"
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="Productcategory"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCTCATEGORY"
+    Expression="PRODUCTCATEGORY"
+    SQLType="VARCHAR"
+    LOVName="LOV_Productcategory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ShortName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SHORT_NAME"
+    Expression="SHORT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Address"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ADDRESS"
+    Expression="ADDRESS"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Mobile"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MOBILE"
+    Expression="MOBILE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Phone"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PHONE"
+    Expression="PHONE"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RatioRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="DOUBLE PRECISION"
+    AliasName="RATIO_RATE"
+    Expression="RATIO_RATE"
+    SQLType="DOUBLE"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.RatioRate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NationalId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="NATIONAL_ID"
+    Expression="NATIONAL_ID"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.NationalId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CalculatedPurchasePower"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    IsQueriable="false">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.view.ClientLimitVO.CalculatedPurchasePower_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ElementType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    IsUpdateable="false"
+    IsQueriable="false">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if(MornIntraday == 'I')
+  if((PreviousStatus == 'ACTIVE') && (AccountStatus =='ACTIVE'))
+    return 'N';
+  else if((PreviousStatus != 'ACTIVE') && (AccountStatus =='ACTIVE'))
+    return 'R';
+  else if((PreviousStatus == 'ACTIVE') && (AccountStatus =='INACTIVE'))
+		return 'S';
+  else if((PreviousStatus == 'ACTIVE') && ((AccountStatus =='CLOSED')||(AccountStatus =='DORMANT')||(AccountStatus =='FREEZE')))
+		return 'D';]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="AccountStatus"/>
+      <Item
+        Value="MornIntraday"/>
+      <Item
+        Value="PreviousStatus"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="ClientLimitVOCriteria"
+    ViewObjectName="leads.capita.trade.model.view.ClientLimitVO"
+    Conjunction="AND">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="Never"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="mode"
+          Value="Advanced"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="ClientLimitVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="VersionNo"
+        ViewAttribute="VersionNo"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"
+        GenerateIsNullClauseForBindVars="false"/>
+      <ViewCriteriaItem
+        Name="BrokerId"
+        ViewAttribute="BrokerId"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="Productcategory"
+        ViewAttribute="Productcategory"
+        Operator="="
+        Conjunction="AND"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="InvestorCode"/>
+    <Item Value="Boid"/>
+    <Item Value="BusinessType"/>
+    <Item Value="VersionNo"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

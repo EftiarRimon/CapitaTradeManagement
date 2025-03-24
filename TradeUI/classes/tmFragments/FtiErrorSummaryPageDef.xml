@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtiErrorSummaryPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiErrSummaryVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiErrSummaryVOIterator"/>
+    <searchRegion Criteria="FtiErrSummaryVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="FtiErrSummaryVOIterator" id="FtiErrSummaryVOCriteriaQuery"/>
+    <iterator id="FtiErrSummaryDetailsVOIterator" Binds="FtiErrSummaryDetailsVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator Binds="FtiErrFilesVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiErrFilesVOIterator"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator Binds="FlexFileTypeVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FlexFileTypeVOIterator" Refresh="prepareModel"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FtiErrSummaryVOIterator" id="FtiErrSummaryVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiErrSummaryVO" Name="FtiErrSummaryVO0">
+        <AttrNames>
+          <Item Value="FileType"/>
+          <Item Value="DateProcessed"/>
+          <Item Value="TotalDuration"/>
+          <Item Value="FileStatus"/>
+          <Item Value="NoOfRecord"/>
+          <Item Value="SuccessfulRecord"/>
+          <Item Value="Wrong"/>
+          <Item Value="RowSeqId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiErrFilesVOIterator" id="FtiErrFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiErrFilesVO" Name="FtiErrFilesVO0">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="RowSeqId"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="FtiErrFilesVOIterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FlexFileTypeVOIterator" id="Sysdate">
+      <AttrNames>
+        <Item Value="Sysdate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="FlexFileTypeVOIterator" StaticList="false" Uses="LOV_FileType" id="FileType"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="FlexFileTypeVOIterator" StaticList="false" Uses="LOV_FileVersion" id="FileVersion"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="FlexFileTypeVOIterator" id="FileVersionLOVSwitcher">
+      <AttrNames>
+        <Item Value="FileVersionLOVSwitcher"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

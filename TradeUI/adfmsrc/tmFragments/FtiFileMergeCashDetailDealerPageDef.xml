@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="FtiFileMergeCashDetailDealerPageDef" Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiFileMergeCashDealerVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMergeCashDealerVOIterator"/>
+    <iterator Binds="FtiFileMrgCashDetDealerVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMrgCashDetDealerVOIterator"/>
+    <iterator id="FtiDealerMergeCashDataVOIterator" Binds="FtiDealerMergeCashDataVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="FtiFileMergeCashDealerVOIterator" id="MDate">
+      <AttrNames>
+        <Item Value="MDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeCashDealerVOIterator" id="MTime">
+      <AttrNames>
+        <Item Value="MTime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeCashDealerVOIterator" id="FileDescription">
+      <AttrNames>
+        <Item Value="FileDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeCashDealerVOIterator" id="FileVersion">
+      <AttrNames>
+        <Item Value="FileVersion"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="FtiFileMergeCashDealerVOIterator" StaticList="false" Uses="LOV_FileFormat" id="FileFormat"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="FtiFileMergeCashDealerVOIterator" StaticList="false" Uses="LOV_FileOption" id="FileOption"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <button IterBinding="FtiFileMergeCashDealerVOIterator" id="IsExec" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="IsExec"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="FtiFileMrgCashDetDealerVOIterator" id="FtiFileMrgCashDetDealerVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFileMrgCashDetDealerVO"
+                      Name="FtiFileMrgCashDetDealerVO0">
+        <AttrNames>
+          <Item Value="InvestorCode"/>
+          <Item Value="Boid"/>
+          <Item Value="CompanyName"/>
+          <Item Value="Status"/>
+          <Item Value="ErrMsg"/>
+          <Item Value="PanicWithdraw"/>
+          <Item Value="BuyLimit"/>
+          <Item Value="IsForeign"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+  </bindings>
+</pageDefinition>

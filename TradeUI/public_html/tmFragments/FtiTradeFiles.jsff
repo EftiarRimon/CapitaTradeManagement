@@ -1,0 +1,462 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:group id="g2">
+                <af:decorativeBox id="db1" inlineStyle="height:500px; width:850px;" dimensionsFrom="children">
+                    <f:facet name="center">
+                        <af:panelGroupLayout id="pgl1">
+                            <af:panelGroupLayout id="pgl6" layout="horizontal" valign="top"
+                                                 inlineStyle="height:inherit; width:inherit;">
+                                <af:panelBox text="PanelBox3" id="pb4" showHeader="never" inlineStyle="width:430px;"
+                                             type="flow">
+                                    <f:facet name="toolbar"/>
+                                    <af:query id="qryId1" headerText="Search For DSE" disclosed="true"
+                                              value="#{bindings.FtiTradeFilesVOCriteriaQuery.queryDescriptor}"
+                                              model="#{bindings.FtiTradeFilesVOCriteriaQuery.queryModel}"
+                                              queryListener="#{bindings.FtiTradeFilesVOCriteriaQuery.processQuery}"
+                                              queryOperationListener="#{bindings.FtiTradeFilesVOCriteriaQuery.processQueryOperation}"
+                                              resultComponentId="::pc1:resId1" saveQueryMode="hidden"
+                                              modeButtonPosition="footer" modeChangeVisible="true"
+                                              inlineStyle="width:inherit; height:inherit;"/>
+                                </af:panelBox>
+                                <af:panelBox id="pb1" inlineStyle="width:350px;" showDisclosure="false"
+                                             text="Omnibus Trade Files (DSE)">
+                                    <f:facet name="toolbar">
+                                        <af:group id="g1">
+                                            <af:commandButton text="Validate" id="cb1" shortDesc="Validate with XSD"
+                                                              icon="/images/verify.png"
+                                                              action="#{FtiTradeFiles.validateFileWithXsd}"
+                                                              visible="#{FtiTradeFiles.fileTypeRadio.value eq 'xml'}"
+                                                              partialTriggers="sor1"/>
+                                            <af:commandButton text="Generate File" id="cbGenerateFile" icon="/images/action.png"
+                                                              action="#{FtiTradeFiles.generateFile}"/>
+                                        </af:group>
+                                    </f:facet>
+                                    <af:separator id="s2"/>
+                                    <af:selectOneRadio id="sor1" layout="horizontal" value="xml"
+                                                       binding="#{FtiTradeFiles.fileTypeRadio}" autoSubmit="true">
+                                        <af:selectItem label="Generate XML File" value="xml" id="si1"/>
+                                        <af:selectItem label="Generate Text File" value="text" id="si2"/>
+                                    </af:selectOneRadio>
+                                    <af:separator id="s1"/>
+                                </af:panelBox>
+                            </af:panelGroupLayout>
+                            <af:panelGroupLayout id="pgl2" inlineStyle="width:inherit; height:inherit;">
+                                <af:panelBox text="PanelBox1" id="pb2" inlineStyle="width:inherit;" type="flow"
+                                             showHeader="never" partialTriggers="qryId1">
+                                    <f:facet name="toolbar"/>
+                                    <af:panelCollection id="pc1" featuresOff="viewMenu"
+                                                        inlineStyle="width:inherit; height:inherit;">
+                                        <f:facet name="menus">
+                                            <af:menu text="View List" id="m1" icon="/images/list.png"
+                                                     inlineStyle="font-weight:bolder;"/>
+                                        </f:facet>
+                                        <f:facet name="toolbar">
+                                            <af:toolbar id="t2">
+                                                <af:commandButton text="Select Template " id="cb3"
+                                                                  shortDesc="Choose Template and Price File"
+                                                                  icon="#{resource['images:mailSend.jpg']}">
+                                                    <af:showPopupBehavior popupId="::popupSendMail"
+                                                                          triggerType="action"/>
+                                                </af:commandButton>
+                                            </af:toolbar>
+                                        </f:facet>
+                                        <f:facet name="statusbar">
+                                            <af:toolbar id="t1">
+                                                <af:outputText value="Total records found : #{bindings.FtiTradeFilesVOIterator.estimatedRowCount}"
+                                                               id="ot42" partialTriggers="::pc1 resId1"/>
+                                            </af:toolbar>
+                                        </f:facet>
+                                        <af:table value="#{bindings.FtiTradeFilesVO.collectionModel}" var="row"
+                                                  rows="#{bindings.FtiTradeFilesVO.rangeSize}"
+                                                  emptyText="#{bindings.FtiTradeFilesVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                                  fetchSize="#{bindings.FtiTradeFilesVO.rangeSize}"
+                                                  rowBandingInterval="1"
+                                                  selectedRowKeys="#{bindings.FtiTradeFilesVO.collectionModel.selectedRow}"
+                                                  selectionListener="#{bindings.FtiTradeFilesVO.collectionModel.makeCurrent}"
+                                                  rowSelection="single" id="resId1"
+                                                  inlineStyle="height:inherit; width:inherit;" autoHeightRows="10"
+                                                  contentDelivery="immediate" partialTriggers=":::qryId1">
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Customer.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Customer.label}"
+                                                       id="resId1c15" width="60">
+                                                <af:outputText value="#{row.Customer}" id="ot15"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Born.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Born.label}"
+                                                       id="resId1c2" width="60">
+                                                <af:outputText value="#{row.Born}" id="ot2"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TracerNo.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TracerNo.label}"
+                                                       id="resId1c1" width="60" rendered="false">
+                                                <af:outputText value="#{row.TracerNo}" id="ot1">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.TracerNo.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.InstrumentCode.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.InstrumentCode.label}"
+                                                       id="resId1c3" width="60">
+                                                <af:outputText value="#{row.InstrumentCode}" id="ot3"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Isin.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Isin.label}"
+                                                       id="resId1c4" width="60">
+                                                <af:outputText value="#{row.Isin}" id="ot4"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TraderId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TraderId.label}"
+                                                       id="resId1c5" width="60">
+                                                <af:outputText value="#{row.TraderId}" id="ot5"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.BuySell.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.BuySell.label}"
+                                                       id="resId1c6" width="50">
+                                                <af:outputText value="#{row.BuySell}" id="ot6"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TradeQuantity.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TradeQuantity.label}"
+                                                       id="resId1c7" width="60">
+                                                <af:outputText value="#{row.TradeQuantity}" id="ot7">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.TradeQuantity.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Price.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Price.label}"
+                                                       id="resId1c8" width="60">
+                                                <af:outputText value="#{row.Price}" id="ot8"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TradeDate.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TradeDate.label}"
+                                                       id="resId1c9" width="50">
+                                                <af:outputText value="#{row.TradeDate}" id="ot9">
+                                                    <af:convertDateTime pattern="#{bindings.FtiTradeFilesVO.hints.TradeDate.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TradeTime.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TradeTime.label}"
+                                                       id="resId1c10" width="60" rendered="false">
+                                                <af:outputText value="#{row.TradeTime}" id="ot10"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.MarketType.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.MarketType.label}"
+                                                       id="resId1c11" width="60" rendered="false">
+                                                <af:outputText value="#{row.MarketType}" id="ot11"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.FillType.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.FillType.label}"
+                                                       id="resId1c12" width="60" rendered="false">
+                                                <af:outputText value="#{row.FillType}" id="ot12"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.HowlaType.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.HowlaType.label}"
+                                                       id="resId1c13" width="60" rendered="false">
+                                                <af:outputText value="#{row.HowlaType}" id="ot13"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ForeignFlag.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ForeignFlag.label}"
+                                                       id="resId1c14" width="60" rendered="false">
+                                                <af:outputText value="#{row.ForeignFlag}" id="ot14"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Boid.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Boid.label}"
+                                                       id="resId1c16" width="80" rendered="false">
+                                                <af:outputText value="#{row.Boid}" id="ot16"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ContractNo.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ContractNo.label}"
+                                                       id="resId1c17" width="60" rendered="false">
+                                                <af:outputText value="#{row.ContractNo}" id="ot17"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.CompulsorySpot.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.CompulsorySpot.label}"
+                                                       id="resId1c18" width="50">
+                                                <af:outputText value="#{row.CompulsorySpot}" id="ot18"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.InstrumentGroup.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.InstrumentGroup.label}"
+                                                       id="resId1c19" width="60" rendered="false">
+                                                <af:outputText value="#{row.InstrumentGroup}" id="ot19"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ProcDate.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ProcDate.label}"
+                                                       id="resId1c20" width="60" rendered="false">
+                                                <af:outputText value="#{row.ProcDate}" id="ot20">
+                                                    <af:convertDateTime pattern="#{bindings.FtiTradeFilesVO.hints.ProcDate.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ProcStatus.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ProcStatus.label}"
+                                                       id="resId1c21" width="60" rendered="false">
+                                                <af:outputText value="#{row.ProcStatus}" id="ot21"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ValidStatus.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ValidStatus.label}"
+                                                       id="resId1c22" width="60" rendered="false">
+                                                <af:outputText value="#{row.ValidStatus}" id="ot22"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ValidInvestor.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ValidInvestor.label}"
+                                                       id="resId1c23" width="60" rendered="false">
+                                                <af:outputText value="#{row.ValidInvestor}" id="ot23">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.ValidInvestor.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ValidInstrument.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ValidInstrument.label}"
+                                                       id="resId1c24" width="60" rendered="false">
+                                                <af:outputText value="#{row.ValidInstrument}" id="ot24">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.ValidInstrument.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ValidTws.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ValidTws.label}"
+                                                       id="resId1c25" width="60" rendered="false">
+                                                <af:outputText value="#{row.ValidTws}" id="ot25">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.ValidTws.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.ImportId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.ImportId.label}"
+                                                       id="resId1c26" width="80" rendered="false">
+                                                <af:outputText value="#{row.ImportId}" id="ot26">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.ImportId.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.OpSsUiStatus.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.OpSsUiStatus.label}"
+                                                       id="resId1c27" width="80" rendered="false">
+                                                <af:outputText value="#{row.OpSsUiStatus}" id="ot27"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.IsBda.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.IsBda.label}"
+                                                       id="resId1c28" width="60" rendered="false">
+                                                <af:outputText value="#{row.IsBda}" id="ot28"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Action.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Action.label}"
+                                                       id="resId1c29" width="50">
+                                                <af:outputText value="#{row.Action}" id="ot29"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Status.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Status.label}"
+                                                       id="resId1c30" width="60" rendered="false">
+                                                <af:outputText value="#{row.Status}" id="ot30"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Assetclass.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Assetclass.label}"
+                                                       id="resId1c31" width="60" rendered="false">
+                                                <af:outputText value="#{row.Assetclass}" id="ot31"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.OrderId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.OrderId.label}"
+                                                       id="resId1c32" width="50">
+                                                <af:outputText value="#{row.OrderId}" id="ot32"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TradeValue.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TradeValue.label}"
+                                                       id="resId1c33" width="80" rendered="false">
+                                                <af:outputText value="#{row.TradeValue}" id="ot33"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Execid.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Execid.label}"
+                                                       id="resId1c34" width="80" rendered="false">
+                                                <af:outputText value="#{row.Execid}" id="ot34"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.SessionId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.SessionId.label}"
+                                                       id="resId1c35" width="80" rendered="false">
+                                                <af:outputText value="#{row.SessionId}" id="ot35"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.BranchId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.BranchId.label}"
+                                                       id="resId1c36" width="80" rendered="false">
+                                                <af:outputText value="#{row.BranchId}" id="ot36"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.OwnerDealerId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.OwnerDealerId.label}"
+                                                       id="resId1c37" width="80" rendered="false">
+                                                <af:outputText value="#{row.OwnerDealerId}" id="ot37"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.Tradereporttype.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.Tradereporttype.label}"
+                                                       id="resId1c38" width="80" rendered="false">
+                                                <af:outputText value="#{row.Tradereporttype}" id="ot38"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.TradeContractNo.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.TradeContractNo.label}"
+                                                       id="resId1c39" width="80" rendered="false">
+                                                <af:outputText value="#{row.TradeContractNo}" id="ot39"/>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.SeqNo.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.SeqNo.label}"
+                                                       id="resId1c40" width="60" rendered="false">
+                                                <af:outputText value="#{row.SeqNo}" id="ot40">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.SeqNo.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.MbankId.name}"
+                                                       sortable="true"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.MbankId.label}"
+                                                       id="resId1c41" width="60" rendered="false">
+                                                <af:outputText value="#{row.MbankId}" id="ot41">
+                                                    <af:convertNumber groupingUsed="false"
+                                                                      pattern="#{bindings.FtiTradeFilesVO.hints.MbankId.format}"/>
+                                                </af:outputText>
+                                            </af:column>
+                                            <af:column sortProperty="#{bindings.FtiTradeFilesVO.hints.AccountType.name}"
+                                                       sortable="false"
+                                                       headerText="#{bindings.FtiTradeFilesVO.hints.AccountType.label}"
+                                                       id="c1" rendered="false">
+                                                <af:inputText value="#{row.bindings.AccountType.inputValue}"
+                                                              label="#{bindings.FtiTradeFilesVO.hints.AccountType.label}"
+                                                              required="#{bindings.FtiTradeFilesVO.hints.AccountType.mandatory}"
+                                                              columns="#{bindings.FtiTradeFilesVO.hints.AccountType.displayWidth}"
+                                                              maximumLength="#{bindings.FtiTradeFilesVO.hints.AccountType.precision}"
+                                                              shortDesc="#{bindings.FtiTradeFilesVO.hints.AccountType.tooltip}"
+                                                              id="it1" readOnly="true">
+                                                    <f:validator binding="#{row.bindings.AccountType.validator}"/>
+                                                </af:inputText>
+                                            </af:column>
+                                        </af:table>
+                                    </af:panelCollection>
+                                </af:panelBox>
+                            </af:panelGroupLayout>
+                            <af:panelBox text="PanelBox2" id="pb3" showHeader="never"
+                                         inlineStyle="width:inherit; height:inherit;">
+                                <f:facet name="toolbar"/>
+                                <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                                     inlineStyle="width:400px; height:auto;"
+                                                     visible="#{FtiTradeFiles.fileTypeRadio.value eq 'xml'}"
+                                                     partialTriggers="sor1">
+                                    <af:commandImageLink id="cil1" icon="/images/import.png"
+                                                         shortDesc="Download XML File" visible="false"/>
+                                    <af:commandButton id="cb6" icon="/images/import.png"
+                                                      rendered="#{FtiTradeFiles.newGenXMLFile ne null}"
+                                                      partialTriggers="it2">
+                                        <af:fileDownloadActionListener filename="#{FtiTradeFiles.generatedXMLFileUI.value}"
+                                                                       method="#{FtiTradeFiles.xmlFileDownloadListener}"/>
+                                    </af:commandButton>
+                                    <af:spacer width="10" height="10" id="s4"/>
+                                    <af:inputText label="Generated XML File" id="it2"
+                                                  value="#{FtiTradeFiles.newGenXMLFile}" readOnly="true"
+                                                  autoSubmit="true" binding="#{FtiTradeFiles.generatedXMLFileUI}"/>
+                                </af:panelGroupLayout>
+                                <af:panelGroupLayout id="pgl4" layout="horizontal" inlineStyle="width:400px;"
+                                                     visible="#{FtiTradeFiles.fileTypeRadio.value eq 'xml'}"
+                                                     partialTriggers="sor1">
+                                    <af:commandImageLink id="cil2" icon="/images/import.png"
+                                                         shortDesc="Download Control File" visible="false"/>
+                                    <af:commandButton id="cb5" icon="/images/import.png"
+                                                      rendered="#{FtiTradeFiles.newGenControlFile ne null}"
+                                                      partialTriggers="it3">
+                                        <af:fileDownloadActionListener filename="#{FtiTradeFiles.generatedControlFileUI.value}"
+                                                                       method="#{FtiTradeFiles.controlFileDownloadListener}"/>
+                                    </af:commandButton>
+                                    <af:spacer width="10" height="10" id="s5"/>
+                                    <af:inputText label="Generated Control File" id="it3"
+                                                  value="#{FtiTradeFiles.newGenControlFile}" readOnly="true"
+                                                  autoSubmit="true" binding="#{FtiTradeFiles.generatedControlFileUI}"/>
+                                </af:panelGroupLayout>
+                                <af:panelGroupLayout id="pgl5" inlineStyle="width:400px;" layout="horizontal"
+                                                     visible="#{FtiTradeFiles.fileTypeRadio.value eq 'text'}"
+                                                     partialTriggers="sor1">
+                                    <af:commandImageLink id="cil3" icon="/images/import.png"
+                                                         shortDesc="Download Text File" rendered="false"/>
+                                    <af:commandButton id="cb2" icon="/images/import.png"
+                                                      rendered="#{FtiTradeFiles.newGenTextFile ne null}"
+                                                      partialTriggers="it4">
+                                        <af:fileDownloadActionListener filename="#{FtiTradeFiles.generatedTextFileUI.value}"
+                                                                       method="#{FtiTradeFiles.textFileDownloadListener}"/>
+                                    </af:commandButton>
+                                    <af:spacer width="10" height="10" id="s6"/>
+                                    <af:inputText label="Generated Text File" id="it4"
+                                                  value="#{FtiTradeFiles.newGenTextFile}" readOnly="true"
+                                                  autoSubmit="true" binding="#{FtiTradeFiles.generatedTextFileUI}"/>
+                                </af:panelGroupLayout>
+                            </af:panelBox>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+                <af:popup childCreation="deferred" autoCancel="disabled" id="popupSendMail"
+                          binding="#{FtiTradeFiles.sendMailPopupUI}">
+                    <af:dialog id="d1" type="cancel">
+                        <f:facet name="buttonBar">
+                            <af:commandButton id="cb4"
+                                              shortDesc="Send Mail" action="#{FtiTradeFiles.sendFileToMbank}"
+                                              icon="#{resource['images:badge_send.png']}"/>
+                        </f:facet>
+                        <af:panelBox text="Select Mail Template and Price File" id="pb5" showDisclosure="false" type="flow"
+                                     inlineStyle="width:500px;">
+                            <f:facet name="toolbar"/>
+                            <af:panelFormLayout id="pfl1" labelWidth="100">
+                                <af:inputText label="Recipient EMail ID" id="it5" binding="#{FtiTradeFiles.mbankEmailIdUI}"
+                                              shortDesc="Ex:abc@gmaill.com(File Receiver Email Address)"/>
+                                <af:selectOneChoice value="#{bindings.EmailTemplate.inputValue}" label="Template List"
+                                                    required="#{bindings.EmailTemplate.hints.mandatory}"
+                                                    shortDesc="#{bindings.EmailTemplate.hints.tooltip}" id="soc1">
+                                    <f:selectItems value="#{bindings.EmailTemplate.items}" id="si3"/>
+                                </af:selectOneChoice>
+                                <af:inputFile label="Price File" id="if1" shortDesc="Choose Price File"
+                                              valueChangeListener="#{FtiTradeFiles.getPriceFileValChngListener}"/>
+                                <af:inputFile label="Price Control File" id="if2" shortDesc="Choose Price Control File"
+                                              valueChangeListener="#{FtiTradeFiles.getPriceCtrlFileValChngListener}"/>
+                            </af:panelFormLayout>
+                        </af:panelBox>
+                    </af:dialog>
+                </af:popup>
+            </af:group>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:FtiTradeFiles-->
+</ui:composition>

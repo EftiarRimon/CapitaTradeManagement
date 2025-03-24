@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81"
+                id="FtiFileMergeShareDetailDealerPageDef" Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiFileMergeShareDealerVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMergeShareDealerVOIterator"/>
+    <iterator Binds="FtiFileMrgShareDetDealerVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFileMrgShareDetDealerVOIterator"/>
+    <iterator id="FtiDealerMergeShareDataVOIterator" Binds="FtiDealerMergeShareDataVO"
+              DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="FtiFileMergeShareDealerVOIterator" id="MDate">
+      <AttrNames>
+        <Item Value="MDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeShareDealerVOIterator" id="FileDescription">
+      <AttrNames>
+        <Item Value="FileDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeShareDealerVOIterator" id="FileVersion">
+      <AttrNames>
+        <Item Value="FileVersion"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFileMergeShareDealerVOIterator" id="FileType">
+      <AttrNames>
+        <Item Value="FileType"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="FtiFileMergeShareDealerVOIterator" StaticList="false" Uses="LOV_FileFormat" id="FileFormat"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="FtiFileMergeShareDealerVOIterator" StaticList="false" Uses="LOV_FileOption" id="FileOption"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <button IterBinding="FtiFileMergeShareDealerVOIterator" id="IsExec" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="IsExec"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="FtiFileMrgShareDetDealerVOIterator" id="FtiFileMrgShareDetDealerVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFileMrgShareDetDealerVO"
+                      Name="FtiFileMrgShareDetDealerVO0">
+        <AttrNames>
+          <Item Value="Isin"/>
+          <Item Value="Boid"/>
+          <Item Value="InvestorName"/>
+          <Item Value="TotalQuantity"/>
+          <Item Value="SalableQuantity"/>
+          <Item Value="InvestorCode"/>
+          <Item Value="Status"/>
+          <Item Value="ErrMsg"/>
+          <Item Value="RowSeqId"/>
+          <Item Value="InstShortName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+  </bindings>
+</pageDefinition>

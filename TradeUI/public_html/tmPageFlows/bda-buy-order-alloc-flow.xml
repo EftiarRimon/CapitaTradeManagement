@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="bda-buy-order-alloc-flow">
+    <template-reference>
+      <document>/WEB-INF/templates/capita-task-flow-template.xml</document>
+      <id>capita-task-flow-template</id>
+    </template-reference>
+    <default-activity>bdaBuySearch</default-activity>
+    <view id="bdaBuySearch">
+      <page>/tmFragments/bdaBuySearch.jsff</page>
+    </view>
+    <view id="bdaBuyDetail">
+      <page>/tmFragments/bdaBuyDetail.jsff</page>
+    </view>
+    <view id="bdaBuyOrder">
+      <page>/tmFragments/bdaBuyOrder.jsff</page>
+    </view>
+    <view id="bdaBuyAlloc">
+      <page>/tmFragments/bdaBuyAlloc.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>bdaBuySearch</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goOrderDetail</from-outcome>
+        <to-activity-id>bdaBuyDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>bdaBuyDetail</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>bdaBuySearch</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>goBuyOrder</from-outcome>
+        <to-activity-id>bdaBuyOrder</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>goBuyAlloc</from-outcome>
+        <to-activity-id>bdaBuyAlloc</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>bdaBuyOrder</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>bdaBuyDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__10">
+      <from-activity-id>bdaBuyAlloc</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome>backList</from-outcome>
+        <to-activity-id>bdaBuyDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

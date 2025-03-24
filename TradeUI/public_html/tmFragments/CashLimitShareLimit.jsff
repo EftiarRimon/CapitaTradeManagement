@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:panelGroupLayout id="pgl1" layout="vertical">
+                <af:decorativeBox id="db1" inlineStyle="height:480px; width:680px;" dimensionsFrom="children">
+                    <f:facet name="center">
+                        <af:panelGroupLayout id="pgl3" layout="scroll" inlineStyle="height:inherit; width:inherit;">
+                            <af:panelBox id="pb1" inlineStyle="height:inherit; width:inherit;" showDisclosure="false">
+                                <f:facet name="toolbar">
+                                    <af:panelGroupLayout id="pgl2">
+                                        <af:commandButton text="Process File" id="cbProcess"
+                                                          action="#{CSLimitBean.processFile_new}"
+                                                          icon="/images/generate_add.png" shortDesc="Process File"/>
+                                        <af:commandButton text="File DownLoad CSLimit" id="cbDownload1"
+                                                          icon="/images/generate-save.png" shortDesc="DownLoad File" binding="#{CSLimitBean.cbDownLoad}"
+                                                          partialTriggers="cbProcess socfileType it13 pc1:t1">
+                                            <af:fileDownloadActionListener filename="#{CSLimitBean.generatedFileNameUI.value}"
+                                                                           method="#{CSLimitBean.generateFileListener}"/>
+                                        </af:commandButton>
+                                        <af:commandButton text="Download Inv.Info." id="cb3"
+                                                          icon="/images/generate-save.png"
+                                                          partialTriggers="cbProcess socfileType it20"
+                                                          visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'CSE'}"
+                                                          binding="#{CSLimitBean.cbDownLoadInv}">
+                                            <af:fileDownloadActionListener
+                                                                           filename="#{CSLimitBean.generatedFileInv.value}"
+                                                                           method="#{CSLimitBean.generatedFileInvestor}"/>
+                                        </af:commandButton>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                                <af:panelFormLayout id="pfl2">
+                                    <af:panelGroupLayout id="pgl5" layout="horizontal">
+                                        <af:selectOneChoice label="Broker"
+                                                            shortDesc="#{bindings.BrokersVO.hints.tooltip}"
+                                                            id="socBroker"
+                                                            rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"
+                                                            valueChangeListener="#{CSLimitBean.SetCurrentBrokerInvList}"
+                                                            autoSubmit="true" binding="#{CSLimitBean.brokerDId}">
+                                            <f:selectItems value="#{bindings.BrokersVO.items}" id="si7"/>
+                                        </af:selectOneChoice>
+                                        <af:spacer width="30" height="10" id="s3"
+                                                   rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"/>
+                                        <af:selectBooleanCheckbox label="Process All"
+                                                                  id="sbc2"
+                                                                  binding="#{CSLimitBean.processWithAllBrokerUI}"
+                                                                  autoSubmit="true"
+                                                                  disabled="#{!CSLimitBean.allowEnable}"
+                                                                  shortDesc="Process for all Broker"
+                                                                  rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"/>
+                                    </af:panelGroupLayout>
+                                    <af:spacer width="10" height="10" id="s1"/>
+                                    <af:inputText label="Broker:" id="it1" value="Own" readOnly="true" visible="false"/>
+                                </af:panelFormLayout>
+                                <af:panelGroupLayout id="pgl4" layout="horizontal">
+                                    <af:selectOneChoice
+                                                        label="File Type"
+                                                        shortDesc="#{bindings.FileTypeLOV.hints.tooltip}"
+                                                        id="socfileType" required="true"
+                                                        autoSubmit="true" binding="#{CSLimitBean.fileTypeCSEDSE}"
+                                                        valueChangeListener="#{CSLimitBean.fileTypeValueChange}">
+                                        <af:selectItem label="CSE" id="siCSE" value="CSE"/>
+                                        <af:selectItem label="DSE" id="siDSE" value="DSE"/>
+                                    </af:selectOneChoice>
+                                    <af:inputText label="Buy Limit" id="itShareLimit" columns="10"
+                                                  binding="#{CSLimitBean.shareLimit}" inlineStyle="padding-left:20px;"/>
+                                    <af:outputText value="%" id="ot1"/>
+                                    <af:outputText id="ot6"
+                                                   partialTriggers="socfileType"/>
+                                </af:panelGroupLayout>
+                                <af:spacer width="10" height="10" id="s2"/>
+                                <af:selectBooleanCheckbox label="With Own" id="sbc1" autoSubmit="true"
+                                                          binding="#{CSLimitBean.withOwnCB}" selected="false" visible="true"/>
+                                <af:panelGroupLayout id="pgl6" layout="horizontal">
+                                    <af:inputText label="Label 1" id="it21" visible="false"
+                                                  value="#{CSLimitBean.valEmpty}"/>
+                                    <af:inputText id="it13" label="Generated File:" readOnly="true"
+                                                  binding="#{CSLimitBean.generatedFileNameUI}" autoSubmit="true"
+                                                  value="#{CSLimitBean.generatedFileNameUI.submittedValue}"/>
+                                    <af:outputText value="," id="ot7"
+                                                   visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'CSE'}"
+                                                   partialTriggers="socfileType"/>
+                                    <af:inputText id="it20" binding="#{CSLimitBean.generatedFileInv}"
+                                                  value="#{CSLimitBean.generatedFileInv.submittedValue}" readOnly="true"
+                                                  autoSubmit="true"
+                                                  visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'CSE'}"
+                                                  partialTriggers="socfileType"/>
+                                </af:panelGroupLayout>
+                            </af:panelBox>
+                            <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;"
+                                                partialTriggers="::socfileType" featuresOff="viewMenu"
+                                                visible="true">
+                                <f:facet name="menus">
+                                    <af:menu id="m1" icon="/images/table.png" text="List"
+                                             inlineStyle="font-weight:bold;"/>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t3">
+                                        <af:outputText value="Total Records:(#{bindings.CashLimitLimitVOIterator.estimatedRowCount})" id="ot4"
+                                                       partialTriggers="::cbProcess ::socBroker"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.CashLimitLimitVO.collectionModel}" var="row"
+                                          rows="#{bindings.CashLimitLimitVO.rangeSize}"
+                                          emptyText="#{bindings.CashLimitLimitVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.CashLimitLimitVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.CashLimitLimitVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.CashLimitLimitVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="15" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;"
+                                          partialTriggers=":::cbProcess :::socfileType :::socBroker">
+                                    <af:column sortProperty="#{bindings.CashLimitLimitVO.hints.InvestorCode.name}"
+                                               sortable="false"
+                                               headerText="Investor Code"
+                                               id="c1" align="center" width="70">
+                                        <af:inputText value="#{row.bindings.InvestorCode.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.InvestorCode.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.InvestorCode.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.InvestorCode.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.InvestorCode.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.InvestorCode.tooltip}"
+                                                      id="it3" readOnly="true">
+                                            <f:validator binding="#{row.bindings.InvestorCode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="Trading Code"
+                                               id="c14" visible="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}" align="center">
+                                        <af:inputText value="#{row.bindings.TradingCode.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.TradingCode.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.TradingCode.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.TradingCode.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.TradingCode.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.TradingCode.tooltip}"
+                                                      id="it15" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TradingCode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.CashLimitLimitVO.hints.Name.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.CashLimitLimitVO.hints.Name.label}" id="c2"
+                                               align="center" width="120">
+                                        <af:inputText value="#{row.bindings.Name.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.Name.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.Name.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.Name.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.Name.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.Name.tooltip}"
+                                                      id="it4" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Name.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.CashLimitLimitVO.hints.Boid.name}"
+                                               sortable="false"
+                                               headerText="BOID" id="c3"
+                                               align="center" width="130">
+                                        <af:inputText value="#{row.bindings.Boid.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.Boid.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.Boid.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.Boid.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.Boid.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.Boid.tooltip}"
+                                                      id="it5" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Boid.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="Product Type"
+                                               id="c16" width="70" align="center">
+                                        <af:inputText value="#{row.bindings.ProductType.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.ProductType.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.ProductType.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.ProductType.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.ProductType.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.ProductType.tooltip}"
+                                                      id="it17" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ProductType.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.CashLimitLimitVO.hints.PurchasePower.name}"
+                                               sortable="false"
+                                               headerText="Purchase Power"
+                                               id="c4" align="center"
+                                               partialTriggers=":::socfileType"
+                                               visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'CSE'}">
+                                        <af:inputText value="#{row.bindings.PurchasePower.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.PurchasePower.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.PurchasePower.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.PurchasePower.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.PurchasePower.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.PurchasePower.tooltip}"
+                                                      id="it6" readOnly="true">
+                                            <f:validator binding="#{row.bindings.PurchasePower.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.CashLimitLimitVO.hints.CashLimit.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.CashLimitLimitVO.hints.CashLimit.label}" id="c5"
+                                               align="center" visible="false">
+                                        <af:inputText value="#{row.bindings.CashLimit.inputValue}"
+                                                      label="#{bindings.CashLimitLimitVO.hints.CashLimit.label}"
+                                                      required="#{bindings.CashLimitLimitVO.hints.CashLimit.mandatory}"
+                                                      columns="#{bindings.CashLimitLimitVO.hints.CashLimit.displayWidth}"
+                                                      maximumLength="#{bindings.CashLimitLimitVO.hints.CashLimit.precision}"
+                                                      shortDesc="#{bindings.CashLimitLimitVO.hints.CashLimit.tooltip}"
+                                                      id="it7" readOnly="true">
+                                            <f:validator binding="#{row.bindings.CashLimit.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column id="c12"
+                                               align="center" width="120"
+                                               partialTriggers=":::socfileType"
+                                               visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'DSE'}"
+                                               headerText='#{(CSLimitBean.buyLimitInThousand eq true) ? "Buy Limit(In Thousand)" : "Buy Limit"}'>
+                                        <af:outputText value="#{row.BuyLimit}" id="ot2"/>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.CashLimitLimitVO.hints.Calculated.label}"
+                                               id="c19" sortable="false" align="center"
+                                               visible="#{CSLimitBean.fileTypeCSEDSE.value eq 'CSE'}">
+                                        <af:outputText value="#{row.Calculated}" id="ot8"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+            </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

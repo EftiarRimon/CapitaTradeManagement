@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+   <af:popup childCreation="deferred" autoCancel="disabled" id="popBrokerDelete">
+        <af:dialog id="d2" dialogListener="#{InstrumentPriceBean.showPopupRecDeletion}"
+                   title="Are you sure you want to delete?">
+            <f:facet name="buttonBar"/>
+        </af:dialog>
+    </af:popup>
+    
+  <af:panelGroupLayout layout="vertical" id="pgl1">
+    <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;" dimensionsFrom="children">
+      <f:facet name="center">
+        <af:panelGroupLayout id="pgl2">
+          <af:panelBox text="Price File " id="pb1">
+            <f:facet name="toolbar">
+              <af:panelGroupLayout id="pgl3" layout="horizontal" halign="end">
+                <af:commandButton text="Process" id="cbProcess" icon="/images/action.png"
+                                  action="#{InstrumentPriceBean.process}" disabled="#{!pageFlowScope.editable}"/>
+                <af:commandButton text="Validate " id="cbValidate" icon="/images/verify.png"
+                                  action="#{InstrumentPriceBean.validate}" disabled="#{!pageFlowScope.editable}"/>
+                <af:commandButton text="Back to Mian" id="cbBack" icon="/images/go-list.png" action="backFromPrice"
+                                  actionListener="#{FileUploadBean.customRollBack}"/>
+              </af:panelGroupLayout>
+            </f:facet>
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.InstrumentPriceVOCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.InstrumentPriceVOCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.InstrumentPriceVOCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.InstrumentPriceVOCriteriaQuery.processQueryOperation}"
+                      resultComponentId="::pc1:t1" saveQueryMode="hidden" modeChangeVisible="false"/>
+            <af:panelCollection id="pc1" inlineStyle="width:600px; height:inherit;" featuresOff="viewMenu" partialTriggers="::qryId1">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                  <af:commandButton id="cb2" icon="/images/add.png" shortDesc="Add Record"
+                                    actionListener="#{InstrumentPriceBean.createRecord}"
+                                    disabled="#{!pageFlowScope.editable}"/>
+                  <af:commandButton id="cb1" icon="/images/refresh.png"
+                                    actionListener="#{InstrumentPriceBean.customRollBack}"/>
+                  <af:commandButton id="cb3" icon="/images/Save.png" shortDesc="Save"
+                                    actionListener="#{InstrumentPriceBean.saveRecord}"
+                                    disabled="#{!pageFlowScope.editable}"/>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.InstrumentPriceVO.collectionModel}" var="row"
+                        rows="#{bindings.InstrumentPriceVO.rangeSize}"
+                        emptyText="#{bindings.InstrumentPriceVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.InstrumentPriceVO.rangeSize}" rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.InstrumentPriceVO.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.InstrumentPriceVO.collectionModel.makeCurrent}"
+                        rowSelection="single" id="t1" autoHeightRows="10" editingMode="clickToEdit"
+                        inlineStyle="height:inherit; width:inherit;">
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.ExchangeId.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.ExchangeId.label}" id="c1" rendered="false">
+                  <af:inputText value="#{row.bindings.ExchangeId.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.ExchangeId.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.ExchangeId.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.ExchangeId.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.ExchangeId.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.ExchangeId.tooltip}" id="it1">
+                    <f:validator binding="#{row.bindings.ExchangeId.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.InstrumentPriceVO.hints.ExchangeId.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.PriceDate.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.PriceDate.label}" id="c2" rendered="false">
+                  <af:inputDate value="#{row.bindings.PriceDate.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.PriceDate.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.PriceDate.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.PriceDate.displayWidth}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.PriceDate.tooltip}" id="id1">
+                    <f:validator binding="#{row.bindings.PriceDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.InstrumentPriceVO.hints.PriceDate.format}"/>
+                  </af:inputDate>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.InstrCode.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.InstrCode.label}" id="c3">
+                  <af:inputText value="#{row.bindings.InstrCode.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.InstrCode.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.InstrCode.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.InstrCode.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.InstrCode.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.InstrCode.tooltip}" id="it2">
+                    <f:validator binding="#{row.bindings.InstrCode.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.InstrIsin.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.InstrIsin.label}" id="c4">
+                  <af:inputText value="#{row.bindings.InstrIsin.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.InstrIsin.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.InstrIsin.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.InstrIsin.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.InstrIsin.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.InstrIsin.tooltip}" id="it3"
+                                readOnly="true">
+                    <f:validator binding="#{row.bindings.InstrIsin.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.InstrGroup.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.InstrGroup.label}" id="c5" width="30">
+                  <af:selectOneChoice value="#{row.bindings.InstrGroup.inputValue}"
+                                      label="#{row.bindings.InstrGroup.label}"
+                                      required="#{bindings.InstrumentPriceVO.hints.InstrGroup.mandatory}"
+                                      shortDesc="#{bindings.InstrumentPriceVO.hints.InstrGroup.tooltip}" id="soc1">
+                    <f:selectItems value="#{row.bindings.InstrGroup.items}" id="si1"/>
+                  </af:selectOneChoice>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.OpenPrice.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.OpenPrice.label}" id="c6" width="50">
+                  <af:inputText value="#{row.bindings.OpenPrice.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.OpenPrice.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.OpenPrice.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.OpenPrice.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.OpenPrice.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.OpenPrice.tooltip}" id="it4">
+                    <f:validator binding="#{row.bindings.OpenPrice.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.HighPrice.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.HighPrice.label}" id="c7" width="60">
+                  <af:inputText value="#{row.bindings.HighPrice.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.HighPrice.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.HighPrice.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.HighPrice.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.HighPrice.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.HighPrice.tooltip}" id="it5">
+                    <f:validator binding="#{row.bindings.HighPrice.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.LowPrice.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.LowPrice.label}" id="c8" width="60">
+                  <af:inputText value="#{row.bindings.LowPrice.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.LowPrice.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.LowPrice.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.LowPrice.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.LowPrice.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.LowPrice.tooltip}" id="it6">
+                    <f:validator binding="#{row.bindings.LowPrice.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.ClosePrice.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.ClosePrice.label}" id="c9" width="60">
+                  <af:inputText value="#{row.bindings.ClosePrice.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.ClosePrice.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.ClosePrice.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.ClosePrice.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.ClosePrice.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.ClosePrice.tooltip}" id="it7">
+                    <f:validator binding="#{row.bindings.ClosePrice.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.Status.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.Status.label}" id="c10" width="30">
+                  <af:inputText value="#{row.bindings.Status.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.Status.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.Status.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.Status.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.Status.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.Status.tooltip}" id="it8" readOnly="true">
+                    <f:validator binding="#{row.bindings.Status.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.InstrumentPriceVO.hints.ImportId.name}" sortable="false"
+                           headerText="#{bindings.InstrumentPriceVO.hints.ImportId.label}" id="c11" rendered="false">
+                  <af:inputText value="#{row.bindings.ImportId.inputValue}"
+                                label="#{bindings.InstrumentPriceVO.hints.ImportId.label}"
+                                required="#{bindings.InstrumentPriceVO.hints.ImportId.mandatory}"
+                                columns="#{bindings.InstrumentPriceVO.hints.ImportId.displayWidth}"
+                                maximumLength="#{bindings.InstrumentPriceVO.hints.ImportId.precision}"
+                                shortDesc="#{bindings.InstrumentPriceVO.hints.ImportId.tooltip}" id="it9">
+                    <f:validator binding="#{row.bindings.ImportId.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.InstrumentPriceVO.hints.ImportId.format}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column id="c12" width="40" align="center">
+                  <af:commandButton id="cbDell" icon="/images/delete.png" disabled="#{!pageFlowScope.editable}">
+                    <af:showPopupBehavior popupId=":::popupId" triggerType="click"/>
+                    <af:showPopupBehavior/>
+                  </af:commandButton>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelBox>
+        </af:panelGroupLayout>
+      </f:facet>
+    </af:decorativeBox>
+  </af:panelGroupLayout>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="popupId">
+    <af:dialog id="d12" title="Are you sure you want to permanently delete?"
+               dialogListener="#{FileUploadBean.popConfirmPriceDelete}">
+      <f:facet name="buttonBar"/>
+    </af:dialog>
+  </af:popup>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:PriceFileBean-->
+</ui:composition>

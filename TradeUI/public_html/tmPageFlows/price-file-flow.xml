@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="price-file-flow">
+    <default-activity>PriceFile</default-activity>
+    <input-parameter-definition id="__2">
+      <name>editable</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>PriceFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.PriceFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="PriceFile">
+      <page>/tmFragments/InstrumentPrice.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

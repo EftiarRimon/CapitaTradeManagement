@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiFileMergeShare"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="FTI_FILE_MERGE_SHARE"
+  AliasName="FtiFileMergeShare"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="FileId"
+    ColumnName="FILE_ID"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_FILE_MERGE_SHARE"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="MDate"
+    ColumnName="M_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="MTime"
+    ColumnName="M_TIME"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="FTI_FILE_MERGE_SHARE"/>
+  <Attribute
+    Name="FileDescription"
+    Precision="100"
+    ColumnName="FILE_DESCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileVersion"
+    Precision="30"
+    ColumnName="FILE_VERSION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.entity.FtiFileMergeShare.FileVersion_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="FileType"
+    Precision="3"
+    ColumnName="FILE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ProcessingMode"
+    Precision="30"
+    ColumnName="PROCESSING_MODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileFormat"
+    Precision="10"
+    ColumnName="FILE_FORMAT"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="IsExec"
+    Precision="10"
+    ColumnName="IS_EXEC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileOption"
+    Precision="10"
+    ColumnName="FILE_OPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_FILE_MERGE_SHARE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="FtiFileMergeShareDetail"
+    Association="leads.capita.trade.model.entity.FkFileIdMrgShareDetailAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkFileIdMrgShareDetailAssoc.FtiFileMergeShareDetail"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkFileIdMrgShareDetailAssoc.FtiFileMergeShare"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkFileIdFileMergeShare"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_FILE_ID_FILE_MERGE_SHARE"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiFileMergeShare.FileId"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</Entity>

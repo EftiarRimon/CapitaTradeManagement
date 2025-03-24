@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="MarketTypeLOV"
+  Version="11.1.2.60.81"
+  SelectList="MarketType.CODE, 
+       MarketType.TITLE"
+  FromList="MARKET_TYPE MarketType"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <EntityUsage
+    Name="MarketType"
+    Entity="leads.capita.trade.model.entity.MarketType"/>
+  <ViewAttribute
+    Name="Code"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Code"
+    EntityUsage="MarketType"
+    AliasName="CODE"/>
+  <ViewAttribute
+    Name="Title"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Title"
+    EntityUsage="MarketType"
+    AliasName="TITLE"/>
+</ViewObject>

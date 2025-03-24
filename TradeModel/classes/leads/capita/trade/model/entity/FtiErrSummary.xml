@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FtiErrSummary"
+  Version="11.1.2.60.81"
+  DBObjectType="TABLE"
+  DBObjectName="FTI_ERR_SUMMARY"
+  AliasName="FtiErrSummary"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <Attribute
+    Name="RowSeqId"
+    ColumnName="ROW_SEQ_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="FTI_ERR_SUMMARY"
+    PrimaryKey="true"
+    IsUpdateable="while_insert"
+    DefaultValue="@0"
+    Domain="oracle.jbo.domain.DBSequence"
+    RetrievedOnInsert="true"/>
+  <Attribute
+    Name="FileType"
+    Precision="20"
+    ColumnName="FILE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DateProcessed"
+    Precision="15"
+    ColumnName="DATE_PROCESSED"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TotalDuration"
+    Precision="20"
+    ColumnName="TOTAL_DURATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileStatus"
+    Precision="50"
+    ColumnName="FILE_STATUS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="NoOfRecord"
+    ColumnName="NO_OF_RECORD"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY"/>
+  <Attribute
+    Name="SuccessfulRecord"
+    ColumnName="SUCCESSFUL_RECORD"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY"/>
+  <Attribute
+    Name="Wrong"
+    ColumnName="WRONG"
+    SQLType="NUMERIC"
+    Type="java.lang.Long"
+    ColumnType="LONGINT"
+    TableName="FTI_ERR_SUMMARY"/>
+  <Attribute
+    Name="FileName"
+    Precision="100"
+    ColumnName="FILE_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileGenTime"
+    Precision="15"
+    ColumnName="FILE_GEN_TIME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FileVersion"
+    Precision="20"
+    ColumnName="FILE_VERSION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ImportDate"
+    ColumnName="IMPORT_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="DATE"
+    TableName="FTI_ERR_SUMMARY">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="leads.capita.trade.model.entity.FtiErrSummary.ImportDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ProcessingMode"
+    Precision="30"
+    ColumnName="PROCESSING_MODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FTI_ERR_SUMMARY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="FtiErrSummaryDetails"
+    Association="leads.capita.trade.model.entity.FkSumSeqIdAssoc"
+    AssociationEnd="leads.capita.trade.model.entity.FkSumSeqIdAssoc.FtiErrSummaryDetails"
+    AssociationOtherEnd="leads.capita.trade.model.entity.FkSumSeqIdAssoc.FtiErrSummary"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="PkSeqIdErrSumm"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PK_SEQ_ID_ERR_SUMM"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="leads.capita.trade.model.entity.FtiErrSummary.RowSeqId"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</Entity>

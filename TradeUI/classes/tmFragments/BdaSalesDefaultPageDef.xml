@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="BdaSalesDefaultPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BdaSalesOrderVO" RangeSize="-1" DataControl="BdaServiceDataControl"
+                  id="BdaSalesOrderVOIterator"/>
+        <searchRegion Criteria="BdaSalesOrderVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="BdaSalesOrderVOIterator" id="BdaSalesOrderVOCriteriaQuery"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="BdaSalesOrderVOIterator" id="BdaSalesOrderVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaSalesOrderVO" Name="BdaSalesOrderVO0">
+                <AttrNames>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="AllocationDate"/>
+                    <Item Value="AllocationQty"/>
+                    <Item Value="Status"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="SalesOrderId"/>
+                    <Item Value="AccountId1"/>
+                    <Item Value="TradeCode"/>
+                    <Item Value="Price"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <action id="Commit" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action IterBinding="BdaSalesOrderVOIterator" id="CreateInsert"
+                InstanceName="BdaServiceDataControl.BdaSalesOrderVO" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+    </bindings>
+</pageDefinition>

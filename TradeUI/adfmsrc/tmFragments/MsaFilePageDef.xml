@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="MsaFilePageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="TradeFileMsaVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeFileMsaVOIterator"/>
+    <searchRegion Criteria="TradeFileMsaVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="TradeFileMsaVOIterator" id="TradeFileMsaVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="TradeFileMsaVOIterator" id="TradeFileMsaVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.TradeFileMsaVO" Name="TradeFileMsaVO0">
+        <AttrNames>
+          <Item Value="Born"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="InstrumentDesc"/>
+          <Item Value="TraderId"/>
+          <Item Value="BuySell"/>
+          <Item Value="OrderFlag"/>
+          <Item Value="MarketType"/>
+          <Item Value="CompulsorySpot"/>
+          <Item Value="TradeDate"/>
+          <Item Value="TradeTime"/>
+          <Item Value="Customer"/>
+          <Item Value="TradeQuantity"/>
+          <Item Value="Price"/>
+          <Item Value="ContractNo"/>
+          <Item Value="CounterParty"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="DirDate"/>
+          <Item Value="ImportId"/>
+          <Item Value="TracerNo"/>
+          <Item Value="HowlaType"/>
+          <Item Value="ValidInvestor"/>
+          <Item Value="ValidInstrument"/>
+          <Item Value="ValidTws"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="TradeFileMsaVOIterator" id="DeleteMsa" InstanceName="TradeFileServiceDataControl.TradeFileMsaVO"
+            DataControl="TradeFileServiceDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="TradeFileMsaVOIterator" id="CreateInsertMsa"
+            InstanceName="TradeFileServiceDataControl.TradeFileMsaVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

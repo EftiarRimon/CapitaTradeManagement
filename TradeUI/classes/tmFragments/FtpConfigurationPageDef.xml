@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtpConfigurationPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiFtpConfigurationVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFtpConfigurationVOIterator"/>
+    <invokeAction Binds="CreateInsert" id="InsertAction" Refresh="prepareModel"
+                  RefreshCondition="#{bindings.FtiFtpConfigurationVOIterator.estimatedRowCount &lt;1}"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="Host">
+      <AttrNames>
+        <Item Value="Host"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="FilePath">
+      <AttrNames>
+        <Item Value="FilePath"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="UserName">
+      <AttrNames>
+        <Item Value="UserName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="UserPassword">
+      <AttrNames>
+        <Item Value="UserPassword"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="ConfirmPassword">
+      <AttrNames>
+        <Item Value="ConfirmPassword"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="FtiFtpConfigurationVOIterator" id="CreateInsert"
+            InstanceName="TradeFileServiceDataControl.FtiFtpConfigurationVO" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+    <list IterBinding="FtiFtpConfigurationVOIterator" StaticList="false" Uses="LOV_FtpProtocol" id="FtpProtocol"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="FtiFtpConfigurationVOIterator" id="Port">
+      <AttrNames>
+        <Item Value="Port"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="FtiFtpConfigurationVOIterator" id="IsActive" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="IsActive"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

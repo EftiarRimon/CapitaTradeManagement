@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtiTradeFilesPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiTradeFilesVO" RangeSize="100" DataControl="TradeFileServiceDataControl"
+              id="FtiTradeFilesVOIterator"/>
+    <searchRegion Criteria="FtiTradeFilesVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="FtiTradeFilesVOIterator" id="FtiTradeFilesVOCriteriaQuery"/>
+    <iterator id="FtiMarketTypeIterator" Binds="FtiMarketType" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="EmailConfVOIterator" Binds="EmailConfVO" DataControl="EmailServiceDataControl" RangeSize="25"/>
+    <iterator id="EmailTemplateVOIterator" Binds="EmailTemplateVO" DataControl="EmailServiceDataControl"
+              RangeSize="25"/>
+    <iterator Binds="EmailTemplateDummyVO" RangeSize="25" DataControl="EmailServiceDataControl"
+              id="EmailTemplateDummyVOIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FtiTradeFilesVOIterator" id="FtiTradeFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiTradeFilesVO" Name="FtiTradeFilesVO0">
+        <AttrNames>
+          <Item Value="TracerNo"/>
+          <Item Value="Born"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="Isin"/>
+          <Item Value="TraderId"/>
+          <Item Value="BuySell"/>
+          <Item Value="TradeQuantity"/>
+          <Item Value="Price"/>
+          <Item Value="TradeDate"/>
+          <Item Value="TradeTime"/>
+          <Item Value="MarketType"/>
+          <Item Value="FillType"/>
+          <Item Value="HowlaType"/>
+          <Item Value="ForeignFlag"/>
+          <Item Value="Customer"/>
+          <Item Value="Boid"/>
+          <Item Value="ContractNo"/>
+          <Item Value="CompulsorySpot"/>
+          <Item Value="InstrumentGroup"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="ValidInvestor"/>
+          <Item Value="ValidInstrument"/>
+          <Item Value="ValidTws"/>
+          <Item Value="ImportId"/>
+          <Item Value="OpSsUiStatus"/>
+          <Item Value="IsBda"/>
+          <Item Value="Action"/>
+          <Item Value="Status"/>
+          <Item Value="Assetclass"/>
+          <Item Value="OrderId"/>
+          <Item Value="TradeValue"/>
+          <Item Value="Execid"/>
+          <Item Value="SessionId"/>
+          <Item Value="BranchId"/>
+          <Item Value="OwnerDealerId"/>
+          <Item Value="Tradereporttype"/>
+          <Item Value="TradeContractNo"/>
+          <Item Value="SeqNo"/>
+          <Item Value="MbankId"/>
+          <Item Value="AccountType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="EmailTemplateDummyVOIterator" StaticList="false" Uses="LOV_EmailTemplate" id="EmailTemplate"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

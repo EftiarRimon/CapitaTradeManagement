@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="FtiErrorSummaryDetailsPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FtiErrSummaryDetailsVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiErrSummaryDetailsVOIterator"/>
+    <iterator Binds="FtiErrSummaryVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiErrSummaryVOIterator"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FtiErrSummaryDetailsVOIterator" id="FtiErrSummaryDetailsVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiErrSummaryDetailsVO" Name="FtiErrSummaryDetailsVO0">
+        <AttrNames>
+          <Item Value="ErrText"/>
+          <Item Value="ColNum"/>
+          <Item Value="LineNum"/>
+          <Item Value="ErrCode"/>
+          <Item Value="RowSeqId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="RowSeqId">
+      <AttrNames>
+        <Item Value="RowSeqId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="FileType">
+      <AttrNames>
+        <Item Value="FileType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="DateProcessed">
+      <AttrNames>
+        <Item Value="DateProcessed"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="TotalDuration">
+      <AttrNames>
+        <Item Value="TotalDuration"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="FileStatus">
+      <AttrNames>
+        <Item Value="FileStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="NoOfRecord">
+      <AttrNames>
+        <Item Value="NoOfRecord"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="SuccessfulRecord">
+      <AttrNames>
+        <Item Value="SuccessfulRecord"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="Wrong">
+      <AttrNames>
+        <Item Value="Wrong"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="FileName">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="FileGenTime">
+      <AttrNames>
+        <Item Value="FileGenTime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="FileVersion">
+      <AttrNames>
+        <Item Value="FileVersion"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiErrSummaryVOIterator" id="ImportDate">
+      <AttrNames>
+        <Item Value="ImportDate"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

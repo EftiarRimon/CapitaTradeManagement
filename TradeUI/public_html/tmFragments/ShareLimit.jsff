@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:group id="g2">
+                <af:decorativeBox id="db1" dimensionsFrom="children" inlineStyle="height:auto; width:870px;">
+                    <f:facet name="center">
+                        <af:panelGroupLayout id="pgl2" layout="default" inlineStyle="height:inherit; width:inherit;">
+                            <af:panelBox id="pb1" showDisclosure="false" inlineStyle="height:inherit; width:inherit;">
+                                <f:facet name="toolbar">
+                                    <af:group id="g1">
+                                        <af:commandButton text="Process File" id="cbProcess"
+                                                          icon="/images/generate_add.png"
+                                                          action="#{ShareLimit.processFile_new}"/>
+                                        <af:commandButton text="File Download CSLimit" id="cb2"
+                                                          icon="/images/generate-save.png"
+                                                          partialTriggers="cbProcess socfileType it1 pc1:t1"
+                                                          binding="#{ShareLimit.cbDownLoad}">
+                                            <af:fileDownloadActionListener filename="#{ShareLimit.generatedFileNameUI.value}"
+                                                                           method="#{ShareLimit.generateFileListener}"/>
+                                        </af:commandButton>
+                                        <af:commandButton text="Download Inv. Info." id="cb3"
+                                                          icon="/images/generate-save.png"
+                                                          visible="#{ShareLimit.fileTypeCSEDSE.value eq 'CSE'}"
+                                                          partialTriggers="cbProcess socfileType it2 pc1:t1"
+                                                          binding="#{ShareLimit.cbDownLoadInv}">
+                                            <af:fileDownloadActionListener filename="#{ShareLimit.generatedFileInv.value}"
+                                                                           method="#{ShareLimit.generatedFileInvestor}"/>
+                                        </af:commandButton>
+                                    </af:group>
+                                </f:facet>
+                                <af:panelFormLayout id="pfl1" inlineStyle="height:inherit; width:inherit;">
+                                    <af:panelGroupLayout id="pgl1" layout="horizontal"
+                                                         inlineStyle="height:inherit; width:inherit;">
+                                        <af:selectOneChoice label="Broker"
+                                                            shortDesc="#{bindings.BrokersVO.hints.tooltip}"
+                                                            id="socBroker" autoSubmit="true"
+                                                            rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"
+                                                            valueChangeListener="#{ShareLimit.SetCurrentBrokerValueChange}"
+                                                            binding="#{ShareLimit.brokerName}">
+                                            <f:selectItems value="#{bindings.BrokersVO.items}" id="si1"/>
+                                        </af:selectOneChoice>
+                                        <af:spacer width="30" height="10" id="s3"
+                                                   rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"/>
+                                        <af:selectBooleanCheckbox label="Process All"
+                                                                  id="sbc2" shortDesc="Process for all Broker"
+                                                                  autoSubmit="true"
+                                                                  disabled="#{!CSLimitBean.allowEnable}"
+                                                                  binding="#{ShareLimit.processWithAllBrokerUI}"
+                                                                  rendered="#{sessionScope.BUSINESS_TYPE eq  'MBANK'}"/>
+                                    </af:panelGroupLayout>
+                                    <af:spacer width="10" height="10" id="s1"/>
+                                </af:panelFormLayout>
+                                <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                                     inlineStyle="height:inherit; width:inherit;">
+                                    <af:selectOneChoice label="File Type"
+                                                        shortDesc="#{bindings.FileTypeLOV.hints.tooltip}"
+                                                        id="socfileType" autoSubmit="true" showRequired="true"
+                                                        binding="#{ShareLimit.fileTypeCSEDSE}"
+                                                        valueChangeListener="#{ShareLimit.fileTypeValueChange}"
+                                                        required="true">
+                                        <af:selectItem label="CSE" id="siCSE" value="CSE"/>
+                                        <af:selectItem label="DSE" id="siDSE" value="DSE"/>
+                                    </af:selectOneChoice>
+                                    <af:spacer width="20" height="10" id="s2"/>
+                                    <af:selectBooleanCheckbox label="With Own" id="sbc1" autoSubmit="true"
+                                                              binding="#{ShareLimit.withOwnCB}"/>
+                                </af:panelGroupLayout>
+                                <af:panelGroupLayout id="pgl4" layout="horizontal"
+                                                     inlineStyle="height:inherit; width:inherit;">
+                                    <af:inputText label="Generated File" id="it1" readOnly="true" autoSubmit="true"
+                                                  value="#{ShareLimit.generatedFileNameUI.submittedValue}"
+                                                  binding="#{ShareLimit.generatedFileNameUI}"/>
+                                    <af:outputText value="," id="ot1"
+                                                   visible="#{ShareLimit.fileTypeCSEDSE.value eq 'CSE'}"/>
+                                    <af:inputText id="it2" readOnly="true" autoSubmit="true"
+                                                  value="#{ShareLimit.generatedFileInv.submittedValue}"
+                                                  binding="#{ShareLimit.generatedFileInv}"
+                                                  visible="#{ShareLimit.fileTypeCSEDSE.value eq 'CSE'}"/>
+                                </af:panelGroupLayout>
+                            </af:panelBox>
+                            <af:panelCollection id="pc1" featuresOff="viewMenu"
+                                                inlineStyle="width:inherit; height:inherit;">
+                                <f:facet name="menus">
+                                    <af:menu text="List" id="m1" icon="/images/table.png"
+                                             inlineStyle="font-weight:bold;"/>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t2">
+                                        <af:outputText value="Total Records:(#{bindings.ShareLimitVOIterator.estimatedRowCount})"
+                                                       id="ot8" partialTriggers="::cbProcess ::socBroker"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.ShareLimitVO.collectionModel}" var="row"
+                                          rows="#{bindings.ShareLimitVO.rangeSize}"
+                                          emptyText="#{bindings.ShareLimitVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.ShareLimitVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.ShareLimitVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.ShareLimitVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="15" contentDelivery="immediate"
+                                          partialTriggers=":::cbProcess :::socBroker :::socfileType"
+                                          inlineStyle="height:inherit; width:inherit;">
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.InvestorCode.label}" id="c1"
+                                               align="center" width="70">
+                                        <af:inputText value="#{row.bindings.InvestorCode.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.InvestorCode.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.InvestorCode.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.InvestorCode.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.InvestorCode.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.InvestorCode.tooltip}"
+                                                      id="it5" readOnly="true">
+                                            <f:validator binding="#{row.bindings.InvestorCode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.TradingCode.label}" id="c7"
+                                               align="center" width="70">
+                                        <af:inputText value="#{row.bindings.TradingCode.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.TradingCode.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.TradingCode.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.TradingCode.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.TradingCode.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.TradingCode.tooltip}"
+                                                      id="it6" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TradingCode.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.Name.label}" id="c3"
+                                               align="center" width="180">
+                                        <af:inputText value="#{row.bindings.Name.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.Name.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.Name.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.Name.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.Name.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.Name.tooltip}" id="it4"
+                                                      readOnly="true">
+                                            <f:validator binding="#{row.bindings.Name.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.Boid.label}" id="c4"
+                                               align="center" width="104">
+                                        <af:inputText value="#{row.bindings.Boid.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.Boid.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.Boid.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.Boid.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.Boid.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.Boid.tooltip}" id="it3"
+                                                      readOnly="true">
+                                            <f:validator binding="#{row.bindings.Boid.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.ShareLimitVO.hints.InstrumentName.name}"
+                                               sortable="false" headerText="Instrument Name" id="c5" rendered="false">
+                                        <af:outputText value="#{row.InstrumentName}" id="ot6"/>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.ProductType.label}" id="c2"
+                                               align="center" width="70">
+                                        <af:inputText value="#{row.bindings.ProductType.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.ProductType.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.ProductType.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.ProductType.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.ProductType.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.ProductType.tooltip}"
+                                                      id="it7" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ProductType.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.ShortName.label}" id="c6"
+                                               align="center" width="100">
+                                        <af:inputText value="#{row.bindings.ShortName.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.ShortName.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.ShortName.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.ShortName.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.ShortName.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.ShortName.tooltip}"
+                                                      id="it8" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ShortName.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.ShareLimitVO.hints.SalableQty.name}"
+                                               sortable="false" headerText="Salable Qty" id="c8" rendered="false">
+                                        <af:outputText value="#{row.SalableQty}" id="ot9"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.ShareLimitVO.hints.FreeBalance.name}"
+                                               sortable="false"
+                                               headerText="#{bindings.ShareLimitVO.hints.FreeBalance.label}" id="c15"
+                                               width="100" align="right" rendered="false">
+                                        <af:outputText value="#{row.FreeBalance}" id="ot16"/>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.ShareLimitVO.hints.TotalQty.label}" id="c9"
+                                               align="right" width="100" rendered="false">
+                                        <af:inputText value="#{row.bindings.TotalQty.inputValue}"
+                                                      label="#{bindings.ShareLimitVO.hints.TotalQty.label}"
+                                                      required="#{bindings.ShareLimitVO.hints.TotalQty.mandatory}"
+                                                      columns="#{bindings.ShareLimitVO.hints.TotalQty.displayWidth}"
+                                                      maximumLength="#{bindings.ShareLimitVO.hints.TotalQty.precision}"
+                                                      shortDesc="#{bindings.ShareLimitVO.hints.TotalQty.tooltip}"
+                                                      id="it9" readOnly="true">
+                                            <f:validator binding="#{row.bindings.TotalQty.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:decorativeBox>
+            </af:group>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

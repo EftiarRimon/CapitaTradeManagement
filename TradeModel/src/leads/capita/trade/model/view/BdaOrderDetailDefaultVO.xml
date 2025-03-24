@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BdaOrderDetailDefaultVO"
+  Version="11.1.2.60.81"
+  SelectList="BdaOrderDetail.ACCOUNT_ID, 
+       BdaOrderDetail.ALLOC_QUANTITY, 
+       BdaOrderDetail.DETAIL_ID, 
+       BdaOrderDetail.ORDER_ID, 
+       BdaOrderDetail.ORDER_QUANTITY"
+  FromList="BDA_ORDER_DETAIL BdaOrderDetail"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="leads.capita.trade.model.view.BdaOrderDetailDefaultVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <EntityUsage
+    Name="BdaOrderDetail"
+    Entity="leads.capita.trade.model.entity.BdaOrderDetail"/>
+  <ViewAttribute
+    Name="AccountId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="AccountId"
+    EntityUsage="BdaOrderDetail"
+    AliasName="ACCOUNT_ID"/>
+  <ViewAttribute
+    Name="AllocQuantity"
+    PrecisionRule="true"
+    EntityAttrName="AllocQuantity"
+    EntityUsage="BdaOrderDetail"
+    AliasName="ALLOC_QUANTITY">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="AllocQuantity_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DetailId"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="DetailId"
+    EntityUsage="BdaOrderDetail"
+    AliasName="DETAIL_ID"/>
+  <ViewAttribute
+    Name="OrderId"
+    PrecisionRule="true"
+    EntityAttrName="OrderId"
+    EntityUsage="BdaOrderDetail"
+    AliasName="ORDER_ID"/>
+  <ViewAttribute
+    Name="OrderQuantity"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="OrderQuantity"
+    EntityUsage="BdaOrderDetail"
+    AliasName="ORDER_QUANTITY"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="leads.capita.trade.TradeModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

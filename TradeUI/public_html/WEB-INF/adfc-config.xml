@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <managed-bean id="__1">
+        <managed-bean-name>FileUploadBean</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.FileUploadBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__2">
+        <managed-bean-name>bdaBean</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.BdaBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__3">
+        <managed-bean-name>payInPayOut</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.PayInPayOut</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__4">
+        <managed-bean-name>ManualSettlement</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.ManualSettlement</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__5">
+        <managed-bean-name>bdaOrderAllocManageBean</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.BdaOrderAllocManageBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__6">
+        <managed-bean-name>YearEndProcessor</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.YearEndProcessor</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+       <managed-bean id="__7">
+        <managed-bean-name>PriceFileBean</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.PriceFileBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__8">
+        <managed-bean-name>FileMergeCashShare</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.FileMergeCashShare</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__9">
+        <managed-bean-name>FileMergeCashShareDealer</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.FileMergeCashShareDealer</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__10">
+        <managed-bean-name>FileProcessErrorBean</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.FileProcessErrorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__11">
+        <managed-bean-name>PurchasePowerLimit</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.PurchasePowerLimit</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__12">
+        <managed-bean-name>FtiTradeFilesCse</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.FtiTradeFilesCse</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__13">
+        <managed-bean-name>PayInOutBeforeTradeProcess</managed-bean-name>
+        <managed-bean-class>leads.capita.trade.view.backing.PayInOutBeforeTradeProcess</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+</adfc-config>

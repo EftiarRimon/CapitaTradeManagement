@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="TradeFileLoadPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ImportExtFilesVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="ImportExtFilesVOIterator"/>
+    <iterator Binds="TradeFileConfVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="TradeFileConfVOIterator"/>
+    <iterator id="EodTickerVOIterator" Binds="EodTickerVO" DataControl="TradeFileServiceDataControl" RangeSize="25"/>
+    <iterator id="FlexTradeDataVOIterator" Binds="FlexTradeDataVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator Binds="FtiFtpFilesVO" RangeSize="25" DataControl="TradeFileServiceDataControl"
+              id="FtiFtpFilesVOIterator"/>
+    <iterator id="FtpConfigViewIterator" Binds="FtpConfigView" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="FtiConfigParamPriceVOIterator" Binds="FtiConfigParamPriceVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="FtiConfigParamTradeVOIterator" Binds="FtiConfigParamTradeVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="TradePriceFileVOIterator" Binds="TradePriceFileVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="InstrumentsVOIterator" Binds="InstrumentsVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="InvestorAccountsVOIterator" Binds="InvestorAccountsVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+    <iterator id="FileProcessErrorVOIterator" Binds="FileProcessErrorVO" DataControl="TradeFileServiceDataControl"
+              RangeSize="25"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ImportExtFilesVOIterator" id="ImportExtFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.ImportExtFilesVO" Name="ImportExtFilesVO0">
+        <AttrNames>
+          <Item Value="ImportId"/>
+          <Item Value="FileId"/>
+          <Item Value="FileTitle"/>
+          <Item Value="FileName"/>
+          <Item Value="FileDate"/>
+          <Item Value="TotalRec"/>
+          <Item Value="ValidateRec"/>
+          <Item Value="ErrorRec"/>
+          <Item Value="ProcessedRec"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="FileId">
+      <AttrNames>
+        <Item Value="FileId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ImportExtFilesVOIterator" id="ProcessedRec">
+      <AttrNames>
+        <Item Value="ProcessedRec"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" InstanceName="TradeFileServiceDataControl" DataControl="TradeFileServiceDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <tree IterBinding="FtiFtpFilesVOIterator" id="FtiFtpFilesVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.FtiFtpFilesVO" Name="FtiFtpFilesVO0">
+        <AttrNames>
+          <Item Value="FileName"/>
+          <Item Value="FtiFileId"/>
+          <Item Value="Status"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="TradeFileConfVOIterator" id="FileId1">
+      <AttrNames>
+        <Item Value="FileId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FtiFtpFilesVOIterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="TradeFileConfVOIterator" ListOperMode="navigation" ListIter="TradeFileConfVOIterator"
+          id="TradeFileConfVO" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="FileName"/>
+      </AttrNames>
+    </list>
+  </bindings>
+</pageDefinition>

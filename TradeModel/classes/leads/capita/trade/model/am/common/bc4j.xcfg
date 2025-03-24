@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="leads.capita.trade.model.am.TradeFileService">
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="AppModuleLocal" ApplicationName="leads.capita.trade.model.am.TradeFileService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.recyclethreshold="200" jbo.ampool.maxavailablesize="60" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.monitorsleepinterval="120000"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.TradeFileService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="AppModuleShared" ApplicationName="leads.capita.trade.model.am.TradeFileService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.ampool.dynamicjdbccredentials="false" jbo.recyclethreshold="200" jbo.ampool.maxavailablesize="60" jbo.ampool.isuseexclusive="false" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.resetnontransactionalstate="false" jbo.ampool.monitorsleepinterval="120000"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.TradeFileService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+   <AppModuleConfigBag ApplicationName="leads.capita.trade.model.am.BdaService">
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="BdaServiceLocal" ApplicationName="leads.capita.trade.model.am.BdaService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.recyclethreshold="200" jbo.ampool.maxavailablesize="60" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.monitorsleepinterval="120000"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.BdaService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="BdaServiceShared" ApplicationName="leads.capita.trade.model.am.BdaService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.recyclethreshold="200" jbo.ampool.dynamicjdbccredentials="false" jbo.ampool.maxavailablesize="60" jbo.ampool.isuseexclusive="false" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.monitorsleepinterval="120000" jbo.ampool.resetnontransactionalstate="false"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.BdaService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+   <AppModuleConfigBag ApplicationName="leads.capita.trade.model.am.AppModule">
+      <AppModuleConfig name="AppModuleLocal1" jbo.project="leads.capita.trade.TradeModel" ApplicationName="leads.capita.trade.model.am.AppModule" DeployPlatform="LOCAL">
+         <Database jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.AppModule"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig name="AppModuleShared1" jbo.project="leads.capita.trade.TradeModel" ApplicationName="leads.capita.trade.model.am.AppModule" DeployPlatform="LOCAL">
+         <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+         <Database jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.AppModule"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+   <AppModuleConfigBag ApplicationName="leads.capita.trade.model.am.TradeFile1Service"/>
+   <AppModuleConfigBag ApplicationName="leads.capita.trade.model.am.DayStartEndService">
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="DayStartEndServiceLocal" ApplicationName="leads.capita.trade.model.am.DayStartEndService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.recyclethreshold="200" jbo.ampool.maxavailablesize="60" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.monitorsleepinterval="120000"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.DayStartEndService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+      <AppModuleConfig jbo.project="leads.capita.trade.TradeModel" DeployPlatform="LOCAL" name="DayStartEndServiceShared" ApplicationName="leads.capita.trade.model.am.DayStartEndService" jbo.txn.disconnect_level="1">
+         <AM-Pooling jbo.ampool.maxinactiveage="300000" jbo.ampool.initpoolsize="200" jbo.recyclethreshold="200" jbo.ampool.dynamicjdbccredentials="false" jbo.ampool.maxavailablesize="60" jbo.ampool.isuseexclusive="false" jbo.ampool.timetolive="-1" jbo.dofailover="true" jbo.ampool.minavailablesize="0" jbo.ampool.monitorsleepinterval="120000" jbo.ampool.resetnontransactionalstate="false"/>
+         <Database jbo.locking.mode="optimistic" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="leads.capita.trade.model.am.DayStartEndService"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/capitadbDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

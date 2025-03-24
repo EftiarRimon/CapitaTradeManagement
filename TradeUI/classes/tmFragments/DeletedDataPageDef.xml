@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.81" id="DeletedDataPageDef"
+                Package="tmFragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DeletedTradeFileMsaVO" RangeSize="-1" DataControl="TradeFileServiceDataControl"
+              id="DeletedTradeFileMsaVOIterator"/>
+    <searchRegion Criteria="DeletedTradeFileMsaVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="DeletedTradeFileMsaVOIterator"
+                  id="DeletedTradeFileMsaVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DeletedTradeFileMsaVOIterator" id="DeletedTradeFileMsaVO">
+      <nodeDefinition DefName="leads.capita.trade.model.view.DeletedTradeFileMsaVO" Name="DeletedTradeFileMsaVO0">
+        <AttrNames>
+          <Item Value="Selection"/>
+          <Item Value="TracerNo"/>
+          <Item Value="Born"/>
+          <Item Value="InstrumentCode"/>
+          <Item Value="Isin"/>
+          <Item Value="TraderId"/>
+          <Item Value="BuySell"/>
+          <Item Value="TradeQuantity"/>
+          <Item Value="Price"/>
+          <Item Value="TradeDate"/>
+          <Item Value="TradeTime"/>
+          <Item Value="MarketType"/>
+          <Item Value="FillType"/>
+          <Item Value="HowlaType"/>
+          <Item Value="ForeignFlag"/>
+          <Item Value="Customer"/>
+          <Item Value="Boid"/>
+          <Item Value="ContractNo"/>
+          <Item Value="CompulsorySpot"/>
+          <Item Value="InstrumentGroup"/>
+          <Item Value="ProcDate"/>
+          <Item Value="ProcStatus"/>
+          <Item Value="ValidStatus"/>
+          <Item Value="ValidInvestor"/>
+          <Item Value="ValidInstrument"/>
+          <Item Value="ValidTws"/>
+          <Item Value="ImportId"/>
+          <Item Value="OpSsUiStatus"/>
+          <Item Value="IsBda"/>
+          <Item Value="Action"/>
+          <Item Value="Status"/>
+          <Item Value="Assetclass"/>
+          <Item Value="OrderId"/>
+          <Item Value="TradeValue"/>
+          <Item Value="Execid"/>
+          <Item Value="SessionId"/>
+          <Item Value="BranchId"/>
+          <Item Value="OwnerDealerId"/>
+          <Item Value="Tradereporttype"/>
+          <Item Value="TradeContractNo"/>
+          <Item Value="SeqNo"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ExchCharge"/>
+          <Item Value="RowID"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

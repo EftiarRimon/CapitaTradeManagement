@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:480px; width:650px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelBox text="FTP Configuration" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                 showDisclosure="false">
+                        <f:facet name="toolbar">
+                            <af:group id="g1">
+                                <af:panelGroupLayout id="pgl1">
+                                    <af:commandButton text="Test Connection" id="cb2" icon="/images/generate_add.png"
+                                                      action="#{ftpConfiguration.testConnection}"
+                                                      shortDesc="Test FTP Connectivity"
+                                                      disabled="#{ftpConfiguration.newConfig}"/>
+                                    <af:commandButton text="Save" id="cb1" icon="/images/Save.png"
+                                                      action="#{ftpConfiguration.cbSave_Action}"/>
+                                </af:panelGroupLayout>
+                            </af:group>
+                        </f:facet>
+                        <af:panelFormLayout id="pfl1">
+                            <af:inputText value="#{bindings.Host.inputValue}" label="#{bindings.Host.hints.label}"
+                                          columns="#{bindings.Host.hints.displayWidth}"
+                                          maximumLength="#{bindings.Host.hints.precision}"
+                                          shortDesc="#{bindings.Host.hints.tooltip}" id="it1" inlineStyle="width:10px;"
+                                          required="true" showRequired="true" binding="#{ftpConfiguration.hostUI}">
+                                <f:validator binding="#{bindings.Host.validator}"/>
+                            </af:inputText>
+                            <af:inputText value="#{bindings.Port.inputValue}" label="#{bindings.Port.hints.label}"
+                                          columns="#{bindings.Port.hints.displayWidth}"
+                                          maximumLength="#{bindings.Port.hints.precision}"
+                                          shortDesc="#{bindings.Port.hints.tooltip}" id="it6" required="true">
+                                <f:validator binding="#{bindings.Port.validator}"/>
+                                <af:convertNumber groupingUsed="false" pattern="#{bindings.Port.format}"/>
+                            </af:inputText>
+                            <af:inputText value="#{bindings.FilePath.inputValue}"
+                                          label="File Path"
+                                          columns="#{bindings.FilePath.hints.displayWidth}"
+                                          maximumLength="#{bindings.FilePath.hints.precision}"
+                                          shortDesc="#{bindings.FilePath.hints.tooltip}" id="it2" showRequired="true"
+                                          required="true">
+                                <f:validator binding="#{bindings.FilePath.validator}"/>
+                            </af:inputText>
+                            <af:selectOneRadio value="#{bindings.FtpProtocol.inputValue}"
+                                               label="Ftp Protocol"
+                                               shortDesc="#{bindings.FtpProtocol.hints.tooltip}" id="sor1"
+                                               layout="horizontal" showRequired="true" required="true">
+                                <f:selectItems value="#{bindings.FtpProtocol.items}" id="si1"/>
+                            </af:selectOneRadio>
+                            <af:inputText value="#{bindings.UserName.inputValue}"
+                                          label="User Name"
+                                          columns="#{bindings.UserName.hints.displayWidth}"
+                                          maximumLength="#{bindings.UserName.hints.precision}"
+                                          shortDesc="#{bindings.UserName.hints.tooltip}" id="it3" showRequired="true"
+                                          required="true" binding="#{ftpConfiguration.userNameUI}">
+                                <f:validator binding="#{bindings.UserName.validator}"/>
+                            </af:inputText>
+                            <af:inputText value="#{bindings.UserPassword.inputValue}"
+                                          label="User Password"
+                                          columns="#{bindings.UserPassword.hints.displayWidth}"
+                                          maximumLength="#{bindings.UserPassword.hints.precision}"
+                                          shortDesc="#{bindings.UserPassword.hints.tooltip}" id="it4" secret="true"
+                                          binding="#{ftpConfiguration.userPasswordUI}" showRequired="true"
+                                          required="true">
+                                <f:validator binding="#{bindings.UserPassword.validator}"/>
+                            </af:inputText>
+                            <af:inputText value="#{bindings.ConfirmPassword.inputValue}"
+                                          label="Confirm Password"
+                                          columns="#{bindings.ConfirmPassword.hints.displayWidth}"
+                                          maximumLength="#{bindings.ConfirmPassword.hints.precision}"
+                                          shortDesc="#{bindings.ConfirmPassword.hints.tooltip}" id="it5" secret="true"
+                                          binding="#{ftpConfiguration.confPasswordUI}" showRequired="true"
+                                          required="true">
+                                <f:validator binding="#{bindings.ConfirmPassword.validator}"/>
+                            </af:inputText>
+                            <af:selectBooleanCheckbox value="#{bindings.IsActive.inputValue}"
+                                                      label="Is Active Mode"
+                                                      shortDesc="#{bindings.IsActive.hints.tooltip}" id="sbc1"
+                                                      selected="true" binding="#{ftpConfiguration.isActiveModeUI}"/>
+                        </af:panelFormLayout>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:ftpConfiguration-->
+</ui:composition>

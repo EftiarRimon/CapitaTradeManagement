@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:400px; width:650px;" dimensionsFrom="children">
+                <f:facet name="center">
+                    <af:panelBox text="Omnibus Share File Processed Data" id="pb1" inlineStyle="height:inherit; width:inherit;"
+                                 showDisclosure="false" type="flow">
+                        <f:facet name="toolbar">
+                            <af:commandButton text="Back" id="cb1" icon="/images/go-back.png" immediate="true"
+                                              action="back" shortDesc="Go Back"/>
+                        </f:facet>
+                        <af:panelCollection id="pc1" inlineStyle="height:inherit; width:inherit;">
+                            <f:facet name="toolbar"/>
+                            <f:facet name="statusbar">
+                                <af:toolbar id="t2">
+                                    <af:outputText value="Total Records : #{bindings.FtiOmnibusMergeShareDataVOIterator.estimatedRowCount}" id="ot11"/>
+                                </af:toolbar>
+                            </f:facet>
+                            <af:table value="#{bindings.FtiOmnibusMergeShareDataVO.collectionModel}" var="row"
+                                      rows="#{bindings.FtiOmnibusMergeShareDataVO.rangeSize}"
+                                      emptyText="#{bindings.FtiOmnibusMergeShareDataVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.FtiOmnibusMergeShareDataVO.rangeSize}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.FtiOmnibusMergeShareDataVO.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FtiOmnibusMergeShareDataVO.collectionModel.makeCurrent}"
+                                      rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                      inlineStyle="height:inherit; width:inherit;">
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.InvestorCode.name}"
+                                           sortable="true"
+                                           headerText="Inv.Code"
+                                           id="c1" width="65">
+                                    <af:outputText value="#{row.InvestorCode}" id="ot1"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.Name.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.Name.label}" id="c2"
+                                           width="85">
+                                    <af:outputText value="#{row.Name}" id="ot2"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.AccountId.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.AccountId.label}"
+                                           id="c3" visible="false" width="80">
+                                    <af:outputText value="#{row.AccountId}" id="ot3">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiOmnibusMergeShareDataVO.hints.AccountId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.InstrumentName.name}"
+                                           sortable="true"
+                                           headerText="Instrument Name"
+                                           id="c4" width="83">
+                                    <af:outputText value="#{row.InstrumentName}" id="ot4"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.ShortName.name}"
+                                           sortable="true"
+                                           headerText="Inst. Short Name"
+                                           id="c5" width="57">
+                                    <af:outputText value="#{row.ShortName}" id="ot5"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.Isin.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.Isin.label}" id="c6"
+                                           width="85">
+                                    <af:outputText value="#{row.Isin}" id="ot6"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.InstrumentId.name}"
+                                           sortable="true"
+                                           headerText="Instrument Id."
+                                           id="c7" width="55">
+                                    <af:outputText value="#{row.InstrumentId}" id="ot7">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiOmnibusMergeShareDataVO.hints.InstrumentId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.TotalQty.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.TotalQty.label}"
+                                           id="c8" width="55">
+                                    <af:outputText value="#{row.TotalQty}" id="ot8"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.SalableQty.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.SalableQty.label}"
+                                           id="c9" width="55">
+                                    <af:outputText value="#{row.SalableQty}" id="ot9"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FtiOmnibusMergeShareDataVO.hints.FileId.name}"
+                                           sortable="true"
+                                           headerText="#{bindings.FtiOmnibusMergeShareDataVO.hints.FileId.label}"
+                                           id="c10" visible="false">
+                                    <af:outputText value="#{row.FileId}" id="ot10">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FtiOmnibusMergeShareDataVO.hints.FileId.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelBox>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+</ui:composition>

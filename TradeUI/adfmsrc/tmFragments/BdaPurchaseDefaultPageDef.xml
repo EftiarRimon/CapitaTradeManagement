@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.60.17" id="BdaPurchaseDefaultPageDef"
+                Package="tmFragments">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BdaPurchaseOrderVO" RangeSize="-1" DataControl="BdaServiceDataControl"
+                  id="BdaPurchaseOrderVOIterator"/>
+        <searchRegion Criteria="BdaPurchaseOrderVOCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="BdaPurchaseOrderVOIterator"
+                      id="BdaPurchaseOrderVOCriteriaQuery"/>
+    </executables>
+    <bindings>
+        <action IterBinding="BdaPurchaseOrderVOIterator" id="CreateInsert" RequiresUpdateModel="true"
+                Action="createInsertRow"/>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BdaServiceDataControl"/>
+        <action id="Rollback" InstanceName="BdaServiceDataControl" DataControl="BdaServiceDataControl"
+                RequiresUpdateModel="false" Action="rollbackTransaction"/>
+        <tree IterBinding="BdaPurchaseOrderVOIterator" id="BdaPurchaseOrderVO">
+            <nodeDefinition DefName="leads.capita.trade.model.view.BdaPurchaseOrderVO" Name="BdaPurchaseOrderVO0">
+                <AttrNames>
+                    <Item Value="PurchaseOrderId"/>
+                    <Item Value="OrderQty"/>
+                    <Item Value="OrderDate"/>
+                    <Item Value="Status"/>
+                    <Item Value="InvestorCode"/>
+                    <Item Value="Name"/>
+                    <Item Value="Price"/>
+                    <Item Value="AccountId1"/>
+                    <Item Value="AccountId"/>
+                    <Item Value="InstrumentId"/>
+                    <Item Value="AllocationQty"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

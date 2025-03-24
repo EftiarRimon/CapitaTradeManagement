@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="trade-file-load-flow">
+    <default-activity>TradeFileLoad</default-activity>
+    <input-parameter-definition id="__5">
+      <name>editable</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__14">
+      <managed-bean-name>PriceFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.PriceFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__15">
+      <managed-bean-name>MasPlusFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.MasPlusFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__16">
+      <managed-bean-name>BtFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.BtFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__17">
+      <managed-bean-name>MsaFileBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.MsaFileBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__24">
+      <managed-bean-name>InstrumentPriceBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.InstrumentPriceBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__6">
+      <managed-bean-name>FileProcessErrorBean</managed-bean-name>
+      <managed-bean-class>leads.capita.trade.view.backing.FileProcessErrorBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="TradeFileLoad">
+      <page>/tmFragments/TradeFileLoad.jsff</page>
+    </view>
+    <view id="PriceFile">
+      <page>/tmFragments/PriceFile.jsff</page>
+    </view>
+    <view id="MsaPlusFile">
+      <page>/tmFragments/MsaPlusFile.jsff</page>
+    </view>
+    <view id="BtFile">
+      <page>/tmFragments/BtFile.jsff</page>
+    </view>
+    <view id="FileProcessError">
+      <page>/tmFragments/FileProcessError.jsff</page>
+    </view>
+    <view id="DeletedData">
+      <page>/tmFragments/DeletedData.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>TradeFileLoad</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goPriceFile</from-outcome>
+        <to-activity-id>PriceFile</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__8">
+        <from-outcome>goMsaPlus</from-outcome>
+        <to-activity-id>MsaPlusFile</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__11">
+        <from-outcome>goBtFile</from-outcome>
+        <to-activity-id>BtFile</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__18">
+        <from-outcome>goFileErrors</from-outcome>
+        <to-activity-id>FileProcessError</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>PriceFile</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>backFromPrice</from-outcome>
+        <to-activity-id>TradeFileLoad</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>MsaPlusFile</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>backFromMsaPlus</from-outcome>
+        <to-activity-id>TradeFileLoad</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__12">
+      <from-activity-id>BtFile</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>backFromBt</from-outcome>
+        <to-activity-id>TradeFileLoad</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__19">
+      <from-activity-id>FileProcessError</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome>backFromError</from-outcome>
+        <to-activity-id>TradeFileLoad</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__23">
+        <from-outcome>goDeletedData</from-outcome>
+        <to-activity-id>DeletedData</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id>DeletedData</from-activity-id>
+      <control-flow-case id="__25">
+        <from-outcome>backFromDeleted</from-outcome>
+        <to-activity-id>FileProcessError</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

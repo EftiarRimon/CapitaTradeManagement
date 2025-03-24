@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/WEB-INF/templates/CapitaPageTemplate.jsf" id="pt1">
+        <f:facet name="main">
+            <af:decorativeBox id="db1" inlineStyle="height:530px; width:950px;">
+                <f:facet name="center">
+                    <af:panelGroupLayout layout="scroll" id="pgl1">
+                        <af:popup childCreation="deferred" autoCancel="enabled" id="popUpUploadPositionLimit">
+                            <af:dialog id="d1" dialogListener="#{FileMergeCashShare.positionLimitUploadfileAction}">
+                                <f:facet name="buttonBar"/>
+                                <af:panelBox text="Upload Position File" id="pb2" showDisclosure="false">
+                                    <af:panelFormLayout id="pfl2">
+                                        <af:selectOneChoice value="#{bindings.MbankActiveAllLOV.inputValue}"
+                                                            label="Merchant Bank"
+                                                            required="#{bindings.MbankActiveAllLOV.hints.mandatory}"
+                                                            shortDesc="#{bindings.MbankActiveAllLOV.hints.tooltip}"
+                                                            id="soc1" inlineStyle="width:10px;">
+                                            <f:selectItems value="#{bindings.MbankActiveAllLOV.items}" id="si3"/>
+                                        </af:selectOneChoice>
+                                        <af:inputFile label="File Name" id="if1"
+                                                      valueChangeListener="#{FileMergeCashShare.fileSelectShareValChngListener}"/>
+                                        <af:inputFile label="Control File Name" id="if2"
+                                                      valueChangeListener="#{FileMergeCashShare.fileSelectCtrlPositionValChngListener}"
+                                                      visible="#{bindings.FileFormat.inputValue eq 'xml'}"
+                                                      partialTriggers="sor1"/>
+                                    </af:panelFormLayout>
+                                </af:panelBox>
+                            </af:dialog>
+                        </af:popup>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="popDelete">
+                            <af:dialog id="d2" title="Are You Sure You Want to Delete?"
+                                       dialogListener="#{FileMergeCashShare.popUpDelPositionMbankDialogListener}">
+                                <f:facet name="buttonBar"/>
+                            </af:dialog>
+                        </af:popup>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="pRegInvPopup"
+                                  contentDelivery="lazyUncached">
+                            <af:dialog id="d3"
+                                       dialogListener="#{FileMergeCashShare.createInvFromShareLimitDialogListener}">
+                                <f:facet name="buttonBar"/>
+                                <af:panelBox text="Create Unregistered Investor" id="pb5">
+                                    <f:facet name="toolbar"/>
+                                    <af:panelFormLayout id="pfl3">
+                                        <af:selectOneChoice value="#{bindings.MbankActiveAllLOV.inputValue}"
+                                                            label="Mbank"
+                                                            shortDesc="#{bindings.MbankActiveAllLOV.hints.tooltip}"
+                                                            id="socMbank" required="true" autoSubmit="true"
+                                                            valueChangeListener="#{FileMergeCashShare.mbankChangeForShareValChngListener}"
+                                                             unselectedLabel="">
+                                            <f:selectItems value="#{bindings.MbankActiveAllLOV.items}" id="si9"/>
+                                        </af:selectOneChoice>
+                                        <af:outputText value="Total Unreg. Investor(s) : #{bindings.OmnibusShareUnRegInvestorVOIterator.estimatedRowCount}" id="ot11"
+                                                       partialTriggers="socMbank"/>
+                                        <af:selectOneChoice value="#{bindings.BranchLOV.inputValue}"
+                                                            label="Org. Branch"
+                                                            shortDesc="#{bindings.BranchLOV.hints.tooltip}" id="soc4"
+                                                            required="true" autoSubmit="true"  unselectedLabel="">
+                                            <f:selectItems value="#{bindings.BranchLOV.items}" id="si6"/>
+                                        </af:selectOneChoice>
+                                        <af:selectOneChoice value="#{bindings.ProductId.inputValue}"
+                                                            label="#{bindings.ProductId.label}"
+                                                            shortDesc="#{bindings.ProductId.hints.tooltip}"
+                                                            id="socProduct"
+                                                            autoSubmit="true" required="true"
+                                                            valueChangeListener="#{FileMergeCashShare.prodChangeForShareValChngListener}">
+                                            <f:selectItems value="#{bindings.ProductId.items}" id="si5"/>
+                                        </af:selectOneChoice>
+                                        <af:selectOneChoice value="#{bindings.SubProductByProductLOV.inputValue}"
+                                                            label="Sub Product"
+                                                            required="#{bindings.SubProductByProductLOV.hints.mandatory}"
+                                                            shortDesc="#{bindings.SubProductByProductLOV.hints.tooltip}"
+                                                            id="soc6" autoSubmit="true" partialTriggers="socProduct"  unselectedLabel="">
+                                            <f:selectItems value="#{bindings.SubProductByProductLOV.items}" id="si8"/>
+                                        </af:selectOneChoice>
+                                        <af:selectOneChoice value="#{bindings.TraderIdLOV.inputValue}"
+                                                            label="Trader"
+                                                            shortDesc="#{bindings.TraderIdLOV.hints.tooltip}" id="soc5"
+                                                            autoSubmit="true" required="true" unselectedLabel="">
+                                            <f:selectItems value="#{bindings.TraderIdLOV.items}" id="si7"/>
+                                        </af:selectOneChoice>
+                                    </af:panelFormLayout>
+                                </af:panelBox>
+                            </af:dialog>
+                        </af:popup>
+                        <af:panelGroupLayout id="pgl2" layout="horizontal" valign="top" inlineStyle="width:inherit;">
+                            <af:panelBox text="Add Position Limit" id="pb1" inlineStyle="width:500px; height:150px;"
+                                         showDisclosure="false">
+                                <f:facet name="toolbar">
+                                    <af:group id="g1">
+                                        <af:commandButton text="Save" id="cb2" icon="/images/Save.png"
+                                                          action="#{FileMergeCashShare.positionLimitSaveAction}"/>
+                                        <af:commandButton text="Back" id="cb1" icon="/images/go-back.png"
+                                                          actionListener="#{bindings.Rollback.execute}" immediate="true"
+                                                          action="goBack"/>
+                                    </af:group>
+                                </f:facet>
+                                <af:separator id="s1"/>
+                                <af:panelFormLayout id="pfl1" maxColumns="2" rows="4">
+                                    <af:inputText value="#{bindings.MDate.inputValue}" label="Date"
+                                                  required="#{bindings.MDate.hints.mandatory}"
+                                                  columns="#{bindings.MDate.hints.displayWidth}"
+                                                  maximumLength="#{bindings.MDate.hints.precision}"
+                                                  shortDesc="#{bindings.MDate.hints.tooltip}" id="it3" disabled="true">
+                                        <f:validator binding="#{bindings.MDate.validator}"/>
+                                        <af:convertDateTime pattern="#{bindings.MDate.format}"/>
+                                    </af:inputText>
+                                    <af:inputText value="#{bindings.FileType.inputValue}" label="File Type"
+                                                  required="#{bindings.FileType.hints.mandatory}"
+                                                  columns="#{bindings.FileType.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileType.hints.precision}"
+                                                  shortDesc="#{bindings.FileType.hints.tooltip}" id="it4"
+                                                  disabled="true">
+                                        <f:validator binding="#{bindings.FileType.validator}"/>
+                                    </af:inputText>
+                                    <af:inputText value="#{bindings.FileVersion.inputValue}"
+                                                  label="#{bindings.FileVersion.hints.label}"
+                                                  required="#{bindings.FileVersion.hints.mandatory}"
+                                                  columns="#{bindings.FileVersion.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileVersion.hints.precision}"
+                                                  shortDesc="#{bindings.FileVersion.hints.tooltip}" id="it2"
+                                                  disabled="true">
+                                        <f:validator binding="#{bindings.FileVersion.validator}"/>
+                                    </af:inputText>
+                                    <af:inputText value="#{bindings.FileDescription.inputValue}"
+                                                  label="Merge Description"
+                                                  columns="#{bindings.FileDescription.hints.displayWidth}"
+                                                  maximumLength="#{bindings.FileDescription.hints.precision}"
+                                                  shortDesc="#{bindings.FileDescription.hints.tooltip}" id="it1"
+                                                  required="true">
+                                        <f:validator binding="#{bindings.FileDescription.validator}"/>
+                                    </af:inputText>
+                                    <af:selectOneRadio value="#{bindings.FileFormat.inputValue}" label="File Format"
+                                                       shortDesc="#{bindings.FileFormat.hints.tooltip}" id="sor1"
+                                                       binding="#{FileMergeCashShare.fileFormatPositionCB}"
+                                                       required="true"
+                                                       disabled="#{bindings.FtiFileMergeShareDetailVOIterator.estimatedRowCount gt 0}"
+                                                       partialTriggers="pb4 pc1:t1 t4:cb4">
+                                        <f:selectItems value="#{bindings.FileFormat.items}" id="si1"/>
+                                    </af:selectOneRadio>
+                                    <af:selectOneRadio value="#{bindings.FileOption.inputValue}" label="File Option"
+                                                       shortDesc="#{bindings.FileOption.hints.tooltip}" id="sor2"
+                                                       required="true"
+                                                       binding="#{FileMergeCashShare.fileOptionPositionUI}"
+                                                       disabled="#{bindings.FtiFileMergeShareDetailVOIterator.estimatedRowCount gt 0}"
+                                                       partialTriggers="pb4 pc1:t1 t4:cb4">
+                                        <f:selectItems value="#{bindings.FileOption.items}" id="si2"/>
+                                    </af:selectOneRadio>
+                                    <af:selectBooleanCheckbox value="#{bindings.IsExec.inputValue}" label="Is Executed"
+                                                              shortDesc="#{bindings.IsExec.hints.tooltip}" id="sbc1"
+                                                              disabled="true"/>
+                                </af:panelFormLayout>
+                            </af:panelBox>
+                            <af:panelBox text="Merchant Bank List" id="pb3" showDisclosure="false"
+                                         inlineStyle="width:370px;"
+                                         icon="/images/list.png">
+                                <f:facet name="toolbar"/>
+                                <af:table value="#{bindings.OmnibusShareMbankVO.collectionModel}" var="row"
+                                          rows="#{bindings.OmnibusShareMbankVO.rangeSize}"
+                                          emptyText="#{bindings.OmnibusShareMbankVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.OmnibusShareMbankVO.rangeSize}" rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.OmnibusShareMbankVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.OmnibusShareMbankVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t4" autoHeightRows="3" contentDelivery="immediate"
+                                          inlineStyle="height:inherit; width:inherit;" partialTriggers="::pc1:cb3">
+                                    <af:column sortProperty="#{bindings.OmnibusShareMbankVO.hints.MbankShortName.name}"
+                                               sortable="true"
+                                               headerText="Mbank Name"
+                                               id="c12" width="270">
+                                        <af:selectOneChoice value="#{row.bindings.MbankShortName.inputValue}"
+                                                            label="#{row.bindings.MbankShortName.label}"
+                                                            required="#{bindings.OmnibusShareMbankVO.hints.MbankShortName.mandatory}"
+                                                            shortDesc="#{bindings.OmnibusShareMbankVO.hints.MbankShortName.tooltip}"
+                                                            readOnly="true" id="soc2">
+                                            <f:selectItems value="#{row.bindings.MbankShortName.items}" id="si4"/>
+                                        </af:selectOneChoice>
+                                    </af:column>
+                                    <af:column id="c13" width="40" align="center">
+                                        <af:commandButton id="cb4" icon="/images/delete.png"
+                                                          shortDesc="Delete Mbank Records">
+                                            <af:showPopupBehavior popupId="::popDelete" triggerType="action"/>
+                                        </af:commandButton>
+                                    </af:column>
+                                </af:table>
+                            </af:panelBox>
+                        </af:panelGroupLayout>
+                        <af:panelBox text="PanelBox1" id="pb4" showHeader="never"
+                                     inlineStyle="width:inherit;"
+                                     type="flow" partialTriggers="popUpUploadPositionLimit d1">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" inlineStyle="width:inherit; height:inherit;" partialTriggers="cb3 t1"
+                                                featuresOff="viewMenu">
+                                <f:facet name="menus">
+                                    <af:menu text="Position Limit Details" id="m1" inlineStyle="font-weight:bolder;"/>
+                                </f:facet>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t2">
+                                        <af:panelGroupLayout id="pgl3">
+                                            <af:commandButton text="Upload File" id="cb3" icon="/images/file_upload.png"
+                                                              shortDesc="Upload Position Limit File"
+                                                              disabled="#{FileMergeCashShare.newPosition}">
+                                                <af:showPopupBehavior popupId="::popUpUploadPositionLimit"
+                                                                      triggerType="action"/>
+                                            </af:commandButton>
+                                            <af:commandButton text="Register Inv." id="cb6"
+                                                              icon="/images/allocation.png"
+                                                              shortDesc="Create unreg. investor">
+                                                <af:showPopupBehavior popupId="::pRegInvPopup" triggerType="action"/>
+                                            </af:commandButton>
+                                            <af:commandButton text="Process File" id="cbProcess"
+                                                              icon="/images/action.png" shortDesc="Process Share File"
+                                                              action="#{FileMergeCashShare.ProcessShareFile}"
+                                                              partialTriggers="::pc1 t1"/>
+                                        </af:panelGroupLayout>
+                                        <af:spacer width="50" height="10" id="s2"/>
+                                        <af:commandButton text="View Data" id="cb5" icon="/images/previewsmall.png"
+                                                          shortDesc="View All Processed Data" action="goProcessedData"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar">
+                                    <af:toolbar id="t3">
+                                        <af:outputText value="Total Records : #{bindings.FtiFileMergeShareDetailVOIterator.estimatedRowCount}"
+                                                       id="ot10" partialTriggers="::pc1 t1 ::t4"/>
+                                    </af:toolbar>
+                                </f:facet>
+                                <af:table value="#{bindings.FtiFileMergeShareDetailVO.collectionModel}" var="row"
+                                          rows="#{bindings.FtiFileMergeShareDetailVO.rangeSize}"
+                                          emptyText="#{bindings.FtiFileMergeShareDetailVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          fetchSize="#{bindings.FtiFileMergeShareDetailVO.rangeSize}"
+                                          rowBandingInterval="1"
+                                          selectedRowKeys="#{bindings.FtiFileMergeShareDetailVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.FtiFileMergeShareDetailVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" id="t1" autoHeightRows="10" contentDelivery="immediate"
+                                          partialTriggers="::cbProcess ::cb3"
+                                          inlineStyle="width:inherit; height:inherit;">
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.InvestorCode.name}"
+                                               sortable="true" headerText="Investor Code" id="c8" width="60">
+                                        <af:outputText value="#{row.InvestorCode}" id="ot8"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.InvestorName.name}"
+                                               sortable="true" headerText="Company Name" id="c5" width="105">
+                                        <af:outputText value="#{row.InvestorName}" id="ot5"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.FileId.name}"
+                                               sortable="true" headerText="File Id." id="c1" width="80" visible="false">
+                                        <af:outputText value="#{row.FileId}" id="ot1">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiFileMergeShareDetailVO.hints.FileId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.Isin.name}"
+                                               sortable="true" headerText="ISIN" id="c2" width="65">
+                                        <af:outputText value="#{row.Isin}" id="ot2"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.InstShortName.name}"
+                                               sortable="true" headerText="Security Code" id="c3" width="68">
+                                        <af:outputText value="#{row.InstShortName}" id="ot3"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.Boid.name}"
+                                               sortable="true"
+                                               headerText="#{bindings.FtiFileMergeShareDetailVO.hints.Boid.label}"
+                                               id="c4" width="97">
+                                        <af:outputText value="#{row.Boid}" id="ot4"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.TotalQuantity.name}"
+                                               sortable="true" headerText="Total Quantity" id="c6" width="75">
+                                        <af:outputText value="#{row.TotalQuantity}" id="ot6">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiFileMergeShareDetailVO.hints.TotalQuantity.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.SalableQuantity.name}"
+                                               sortable="true" headerText="Salable Quantity" id="c7" width="65">
+                                        <af:outputText value="#{row.SalableQuantity}" id="ot7">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.FtiFileMergeShareDetailVO.hints.SalableQuantity.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.AppDate.name}"
+                                               sortable="true" headerText="Date" id="c9" width="65" visible="false">
+                                        <af:outputText value="#{row.AppDate}" id="ot9">
+                                            <af:convertDateTime pattern="#{bindings.FtiFileMergeShareDetailVO.hints.AppDate.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.name}"
+                                               sortable="false" headerText="Mbank S.Name" id="c14" width="80">
+                                        <af:inputText value="#{row.bindings.MbankShortName.inputValue}"
+                                                      label="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.label}"
+                                                      required="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.mandatory}"
+                                                      columns="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.displayWidth}"
+                                                      maximumLength="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.precision}"
+                                                      shortDesc="#{bindings.FtiFileMergeShareDetailVO.hints.MbankShortName.tooltip}"
+                                                      id="it7" readOnly="true">
+                                            <f:validator binding="#{row.bindings.MbankShortName.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.Status.name}"
+                                               sortable="false" headerText="Proc. Status" id="c11" width="42">
+                                        <af:inputText value="#{row.bindings.Status.inputValue}"
+                                                      label="#{bindings.FtiFileMergeShareDetailVO.hints.Status.label}"
+                                                      required="#{bindings.FtiFileMergeShareDetailVO.hints.Status.mandatory}"
+                                                      columns="#{bindings.FtiFileMergeShareDetailVO.hints.Status.displayWidth}"
+                                                      maximumLength="#{bindings.FtiFileMergeShareDetailVO.hints.Status.precision}"
+                                                      shortDesc="#{bindings.FtiFileMergeShareDetailVO.hints.Status.tooltip}"
+                                                      id="it6" readOnly="true">
+                                            <f:validator binding="#{row.bindings.Status.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.name}"
+                                               sortable="false" headerText="Error Message" id="c10" width="170">
+                                        <af:inputText value="#{row.bindings.ErrMsg.inputValue}"
+                                                      label="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.label}"
+                                                      required="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.mandatory}"
+                                                      columns="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.displayWidth}"
+                                                      maximumLength="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.precision}"
+                                                      shortDesc="#{bindings.FtiFileMergeShareDetailVO.hints.ErrMsg.tooltip}"
+                                                      id="it5" readOnly="true">
+                                            <f:validator binding="#{row.bindings.ErrMsg.validator}"/>
+                                        </af:inputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+        </f:facet>
+        <f:facet name="help"/>
+    </af:pageTemplate>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:FileMergeCashShare-->
+</ui:composition>
